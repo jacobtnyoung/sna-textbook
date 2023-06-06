@@ -1,24 +1,26 @@
---- 
-title: "Social Network Analysis"
-author: "Jacob T.N. Young"
-date: "`r Sys.Date()`"
-site: bookdown::bookdown_site
-output: bookdown::gitbook
-documentclass: book
-bibliography: [book.bib, packages.bib]
-biblio-style: apalike
-link-citations: yes
-github-repo: rstudio/bookdown-demo
-description: "Descriton?."
+---
+output: 
+  html_document:
+    theme: sandstone
+    toc: false
+    toc_float: false
+    collapsed: false
+    smooth_scroll: false
 ---
 
-# What is this book?
+<style>
+body {
+text-align: justify}
+</style>
 
-This is a book written in **Markdown**. 
-
-```{r include=FALSE}
-# automatically create a bib database for R packages
-knitr::write_bib(c(
-  .packages(), 'bookdown', 'knitr', 'rmarkdown'
-), 'packages.bib')
+```{r setup, include=FALSE}
+knitr::opts_chunk$set( echo = TRUE )
 ```
+
+<br>
+
+## Social Network Analysis Textbook
+
+<br>
+
+### Chapter 1: 

@@ -1,0 +1,17 @@
+---
+output: 
+  html_document:
+    df_print: paged
+    theme: sandstone
+    highlight: haddock
+    self_contained: true
+---
+
+# Social Network Analysis and Methods for Data Collection
+
+## Learning Goals
+
+  * Be able to answer these questions:
+  
+    * ?
+    

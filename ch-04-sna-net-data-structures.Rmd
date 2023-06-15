@@ -147,7 +147,41 @@ In most instances, we do not allow self-nominations, so the diagonal of the matr
 
 ![figure #.#: NAME](../sna-textbook/images/ch-04-matrix-02.jpeg)
 
+<br>
 
+In the first row, *i* sends to the second row only: $X_{12}=1; X_{15}=0$ (where $X_{ij}$ refers to the ith row and the jth column of the matrix). 
+
+![figure #.#: NAME](../sna-textbook/images/ch-04-matrix-03.jpeg)
+
+<br>
+
+Since this graph is *undirected*, it is **symmetric** about the diagonal. This means that $X_{ij} = X_{ji}$ or that the *jith* column is the transposition of the *ith* row, as shown in the figure. 
+
+![figure #.#: NAME](../sna-textbook/images/ch-04-matrix-04.jpeg)
+
+<br>
+
+Now, what does the rest of the matrix look like? Fill in the values in the matrix based on the graph.
+
+![figure #.#: NAME](../sna-textbook/images/ch-04-matrix-05.jpeg)
+
+
+Done? It should look like this:
+
+![figure #.#: NAME](../sna-textbook/images/ch-04-matrix-06.jpeg)
+
+Note that I added zeros to the diagonal. As we will see later, we want these values defined for working with the matrix in a software program.
+
+The highlighted section here is called the **lower triangle** of the matrix. The *sum* of the lower triangle should equal the number of edges in the graph.
+
+
+![figure #.#: NAME](../sna-textbook/images/ch-04-matrix-07.jpeg)
+
+The other highlighted section here is called the **upper triangle** of the matrix. The *sum* of the upper triangle should also equal the number of edges in the graph.
+
+![figure #.#: NAME](../sna-textbook/images/ch-04-matrix-08.jpeg)
+
+Alternatively, we could sum all the elements and divide by 2.
 
 <br>
 
@@ -161,7 +195,39 @@ gplot( d.mat, gmode = "digraph", displaylabels = TRUE, label.pos = 5, label.cex 
 
 ```
 
+What is different in our matrix when the graph is directed?
+  
+![figure #.#: NAME](../sna-textbook/images/ch-04-matrix-01.jpeg)
+    
+In the first row, *i* sends to the second row: $X_{12}=1$.
+    
+![figure #.#: NAME](../sna-textbook/images/ch-04-matrix-09.jpeg)
+      
+<br>
+        
+But, in the second row, *j* does not send $X_{21}=0$. The Jen/Tom dyad is **asymmetric**. Directed graphs permit this asymmetric because $l_k1 = (n_i, n_j) \neq (n_j, n_i) = l_k2$.
+      
+![figure #.#: NAME](../sna-textbook/images/ch-04-matrix-10.jpeg)
+<br>
+          
+What about the Leaf/Bob dyad? Is it *asymmetric* or is it *symmetric*? 
+          
+![figure #.#: NAME](../sna-textbook/images/ch-04-matrix-11.jpeg)
 
+<br>
+              
+Now, what does the rest of the matrix look like? Fill in the values in the matrix based on the graph.
+            
+![figure #.#: NAME](../sna-textbook/images/ch-04-matrix-12.jpeg)
+              
+              
+Done? It should look like this:
+                
+![figure #.#: NAME](../sna-textbook/images/ch-04-matrix-13.jpeg)
+                  
+<br>                
+
+Note that, because we are allowing directionality to matter, the total number of edges in the network is just the sum of the entire matrix.
 
 
 

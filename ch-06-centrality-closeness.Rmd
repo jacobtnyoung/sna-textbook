@@ -19,6 +19,7 @@ knitr::opts_chunk$set( echo=FALSE, eval=TRUE, message=FALSE, warning=FALSE, resu
 
 rm( list = ls() )
 library( network )
+library( RColorBrewer )
 library( sna )
 
 ## Set up the objects that will be used in the lecture ----
@@ -120,8 +121,6 @@ Another way of saying this is that if we now how "far apart" two nodes are (i.e.
 
 ## Undirected Graphs
 
-### Closeness Centrality
-
 For an undirected binary graph, the closeness is: 
 
 $$C_C(n_i) = [\sum\limits_{j=1}^g d(n_i,n_j)]^{-1}$$
@@ -142,7 +141,7 @@ Let's take a look at this with some data. Recall our example network with Jen, T
 
 ```{r, echo=FALSE, eval=TRUE, fig.width=5, fig.height=5, fig.show="show"}
 
-gplot( u.mat, gmode = "graph", displaylabels = TRUE, label.pos = 5, label.cex = 2.2, vertex.col = "lightblue", coord=coords, vertex.cex=3.2 )
+gplot( u.mat, gmode = "graph", displaylabels = TRUE, label.pos = 5, label.cex = 2.2, vertex.col = "lightblue", vertex.cex=3.2 )
 
 ```
 
@@ -334,7 +333,7 @@ If I lost you in some of the math, don't worry. Let's calculate the closeness ce
 
 ```{r, echo=FALSE, eval=TRUE, fig.width=5, fig.height=5, fig.show="show"}
 
-gplot( u.mat, gmode = "graph", displaylabels = TRUE, label.pos = 5, label.cex = 2.2, vertex.col = "lightblue", coord=coords, vertex.cex=3.2 )
+gplot( u.mat, gmode = "graph", displaylabels = TRUE, label.pos = 5, label.cex = 2.2, vertex.col = "lightblue", vertex.cex=3.2 )
 
 ```
 
@@ -373,16 +372,14 @@ So, the closeness centralization score for our example graph is 0.551. *What doe
 
 When closeness centrality is evenly dispersed, meaning that all nodes have the same closeness score, then the numerator in the equation will be zero and the quotient will be close to 0. When there is considerable inequality in the closeness centrality scores between nodes, the quotient will be closer to 1. Thus, closer to 1 indicates that the graph is hierarchically structured and closer to 0 means that the graph is more decentralized.
 
-
 We can see this by examining two additional undirected networks. 
-
-
-HERE: NEED TO KEEP GOING THROUGH THIS
-
 
 <br>
 
 ```{r, echo=FALSE, eval=TRUE, fig.width=5, fig.height=5, fig.show="show", fig.align="center"}
+
+centralization( star_net, closeness, mode="graph" )
+centralization( circle_net, closeness, mode="graph" )
 
 par( mar=c( 4,4,0.1,0.1 ), mfrow = c( 1,2 ) )
 
@@ -410,220 +407,98 @@ gplot( circle_net,
 
 ```
 
-The degree centralization score for the figure on the left is 1.0. We can see this by doing the calculations: 
+The closeness centralization score for the figure on the left is `r centralization( star_net, closeness, mode="graph" )`, whereas the closeness centralization score for the figure on the right is `r centralization( circle_net, closeness, mode="graph" )`. 
 
-$$C_D =  \dfrac{\sum\limits_{i=1}^g [C_D(n^*) - C_D(n_i)]}{[(g-1)(g-2)]} = \dfrac{(4-4)+(4-1)+(4-1)+(4-1)+(4-1)}{(5-1)(5-2)} = \dfrac{0+3+3+3+3}{4*3}= \dfrac{12}{12}= 1.0$$
-
-The degree centralization score for the figure on the right is 0. We can see this by doing the calculations: 
-
-$$C_D =  \dfrac{\sum\limits_{i=1}^g [C_D(n^*) - C_D(n_i)]}{[(g-1)(g-2)]} = \dfrac{(2-2)+(2-2)+(2-2)+(2-2)+(2-2)}{(5-1)(5-2)} = \dfrac{0+0+0+0+0}{4*3}= \dfrac{0}{12}= 0.0$$
 
 <br>
 
 ## Directed Graphs
 
-### Degree Centrality
-
-In a directed binary graph, degree centrality can be broken down into *indegree* and *outdegree* centrality:
-
-  * Indegree, $CI(n_i)$, measures the number of ties that *i* receives. For the sociomatrix $X_{ij}$, the indegree for *i* is the **column** sum:
-  
-  $$C_I(n_i) = \sum_j x_{ji}$$
-  
-  * Outdegree, $CO(n_i)$, measures the number of ties that *i* sends. For the sociomatrix $X_{ij}$, the outdegree for *i* is the **row** sum: 
-  
-  $$C_O(n_i) = \sum_j x_{ij}$$
-
-What are the *indegree* and *outdegree* centrality scores in the following graph?:
-
-![Figure #.#](../../sna-textbook/images/ch-05-matrix-03.jpeg)
-
-#### Indegree
-
-Let's start with the indegree. As stated above, indegree, $CI(n_i)$, measures the number of ties that *i* receives. For the sociomatrix $X_{ij}$, the indegree for *i* is the **column** sum: $C_I(n_i) = \sum_j x_{ji}$.
-
-So, to get the indegree for each node, we just sum over the columns. Recall that columns are vertical.
-
-![Figure #.#](../../sna-textbook/images/ch-05-matrix-04.jpeg)
-
-Let's calculate the indegree for Jen:
-$C_I(Jen) = \sum_j x_{j,Jen} = x_{Tom,Jen} + x_{Bob,Jen} + x_{Leaf,Jen} + x_{Jim,Jen} = 0+0+0+0 = 0$
-
-Jen's indegree is 0 because she doesn't receive *any* ties from other nodes. Let's calculate the indegree for the rest of the nodes:
-
-  * $C_I(Tom) = \sum_j x_{j,Tom} = x_{Jen,Tom} + x_{Bob,Tom} + x_{Leaf,Tom} + x_{Jim,Tom} = 1+0+0+0 = 1$
-  * $C_I(Bob) = \sum_j x_{j,Bob} = x_{Jen,Bob} + x_{Tom,Bob} + x_{Leaf,Bob} + x_{Jim,Bob} = 0+1+1+1 = 3$
-  * $C_I(Leaf) = \sum_j x_{j,Leaf} = x_{Jen,Leaf} + x_{Tom,Leaf} + x_{Bob,Leaf} + x_{Jim,Leaf} = 0+0+1+1 = 2$
-  * $C_I(Jim) = \sum_j x_{j,Jim} = x_{Jen,Jim} + x_{Tom,Jim} + x_{Bob,Jim} + x_{Leaf,Jim} = 0+0+1+1 = 2$
-
-<br>
-
-#### Outdegree
-
-Let's now look at the outdegree. With indegree, we are looking at the ties coming into a node. But, with outdegree we are doing the opposite, looking at the ties that are coming from the node. As stated above, Outdegree, $CO(n_i)$, measures the number of ties that *i* sends. For the sociomatrix $X_{ij}$, the outdegree for *i* is the **row** sum $C_O(n_i) = \sum_j x_{ij}$.
-
-So, to get the outdegree for each node, we just sum over the rows. Recall that rows are horizontal.
-
-![Figure #.#](../../sna-textbook/images/ch-05-matrix-05.jpeg)
-
-Let's calculate the outdegree for Jen:
-$C_O(Jen) = \sum_j x_{Jen,j} = x_{Jen,Tom} + x_{Jen,Bob} + x_{Jen,Leaf} + x_{Jen,Jim} = 1+0+0+0 = 1$
-
-Let's calculate the outdegree for the rest of the nodes:
-
-  * $C_O(Tom) = \sum_j x_{Tom,j} = x_{Tom,Jen} + x_{Tom,Bob} + x_{Tom,Leaf} + x_{Tom,Jim} = 0+1+0+0 = 1$
-  * $C_O(Bob) = \sum_j x_{Bob,j} = x_{Bob,Jen} + x_{Bob,Tom} + x_{Bob,Leaf} + x_{Bob,Jim} = 0+0+1+1 = 2$
-  * $C_O(Leaf) = \sum_j x_{Leaf,j} = x_{Leaf,Jen} + x_{Leaf,Tom} + x_{Leaf,Bob} + x_{Leaf,Jim} = 0+0+1+1 = 2$
-  * $C_O(Jim) = \sum_j x_{Jim,j} = x_{Jim,Jen} + x_{Jim,Tom} + x_{Jim,Bob} + x_{Jim,leaf} = 0+0+1+1 = 2$
-  
-<br>
-
-Now, let's compare the indegree and outdegree:
-
-| Node  | Indegree | Outdegree |
-| ----- | -------- | --------- |
-| Jen   | 0        | 1         |
-| Tom   | 1        | 1         |
-| Bob   | 3        | 2         |
-| Leaf  | 2        | 2         |
-| Jim   | 2        | 2         |
-| ----- | -------- | --------- |
-| Total | 8        | 8         |
-
-Note that both the indegree and outdegree total to the same amount. This makes sense because there are $L=8$ edges in the graph. 
-
-<br>
-
-### Standardization
-
-Recall that indegree/outdegree centrality not only reflects each node’s connectivity to other nodes but also depends on the size of the graph, *g*. Larger networks will have a higher maximum possible degree centrality value. We can standardize, or normalize, the same way by dividing by *g-1*.
-
-Recall that for our example graph, $g-1 = 4$ and that our raw scores:
-
-  * Indegree
-  
-    * Jen = 0
-    * Tom = 1
-    * Bob = 3
-    * Leaf = 2
-    * Jim = 2
-
-  * Outdegree
-  
-    * Jen = 1
-    * Tom = 1
-    * Bob = 2
-    * Leaf = 2
-    * Jim = 2
-
-
-We just adjust the *raw* **indegree** scores by standardizing by the denominator:
-
-  * Jen = $C'_I(Jen) =  \dfrac{0}{4} = 0.00 $
-  * Tom = $C'_I(Tom) =  \dfrac{1}{4} = 0.25 $
-  * Bob = $C'_I(Bob) =  \dfrac{3}{4} = 0.75 $
-  * Leaf = $C'_I(Leaf) =  \dfrac{2}{4} = 0.50 $
-  * Jim = $C'_I(Jim) =  \dfrac{2}{4} = 0.50 $
-
-How is this to be interpreted? The standardized indegree centrality score gives us is the proportion of the network members for whom node *i* has received a tie. A score of 0.25 for Tom means that Tom received ties from 25% of the nodes that he could potentially have received ties from in the network.
-
-For the *raw* **outdegreee** scores we do the same:
-
-  * Jen = $C'_O(Jen) =  \dfrac{1}{4} = 0.25 $
-  * Tom = $C'_O(Tom) =  \dfrac{1}{4} = 0.25 $
-  * Bob = $C'_O(Bob) =  \dfrac{2}{4} = 0.50 $
-  * Leaf = $C'_O(Leaf) =  \dfrac{2}{4} = 0.50 $
-  * Jim = $C'_O(Jim) =  \dfrac{2}{4} = 0.50 $
-
-How is this to be interpreted? The standardized outdegree centrality score gives us is the proportion of the network members for whom node *i* has sent a tie. A score of 0.25 for Tom means that Tom sends ties to 25% of the nodes that he could potentially have sent ties to in the network.
-
-<br>
-
-### Mean Degree
-
-As before, we can examine the summary statistics for indegree/outdegree centrality by inspecting the **mean**:
-
-$$\bar d =  \dfrac{\sum\limits_{i=1}^g C_I(n_i)}{g} = \dfrac{\sum\limits_{i=1}^g C_O(n_i)}{g} = \dfrac{L}{g}$$
-We just take the number of edges in the graph, $L$, and divide it by the number of nodes in the graph, $g$. 
-
-As it turns out, the mean indegree and mean outdegree are equal. This is because we are counting up, for the numerator, the number of edges.
-
-What is the mean indegree/outdegree for this graph?
+As discussed in [CHAPTER](), when we have a directed graph, we have to consider directionality when evaluating a centrality measure. For example, in the graph below, *how far is Jen from Tom?* *How far is Jen from Bob?*
 
 ```{r, echo=FALSE, eval=TRUE, fig.width=5, fig.height=5, results="show"}
 
-gplot( d.mat, gmode = "digraph", displaylabels = TRUE, label.pos = 5, label.cex = 2.2, vertex.col = "orange", coord=coords, vertex.cex=3.2 )
+gplot( d.mat, gmode = "digraph", displaylabels = TRUE, label.pos = 5, label.cex = 2.2, vertex.col = "orange", vertex.cex=3.2 )
 
 ```
 
-$$\bar d =  \dfrac{C_I(n_i)}{g} = \dfrac{C_O(n_i)}{g} = \dfrac{L}{g} = \dfrac{8}{5} = 1.6$$
+To answer this question, let's think again about what closeness measures. It is the inverse of the distance matrix. So, if we are looking at outgoing ties (i.e. $L(n_i,n_j)$) then our equation is the same for the undirected graph:
 
-This means that, on average, a node sends 1.6 ties and receives 1.6 ties.
+$$C_C(n_i) = [\sum\limits_{j=1}^g d(n_i,n_j)]^{-1} = \frac{1}{[\sum\limits_{j=1}^g d(n_i,n_j)]}$$
 
-<br>
+Note, however, that the distance of *i* to *j*, $d(n_i,n_j)$, does not necessarily equal the distance from *j* to *i*, $d(n_j,n_i)$. For example, the distance from Jen to Tom, $d(Jen,Tom)$, is 1. But, the distance from Tom to Jen, $d(Tom,Jen)$ is....? It is undefined because there is not a edge from Tom to Jen. This complicates things a bit. Let's work through an example to see what this looks like.
 
-### Degree Centralization
+As before, we want to first build a *distance matrix* which shows the value of the geodesic (i.e. shortest path) from *i* to *j*.
 
-As with the undirected graph, we can also calculate how centralized the edges are in the graph. Recall that degree centralization measures the extent to which the nodes in a graph differ from one another in their individual degree centrality scores. For a directed graph, the difference is that the denominator is $(g-1)^2$ or $(g-1)(g-1)$. The difference is due to the directional nature of the graph. So, this gives us the following equation for either the indegree centralization score or the outdegree centralization score:
+![Figure #.#](../sna-textbook/images/ch-06-matrix-07.jpeg)
 
-$$C_D =  \dfrac{\sum\limits_{i=1}^g [C_D(n^*) - C_D(n_i)]}{[(g-1)^2]}$$
+*How far is Jen from Tom?* *How far is Jen from Bob?*
 
-#### Indegree Centralization
+![Figure #.#](../sna-textbook/images/ch-06-matrix-08.jpeg)
 
-Let's calculate the indegree centralization score for our example graph:
+Jen is 1 step from Tom and 2 steps from Bob. *What about the rest of the scores for Jen?*
 
-![Figure #.#](../../sna-textbook/images/ch-05-matrix-03.jpeg)
+![Figure #.#](../sna-textbook/images/ch-06-matrix-09.jpeg)
 
-And recall our raw indegree scores:
+Now, recall that we sum these distances, and then take the reciprocal:
 
-  * Jen = 0
-  * Tom = 1
-  * Bob = 3
-  * Leaf = 2
-  * Jim = 2
+$$C_C(Jen) =  \frac{1}{[\sum\limits_{j=1}^g d(Jen,n_j)]} = \frac{1}{9} = 0.111$$
+*What about Bob? How far is Bob from everyone?*
 
-Bob has the largest degree at 3. This means that $C_D(n^*) = 5$. Finally, recall that $g = 5$ since we have 5 nodes. 
+![Figure #.#](../sna-textbook/images/ch-06-matrix-10.jpeg)
 
-Now, all we have to do is plug in the values:
+How far is Bob from Jen? Bob, is "infinite distance" from Jen because there is not a directed path by when he can reach her. This is the same for the distance from Bob to Tom. But, Bob does have directed ties to Jim and Leaf.
 
-$$C_I =  \dfrac{\sum\limits_{i=1}^g [C_I(n^*) - C_I(n_i)]}{[(g-1)(g-1)]} = \dfrac{(3-0)+(3-1)+(3-3)+(3-2)+(3-2)}{(5-1)(5-1)} = \dfrac{3+2+0+1+1}{4*4}= \dfrac{7}{16}= 0.4375$$
+![Figure #.#](../sna-textbook/images/ch-06-matrix-11.jpeg)
 
-The indegree centralization score for our example graph is 0.4375. *What does this mean?*
+So what is Bob's closeness centrality score? If we do not count the cells that have "infinite distance", effectively treating these as zeros, then we just count the distance for Leaf and Jim, which sums to 2. We just plug this in:
 
-Recall that when degree centrality is evenly dispersed, meaning that all nodes have the same degree, then the numerator in the equation will be zero and the quotient will be close to 0. When there is considerable inequality in the degree centrality scores between nodes, the quotient will be closer to 1. Thus, closer to 1 indicates that the graph is hierarchically structured and closer to 0 means that the graph is more decentralized.
+$$C_C(Bob) =  \frac{1}{[\sum\limits_{j=1}^g d(Bob,n_j)]} = \frac{1}{2} = 0.500$$
 
-When we introduce directionality, we have to alter our language a bit. When indegree centrality is evenly dispersed, meaning that all nodes receive the same number of ties, then the numerator in the equation will be zero and the quotient will be close to 0. Thus, closer to 1 indicates that the indegrees in the graph are hierarchically structured and closer to 0 means that the indegrees for the graph are more decentralized.
+Going through the rest of the matrix, we get a closeness centrality score for each individual:
 
-#### Outdegree Centralization
+| Node  | Distance | Closeness   |
+| :---: | :------: | :---------: |
+| Jen   | 9        | 1/9 = 0.111 |
+| Tom   | 5        | 1/5 = 0.200 |
+| Bob   | 2        | 1/2 = 0.500 |
+| Leaf  | 2        | 1/2 = 0.500 |
+| Jim   | 2        | 1/2 = 0.500 |
 
-Now, let's calculate the outdegree centralization score for our example graph:
 
-![Figure #.#](../../sna-textbook/images/ch-05-matrix-03.jpeg)
+### Standardization
 
-And recall our raw outdegree scores:
+As before, we can standardize our closeness score as:
 
-  * Jen = 1
-  * Tom = 1
-  * Bob = 2
-  * Leaf = 2
-  * Jim = 2
+$$C'_C(n_i) = [\sum\limits_{j=1}^g d(n_i,n_j)]^{-1} \times [g-1]$$
 
-Bob, Leaf, and Jim all have the largest degree at 2. This means that $C_D(n^*) = 2$. Finally, recall that $g = 5$ since we have 5 nodes. 
-
-Now, all we have to do is plug in the values:
-
-$$C_O =  \dfrac{\sum\limits_{i=1}^g [C_O(n^*) - C_O(n_i)]}{[(g-1)(g-1)]} = \dfrac{(2-1)+(2-1)+(2-2)+(2-2)+(2-2)}{(5-1)(5-1)} = \dfrac{1+1+0+0+0}{4*4}= \dfrac{2}{16}= 0.125$$
-
-The outdegree centralization score for our example graph is 0.125. *What does this mean?*
-
-An outdegree centralization score close to 1 indicates that the outdegrees in the graph are hierarchically structured and closer to 0 means that the outdegrees for the graph are more decentralized. 
+| Node  | Distance | Closeness   | Standardized Closeness   |
+| :---: | :------: | :---------: | :----------------------: |
+| Jen   | 9        | 1/9 = 0.111 | 0.111*4 = 0.444          |
+| Tom   | 5        | 1/5 = 0.200 | 0.200*4 = 0.800          |
+| Bob   | 2        | 1/2 = 0.500 | 0.500*4 = 0.200          |
+| Leaf  | 2        | 1/2 = 0.500 | 0.500*4 = 0.200          |
+| Jim   | 2        | 1/2 = 0.500 | 0.500*4 = 0.200          |
 
 <br>
 
-#### Comparing Indegree and Outdegree Centralization
+Note that when we are looking at *outgoing* ties, as we did above, this tells us how close a node is to other nodes. For example, Tom's total distance is 5, meaning that in total, he is 5 steps from the other nodes in the graph. 
 
-The indegree centralization score, $C_I$, is 0.4375 and the outdegree centralization score, $C_O$, is 0.125. *What does the difference tell us?*
+We can reverse this and look at the *incoming* ties. This would tell us how close the other nodes are to a particular node. This is a bit nuanced, by the difference is meaningful. In this case, instead of summing the rows as we did above, we could sum the columns.
 
-It tells us that the outdegrees are more decentralized than the indegrees. Put another way, the indegrees are more centralized than are the outdegrees. 
+![Figure #.#](../sna-textbook/images/ch-06-matrix-12.jpeg)
+
+If we sum the columns, then we get these scores:
+
+| Node  | Distance | Closeness       |
+| :---: | :------: | :-------------: |
+| Jen   | 0        | 1/0 = Undefined |
+| Tom   | 1        | 1/1 = 1.000 |
+| Bob   | 5        | 1/5 = 0.200 |
+| Leaf  | 7        | 1/7 = 0.143 |
+| Jim   | 7        | 1/2 = 0.143 |
+
+While these are correct, mathematically, they are far less intuitive than the scores we calculated based on the *outgoing* ties. 
 
 <br>
+

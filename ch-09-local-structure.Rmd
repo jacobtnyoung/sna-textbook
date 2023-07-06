@@ -138,11 +138,11 @@ gplot( u.mat, gmode = "graph", displaylabels = TRUE, label.pos = 5, label.cex = 
 
 Let's find the degree centrality score for each node. First, let's take our graph and create the sociomatrix.
 
-![Figure #.#](../sna-textbook/images/ch-05-matrix-01.jpeg)
+![Figure #.#](../../sna-textbook/images/ch-05-matrix-01.jpeg)
 
 Recall from above that in an undirected network the degree centrality score is either the sum of the row **or** the sum of the column. Let's calculate the score for Jen:
 
-![Figure #.#](../sna-textbook/images/ch-05-matrix-02.jpeg)
+![Figure #.#](../../sna-textbook/images/ch-05-matrix-02.jpeg)
 <br>
 
 $C_D(Jen) = \sum_j x_{ij} = x_{Jen, Tom} + x_{Jen, Bob} + x_{Jen, Leaf} + x_{Jen, Jim} = 1 + 0 + 0 + 0 = 1$

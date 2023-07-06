@@ -41,7 +41,7 @@ To answer these questions, they proposed the following model:
 
 ![](../../sna-textbook/images/ch-01-model-figure.jpeg)
   
-In this mode, the argued that police officers views of body-worn cameras influence whether they use their cameras in incidents. Where do these views come from? The authors proposed a *contagion* process whereby officers who shared incidents together exchanged views about the legitimacy of body-worn cameras.
+In this model, the argued that police officers views of body-worn cameras influence whether they use their cameras in incidents. Where do these views come from? The authors proposed a *contagion* process whereby officers who shared incidents together exchanged views about the legitimacy of body-worn cameras.
 
 Thus, the network matters!
 

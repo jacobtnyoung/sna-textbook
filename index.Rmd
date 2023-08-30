@@ -1,0 +1,27 @@
+---
+title: "Social Network Analysis Textbook"
+output: 
+  html_document:
+    theme: sandstone
+    toc: false
+    toc_float: false
+    collapsed: false
+    smooth_scroll: false
+---
+
+<style>
+body {
+text-align: justify}
+</style>
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set( echo = TRUE )
+```
+
+<br>
+
+## Social Network Analysis Textbook
+
+<br>
+
+### Chapter 1: 

@@ -1,0 +1,924 @@
+<!DOCTYPE html>
+
+<html>
+
+<head>
+
+<meta charset="utf-8" />
+<meta name="generator" content="pandoc" />
+<meta http-equiv="X-UA-Compatible" content="IE=EDGE" />
+
+
+
+
+<title>Closeness Centrality</title>
+
+<script src="site_libs/header-attrs-2.23/header-attrs.js"></script>
+<script src="site_libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link href="site_libs/bootstrap-3.3.5/css/sandstone.min.css" rel="stylesheet" />
+<script src="site_libs/bootstrap-3.3.5/js/bootstrap.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/html5shiv.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/respond.min.js"></script>
+<style>h1 {font-size: 34px;}
+       h1.title {font-size: 38px;}
+       h2 {font-size: 30px;}
+       h3 {font-size: 24px;}
+       h4 {font-size: 18px;}
+       h5 {font-size: 16px;}
+       h6 {font-size: 12px;}
+       code {color: inherit; background-color: rgba(0, 0, 0, 0.04);}
+       pre:not([class]) { background-color: white }</style>
+<script src="site_libs/navigation-1.1/tabsets.js"></script>
+<link href="site_libs/pagedtable-1.1/css/pagedtable.css" rel="stylesheet" />
+<script src="site_libs/pagedtable-1.1/js/pagedtable.js"></script>
+
+<style type="text/css">
+  code{white-space: pre-wrap;}
+  span.smallcaps{font-variant: small-caps;}
+  span.underline{text-decoration: underline;}
+  div.column{display: inline-block; vertical-align: top; width: 50%;}
+  div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+  ul.task-list{list-style: none;}
+    </style>
+
+
+
+
+
+
+
+
+
+
+<style type = "text/css">
+.main-container {
+  max-width: 940px;
+  margin-left: auto;
+  margin-right: auto;
+}
+img {
+  max-width:100%;
+}
+.tabbed-pane {
+  padding-top: 12px;
+}
+.html-widget {
+  margin-bottom: 20px;
+}
+button.code-folding-btn:focus {
+  outline: none;
+}
+summary {
+  display: list-item;
+}
+details > summary > p:only-child {
+  display: inline;
+}
+pre code {
+  padding: 0;
+}
+</style>
+
+
+<style type="text/css">
+.dropdown-submenu {
+  position: relative;
+}
+.dropdown-submenu>.dropdown-menu {
+  top: 0;
+  left: 100%;
+  margin-top: -6px;
+  margin-left: -1px;
+  border-radius: 0 6px 6px 6px;
+}
+.dropdown-submenu:hover>.dropdown-menu {
+  display: block;
+}
+.dropdown-submenu>a:after {
+  display: block;
+  content: " ";
+  float: right;
+  width: 0;
+  height: 0;
+  border-color: transparent;
+  border-style: solid;
+  border-width: 5px 0 5px 5px;
+  border-left-color: #cccccc;
+  margin-top: 5px;
+  margin-right: -10px;
+}
+.dropdown-submenu:hover>a:after {
+  border-left-color: #adb5bd;
+}
+.dropdown-submenu.pull-left {
+  float: none;
+}
+.dropdown-submenu.pull-left>.dropdown-menu {
+  left: -100%;
+  margin-left: 10px;
+  border-radius: 6px 0 6px 6px;
+}
+</style>
+
+<script type="text/javascript">
+// manage active state of menu based on current page
+$(document).ready(function () {
+  // active menu anchor
+  href = window.location.pathname
+  href = href.substr(href.lastIndexOf('/') + 1)
+  if (href === "")
+    href = "index.html";
+  var menuAnchor = $('a[href="' + href + '"]');
+
+  // mark the anchor link active (and if it's in a dropdown, also mark that active)
+  var dropdown = menuAnchor.closest('li.dropdown');
+  if (window.bootstrap) { // Bootstrap 4+
+    menuAnchor.addClass('active');
+    dropdown.find('> .dropdown-toggle').addClass('active');
+  } else { // Bootstrap 3
+    menuAnchor.parent().addClass('active');
+    dropdown.addClass('active');
+  }
+
+  // Navbar adjustments
+  var navHeight = $(".navbar").first().height() + 15;
+  var style = document.createElement('style');
+  var pt = "padding-top: " + navHeight + "px; ";
+  var mt = "margin-top: -" + navHeight + "px; ";
+  var css = "";
+  // offset scroll position for anchor links (for fixed navbar)
+  for (var i = 1; i <= 6; i++) {
+    css += ".section h" + i + "{ " + pt + mt + "}\n";
+  }
+  style.innerHTML = "body {" + pt + "padding-bottom: 40px; }\n" + css;
+  document.head.appendChild(style);
+});
+</script>
+
+<!-- tabsets -->
+
+<style type="text/css">
+.tabset-dropdown > .nav-tabs {
+  display: inline-table;
+  max-height: 500px;
+  min-height: 44px;
+  overflow-y: auto;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+}
+
+.tabset-dropdown > .nav-tabs > li.active:before, .tabset-dropdown > .nav-tabs.nav-tabs-open:before {
+  content: "\e259";
+  font-family: 'Glyphicons Halflings';
+  display: inline-block;
+  padding: 10px;
+  border-right: 1px solid #ddd;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open > li.active:before {
+  content: "\e258";
+  font-family: 'Glyphicons Halflings';
+  border: none;
+}
+
+.tabset-dropdown > .nav-tabs > li.active {
+  display: block;
+}
+
+.tabset-dropdown > .nav-tabs > li > a,
+.tabset-dropdown > .nav-tabs > li > a:focus,
+.tabset-dropdown > .nav-tabs > li > a:hover {
+  border: none;
+  display: inline-block;
+  border-radius: 4px;
+  background-color: transparent;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open > li {
+  display: block;
+  float: none;
+}
+
+.tabset-dropdown > .nav-tabs > li {
+  display: none;
+}
+</style>
+
+<!-- code folding -->
+
+
+
+
+</head>
+
+<body>
+
+
+<div class="container-fluid main-container">
+
+
+
+
+<div class="navbar navbar-default  navbar-fixed-top" role="navigation">
+  <div class="container">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-bs-toggle="collapse" data-target="#navbar" data-bs-target="#navbar">
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="index.html">Social Network Analysis Textbook</a>
+    </div>
+    <div id="navbar" class="navbar-collapse collapse">
+      <ul class="nav navbar-nav">
+        <li>
+  <a href="index.html">Social Network Analysis Textbook</a>
+</li>
+<li>
+  <a href="ch-01-intro-to-sna.html">Chapter 1</a>
+</li>
+<li>
+  <a href="ch-02-sna-theory.html">Chapter 2</a>
+</li>
+<li>
+  <a href="ch-03-sna-methods.html">Chapter 3</a>
+</li>
+      </ul>
+      <ul class="nav navbar-nav navbar-right">
+        
+      </ul>
+    </div><!--/.nav-collapse -->
+  </div><!--/.container -->
+</div><!--/.navbar -->
+
+<div id="header">
+
+
+
+<h1 class="title toc-ignore">Closeness Centrality</h1>
+
+</div>
+
+
+<div id="closeness-centrality" class="section level1">
+<h1>Closeness Centrality</h1>
+<div id="learning-goals" class="section level2">
+<h2>Learning Goals</h2>
+<ul>
+<li><p>Revisit the conceptualization of “centrality”.</p></li>
+<li><p>Understand the calculation of <em>closeness</em>
+centrality.</p></li>
+</ul>
+</div>
+<div id="concepts-and-operationalization" class="section level2">
+<h2>Concepts and Operationalization</h2>
+<p>When we say a <em>node</em> is “central”, what do we mean
+conceptually? Think of a few examples (again).</p>
+<p><br></p>
+<div id="conceptualization" class="section level3">
+<h3>Conceptualization</h3>
+<p>“Everyone agrees, it seems, that centrality is an important
+structural attribute of networks. All concede that it is related to a
+high degree to other important group properties and processes. But there
+consensus ends.” (<a href="">Freeman</a>, 1978/1979: 217)</p>
+<p>The type of measure we use depends on the substantive question of
+interest. Various measures of centrality are correlated, but they
+<em>operationalize</em> different concepts. Put differently, there is
+not a single measure of centrality because what we mean by “centrality”
+can differ.</p>
+</div>
+<div id="closeness-centrality-1" class="section level3">
+<h3>Closeness Centrality</h3>
+<p>How <em>close</em> is a node to other nodes? <em>Closeness</em>
+centrality measures how near a node is to the other nodes in the
+network. That is, how “close” the nodes are. What we mean by “close”
+will differ based on whether the graph is undirected or directed. By the
+conceptual definition is the same. How close nodes are in a graph is
+based on the inverse of the distance of each node to every other
+node.</p>
+<p>Terminology:</p>
+<ul>
+<li>A <strong>path</strong> is an edge or sequence of edges that connect
+two nodes.</li>
+<li>A <strong>geodesic</strong> is the shortest path between two
+nodes.</li>
+<li>The <strong>distance</strong>, <span
+class="math inline">\(d(n_i,n_j)\)</span>, is the length of the path
+between <em>i</em> and <em>j</em>.</li>
+</ul>
+<p>Another way of saying this is that if we now how “far apart” two
+nodes are (i.e. the distance), then we can take the inverse of that and
+know how “close” the nodes are to each other.</p>
+<p><br></p>
+</div>
+</div>
+<div id="undirected-graphs" class="section level2">
+<h2>Undirected Graphs</h2>
+<p>For an undirected binary graph, the closeness is:</p>
+<p><span class="math display">\[C_C(n_i) = [\sum\limits_{j=1}^g
+d(n_i,n_j)]^{-1}\]</span></p>
+<p>This reads as: Find the distance between two nodes <em>i</em> and
+<em>j</em>, <span class="math inline">\(d(n_i,n_j)\)</span>, sum them,
+and then take the inverse.</p>
+<p>Another way to write this is as:</p>
+<p><span class="math display">\[C_C(n_i) = [\sum\limits_{j=1}^g
+d(n_i,n_j)]^{-1} = \frac{1}{[\sum\limits_{j=1}^g
+d(n_i,n_j)]}\]</span></p>
+<p>In words, the closeness is 1 divided by the sum of the distances
+(called the <em>reciprocal</em>).</p>
+<p><br></p>
+<p>To find the closeness centrality score, we need to first find the
+distances between each node. We can express these distances using a
+matrix, just like we did with the sociomatrix before.</p>
+<p>Let’s take a look at this with some data. Recall our example network
+with Jen, Tom, Bob, Leaf, and Jim:</p>
+<p><img src="ch-06-centrality-closeness_files/figure-html/unnamed-chunk-2-1.png" width="480" /></p>
+<p><br></p>
+<p>For our graph, we want to first build a <em>distance matrix</em>
+which shows the value of the geodesic (i.e. shortest path) from
+<em>i</em> to <em>j</em>.</p>
+<div class="float">
+<img src="../sna-textbook/images/ch-06-matrix-01.jpeg"
+alt="Figure #.#" />
+<div class="figcaption">Figure #.#</div>
+</div>
+<p>In the graph, how far is Jen from Tom? How far is Jen from Bob? In
+other words, how many edges do we count in going from Jen to Tom? From
+Jen to Bob?</p>
+<div class="float">
+<img src="../sna-textbook/images/ch-06-matrix-02.jpeg"
+alt="Figure #.#" />
+<div class="figcaption">Figure #.#</div>
+</div>
+<p>We can see that Jen can reach Tom in 1 step (i.e. <span
+class="math inline">\(L_{Jen,Tom}\)</span>) and that Jen can reach Bob
+in 2 steps (i.e. <span class="math inline">\(L_{Jen,Tom}\)</span> &amp;
+<span class="math inline">\(L_{Tom,Bob}\)</span>).</p>
+<p>What about the rest of the distance matrix?</p>
+<p><img src="../sna-textbook/images/ch-06-matrix-03.jpeg"
+alt="Figure #.#" /> If we follow what we did above, then we get the
+following distance matrix:</p>
+<div class="float">
+<img src="../sna-textbook/images/ch-06-matrix-04.jpeg"
+alt="Figure #.#" />
+<div class="figcaption">Figure #.#</div>
+</div>
+<p>Since the graph is undirected, the distance matrix is symmetric. That
+is, <span class="math inline">\(d(n_i,n_j) = d(n_j,n_i)\)</span>.</p>
+<div class="float">
+<img src="../sna-textbook/images/ch-06-matrix-05.jpeg"
+alt="Figure #.#" />
+<div class="figcaption">Figure #.#</div>
+</div>
+<p>Now, it we take the sum of the rows, this gives us <span
+class="math inline">\(\sum\limits_{j=1}^g d(n_i,n_j)\)</span>.</p>
+<p><img src="../sna-textbook/images/ch-06-matrix-06.jpeg"
+alt="Figure #.#" /> <br></p>
+<p>Note that since the graph is undirected, the column sum would give us
+the same values.</p>
+<p>Since we have <span class="math inline">\(\sum\limits_{j=1}^g
+d(n_i,n_j)\)</span>, all we need to do now is take the reciprocal by
+dividing 1 by <span class="math inline">\(\sum\limits_{j=1}^g
+d(n_i,n_j)\)</span>:</p>
+<p><span class="math display">\[C_C(n_i)
+=  \frac{1}{[\sum\limits_{j=1}^g d(n_i,n_j)]}\]</span></p>
+<p>That gives us the closeness centrality score for each individual:</p>
+<table>
+<thead>
+<tr class="header">
+<th align="center">Node</th>
+<th align="center">Distance</th>
+<th align="center">Closeness</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="center">Jen</td>
+<td align="center">9</td>
+<td align="center">1/9 = 0.111</td>
+</tr>
+<tr class="even">
+<td align="center">Tom</td>
+<td align="center">6</td>
+<td align="center">1/6 = 0.167</td>
+</tr>
+<tr class="odd">
+<td align="center">Bob</td>
+<td align="center">5</td>
+<td align="center">1/5 = 0.200</td>
+</tr>
+<tr class="even">
+<td align="center">Leaf</td>
+<td align="center">7</td>
+<td align="center">1/7 = 0.143</td>
+</tr>
+<tr class="odd">
+<td align="center">Jim</td>
+<td align="center">7</td>
+<td align="center">1/7 = 0.143</td>
+</tr>
+</tbody>
+</table>
+<p><br></p>
+<div id="standardization" class="section level3">
+<h3>Standardization</h3>
+<p>As discussed in the chapter on <a href="">degree centrality</a>, the
+measure of centrality is affected (effected?) by the size of the graph,
+<em>g</em>. In the case of <em>closeness</em> centrality, having to sum
+over more nodes will push scores closer to zero. This means that we
+can’t compare closeness centrality scoress across graphs of different
+sizes. <em>Solution</em>?</p>
+<p>Standardize! If we want to compare nodes in different sized networks,
+then we just take into account the number of nodes and the maximum
+possible nodes to which <em>i</em> could be connected. In an undirected
+graph, this is <em>g-1</em>.</p>
+<p>Thus, we can calculate a standardized closeness centrality for an
+undirected graph as:</p>
+<p><span class="math display">\[C&#39;_C(n_i) = [\sum\limits_{j=1}^g
+d(n_i,n_j)]^{-1} \times [g-1]\]</span></p>
+<p>For this graph, the denominator, <em>g-1</em> is <span
+class="math inline">\(5 - 1 = 4\)</span>. Plugging that in we get: <span
+class="math inline">\(C&#39;_C(n_i) = [\sum\limits_{j=1}^g
+d(n_i,n_j)]^{-1} \times 4\)</span>.</p>
+<table>
+<thead>
+<tr class="header">
+<th align="center">Node</th>
+<th align="center">Distance</th>
+<th align="center">Closeness</th>
+<th align="center">Standardized Closeness</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="center">Jen</td>
+<td align="center">9</td>
+<td align="center">1/9 = 0.111</td>
+<td align="center">0.111*4 = 0.444</td>
+</tr>
+<tr class="even">
+<td align="center">Tom</td>
+<td align="center">6</td>
+<td align="center">1/6 = 0.167</td>
+<td align="center">0.167*4 = 0.668</td>
+</tr>
+<tr class="odd">
+<td align="center">Bob</td>
+<td align="center">5</td>
+<td align="center">1/5 = 0.200</td>
+<td align="center">0.200*4 = 0.800</td>
+</tr>
+<tr class="even">
+<td align="center">Leaf</td>
+<td align="center">7</td>
+<td align="center">1/7 = 0.143</td>
+<td align="center">0.143*4 = 0.572</td>
+</tr>
+<tr class="odd">
+<td align="center">Jim</td>
+<td align="center">7</td>
+<td align="center">1/7 = 0.143</td>
+<td align="center">0.143*4 = 0.572</td>
+</tr>
+</tbody>
+</table>
+<p><br></p>
+<p>Standardization is particularly important with closeness centrality
+because of the sensitivity of the measure to the size of the network.
+Take for example, the following networks:</p>
+<p><img src="ch-06-centrality-closeness_files/figure-html/unnamed-chunk-3-1.png" width="480" style="display: block; margin: auto;" /></p>
+<p><br></p>
+<p>The plot above shows two different graphs with the <em>raw</em>
+closeness centrality scores for two nodes. Note that they have the exact
+same score. Yet, would you say they are equally close to other nodes in
+the network? In other words, that their closeness to other nodes is the
+same?</p>
+<p>When we standardize, we adjust for the size of the network:</p>
+<p><br></p>
+<p><img src="ch-06-centrality-closeness_files/figure-html/unnamed-chunk-4-1.png" width="480" style="display: block; margin: auto;" /></p>
+<p><br></p>
+<p><img src="ch-06-centrality-closeness_files/figure-html/unnamed-chunk-5-1.png" width="480" style="display: block; margin: auto;" /></p>
+<p><br></p>
+</div>
+<div id="closeness-centralization" class="section level3">
+<h3>Closeness Centralization</h3>
+<p>As we did with <a href="">degree centralization</a>, we can calculate
+the closeness centralization of the graph. Recall that centralization
+measures the extent to which the nodes in a social network differ from
+one another in their individual centrality scores. Put differently, how
+much variation is there in the distribution of centrality scores? A key
+difference, however, is that for closeness centralization, we use the
+standardized closeness score.</p>
+<p>We can calculate closeness centralization as:</p>
+<p><span class="math display">\[C_C =
+\frac{\sum\limits_{i=1}^g[C&#39;_C(n^*)-C&#39;_C(n_i)]}{[(g-2)(g-1)]/(2g-3)}\]</span></p>
+<p>This may look imposing, but we can decompose it to see what it is
+doing:</p>
+<ul>
+<li><span class="math inline">\(C&#39;_C(n^*)\)</span> is the largest
+standardized closeness score</li>
+<li><span class="math inline">\(C&#39;_C(n_i)\)</span> is the
+standardized closeness score for node <em>i</em></li>
+<li><span
+class="math inline">\(\sum\limits_{i=1}^g[C&#39;_C(n^*)-C&#39;_C(n_i)]\)</span>
+simply takes the sum of deviations for each node from the largest
+value</li>
+<li>Finally, we take that sum and divide it by <span
+class="math inline">\([(g-2)(g-1)]/(2g-3)\)</span></li>
+</ul>
+<p>If I lost you in some of the math, don’t worry. Let’s calculate the
+closeness centralization score for our example graph:</p>
+<p><br></p>
+<p><img src="ch-06-centrality-closeness_files/figure-html/unnamed-chunk-6-1.png" width="480" /></p>
+<p><br></p>
+<p>Recall our table of standardized closeness scores:</p>
+<table>
+<thead>
+<tr class="header">
+<th align="center">Node</th>
+<th align="center">Distance</th>
+<th align="center">Closeness</th>
+<th align="center">Standardized Closeness</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="center">Jen</td>
+<td align="center">9</td>
+<td align="center">1/9 = 0.111</td>
+<td align="center">0.111*4 = 0.444</td>
+</tr>
+<tr class="even">
+<td align="center">Tom</td>
+<td align="center">6</td>
+<td align="center">1/6 = 0.167</td>
+<td align="center">0.167*4 = 0.668</td>
+</tr>
+<tr class="odd">
+<td align="center">Bob</td>
+<td align="center">5</td>
+<td align="center">1/5 = 0.200</td>
+<td align="center">0.200*4 = 0.800</td>
+</tr>
+<tr class="even">
+<td align="center">Leaf</td>
+<td align="center">7</td>
+<td align="center">1/7 = 0.143</td>
+<td align="center">0.143*4 = 0.572</td>
+</tr>
+<tr class="odd">
+<td align="center">Jim</td>
+<td align="center">7</td>
+<td align="center">1/7 = 0.143</td>
+<td align="center">0.143*4 = 0.572</td>
+</tr>
+</tbody>
+</table>
+<p><em>What is the largest standardized closeness score?</em> It is 0.8
+for Bob. Also, we have <span class="math inline">\(g = 5\)</span>. Now,
+we just plug these into our equation:</p>
+<p><span class="math display">\[C_C =
+\frac{\sum\limits_{i=1}^g[0.800-C&#39;_C(n_i)]}{[(5-2)(5-1)]/(2*5-3)}\]</span>
+<br></p>
+<table>
+<colgroup>
+<col width="4%" />
+<col width="7%" />
+<col width="10%" />
+<col width="23%" />
+<col width="52%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th align="center">Node</th>
+<th align="center">Distance</th>
+<th align="center">Closeness</th>
+<th align="center">Standardized Closeness</th>
+<th align="center">Deviations of Standardized Closeness <span
+class="math inline">\(0.800-C&#39;_C(n_i)\)</span></th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="center">Jen</td>
+<td align="center">9</td>
+<td align="center">1/9 = 0.111</td>
+<td align="center">0.111*4 = 0.444</td>
+<td align="center">0.800 - 0.444 = 0.356</td>
+</tr>
+<tr class="even">
+<td align="center">Tom</td>
+<td align="center">6</td>
+<td align="center">1/6 = 0.167</td>
+<td align="center">0.167*4 = 0.668</td>
+<td align="center">0.800 - 0.668 = 0.132</td>
+</tr>
+<tr class="odd">
+<td align="center">Bob</td>
+<td align="center">5</td>
+<td align="center">1/5 = 0.200</td>
+<td align="center">0.200*4 = 0.800</td>
+<td align="center">0.800 - 0.800 = 0.000</td>
+</tr>
+<tr class="even">
+<td align="center">Leaf</td>
+<td align="center">7</td>
+<td align="center">1/7 = 0.143</td>
+<td align="center">0.143*4 = 0.572</td>
+<td align="center">0.800 - 0.572 = 0.228</td>
+</tr>
+<tr class="odd">
+<td align="center">Jim</td>
+<td align="center">7</td>
+<td align="center">1/7 = 0.143</td>
+<td align="center">0.143*4 = 0.572</td>
+<td align="center">0.800 - 0.572 = 0.228</td>
+</tr>
+</tbody>
+</table>
+<p><br></p>
+<p>Now, if we total all of the values in the last column we get 0.944.
+Plugging this in as our numerator, we get:</p>
+<p><span class="math display">\[C_C = \frac{0.944}{[(5-2)(5-1)]/(2*5-3)}
+= \frac{0.944}{1.714} = 0.5507585 \approx 0.551\]</span></p>
+<p>So, the closeness centralization score for our example graph is
+0.551. <em>What does this mean?</em></p>
+<p>When closeness centrality is evenly dispersed, meaning that all nodes
+have the same closeness score, then the numerator in the equation will
+be zero and the quotient will be close to 0. When there is considerable
+inequality in the closeness centrality scores between nodes, the
+quotient will be closer to 1. Thus, closer to 1 indicates that the graph
+is hierarchically structured and closer to 0 means that the graph is
+more decentralized.</p>
+<p>We can see this by examining two additional undirected networks.</p>
+<p><br></p>
+<p><img src="ch-06-centrality-closeness_files/figure-html/unnamed-chunk-7-1.png" width="480" style="display: block; margin: auto;" /></p>
+<p>The closeness centralization score for the figure on the left is 1,
+whereas the closeness centralization score for the figure on the right
+is 0.</p>
+<p><br></p>
+</div>
+</div>
+<div id="directed-graphs" class="section level2">
+<h2>Directed Graphs</h2>
+<p>As discussed in <a href="">CHAPTER</a>, when we have a directed
+graph, we have to consider directionality when evaluating a centrality
+measure. For example, in the graph below, <em>how far is Jen from
+Tom?</em> <em>How far is Jen from Bob?</em></p>
+<p>To answer this question, let’s think again about what closeness
+measures. It is the inverse of the distance matrix. So, if we are
+looking at outgoing ties (i.e. <span
+class="math inline">\(L(n_i,n_j)\)</span>) then our equation is the same
+for the undirected graph:</p>
+<p><span class="math display">\[C_C(n_i) = [\sum\limits_{j=1}^g
+d(n_i,n_j)]^{-1} = \frac{1}{[\sum\limits_{j=1}^g
+d(n_i,n_j)]}\]</span></p>
+<p>Note, however, that the distance of <em>i</em> to <em>j</em>, <span
+class="math inline">\(d(n_i,n_j)\)</span>, does not necessarily equal
+the distance from <em>j</em> to <em>i</em>, <span
+class="math inline">\(d(n_j,n_i)\)</span>. For example, the distance
+from Jen to Tom, <span class="math inline">\(d(Jen,Tom)\)</span>, is 1.
+But, the distance from Tom to Jen, <span
+class="math inline">\(d(Tom,Jen)\)</span> is….? It is undefined because
+there is not a edge from Tom to Jen. This complicates things a bit.
+Let’s work through an example to see what this looks like.</p>
+<p>As before, we want to first build a <em>distance matrix</em> which
+shows the value of the geodesic (i.e. shortest path) from <em>i</em> to
+<em>j</em>.</p>
+<div class="float">
+<img src="../sna-textbook/images/ch-06-matrix-07.jpeg"
+alt="Figure #.#" />
+<div class="figcaption">Figure #.#</div>
+</div>
+<p><em>How far is Jen from Tom?</em> <em>How far is Jen from
+Bob?</em></p>
+<div class="float">
+<img src="../sna-textbook/images/ch-06-matrix-08.jpeg"
+alt="Figure #.#" />
+<div class="figcaption">Figure #.#</div>
+</div>
+<p>Jen is 1 step from Tom and 2 steps from Bob. <em>What about the rest
+of the scores for Jen?</em></p>
+<div class="float">
+<img src="../sna-textbook/images/ch-06-matrix-09.jpeg"
+alt="Figure #.#" />
+<div class="figcaption">Figure #.#</div>
+</div>
+<p>Now, recall that we sum these distances, and then take the
+reciprocal:</p>
+<p><span class="math display">\[C_C(Jen)
+=  \frac{1}{[\sum\limits_{j=1}^g d(Jen,n_j)]} = \frac{1}{9} =
+0.111\]</span> <em>What about Bob? How far is Bob from
+everyone?</em></p>
+<div class="float">
+<img src="../sna-textbook/images/ch-06-matrix-10.jpeg"
+alt="Figure #.#" />
+<div class="figcaption">Figure #.#</div>
+</div>
+<p>How far is Bob from Jen? Bob, is “infinite distance” from Jen because
+there is not a directed path by when he can reach her. This is the same
+for the distance from Bob to Tom. But, Bob does have directed ties to
+Jim and Leaf.</p>
+<div class="float">
+<img src="../sna-textbook/images/ch-06-matrix-11.jpeg"
+alt="Figure #.#" />
+<div class="figcaption">Figure #.#</div>
+</div>
+<p>So what is Bob’s closeness centrality score? If we do not count the
+cells that have “infinite distance”, effectively treating these as
+zeros, then we just count the distance for Leaf and Jim, which sums to
+2. We just plug this in:</p>
+<p><span class="math display">\[C_C(Bob)
+=  \frac{1}{[\sum\limits_{j=1}^g d(Bob,n_j)]} = \frac{1}{2} =
+0.500\]</span></p>
+<p>Going through the rest of the matrix, we get a closeness centrality
+score for each individual:</p>
+<table>
+<thead>
+<tr class="header">
+<th align="center">Node</th>
+<th align="center">Distance</th>
+<th align="center">Closeness</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="center">Jen</td>
+<td align="center">9</td>
+<td align="center">1/9 = 0.111</td>
+</tr>
+<tr class="even">
+<td align="center">Tom</td>
+<td align="center">5</td>
+<td align="center">1/5 = 0.200</td>
+</tr>
+<tr class="odd">
+<td align="center">Bob</td>
+<td align="center">2</td>
+<td align="center">1/2 = 0.500</td>
+</tr>
+<tr class="even">
+<td align="center">Leaf</td>
+<td align="center">2</td>
+<td align="center">1/2 = 0.500</td>
+</tr>
+<tr class="odd">
+<td align="center">Jim</td>
+<td align="center">2</td>
+<td align="center">1/2 = 0.500</td>
+</tr>
+</tbody>
+</table>
+<div id="standardization-1" class="section level3">
+<h3>Standardization</h3>
+<p>As before, we can standardize our closeness score as:</p>
+<p><span class="math display">\[C&#39;_C(n_i) = [\sum\limits_{j=1}^g
+d(n_i,n_j)]^{-1} \times [g-1]\]</span></p>
+<table>
+<thead>
+<tr class="header">
+<th align="center">Node</th>
+<th align="center">Distance</th>
+<th align="center">Closeness</th>
+<th align="center">Standardized Closeness</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="center">Jen</td>
+<td align="center">9</td>
+<td align="center">1/9 = 0.111</td>
+<td align="center">0.111*4 = 0.444</td>
+</tr>
+<tr class="even">
+<td align="center">Tom</td>
+<td align="center">5</td>
+<td align="center">1/5 = 0.200</td>
+<td align="center">0.200*4 = 0.800</td>
+</tr>
+<tr class="odd">
+<td align="center">Bob</td>
+<td align="center">2</td>
+<td align="center">1/2 = 0.500</td>
+<td align="center">0.500*4 = 0.200</td>
+</tr>
+<tr class="even">
+<td align="center">Leaf</td>
+<td align="center">2</td>
+<td align="center">1/2 = 0.500</td>
+<td align="center">0.500*4 = 0.200</td>
+</tr>
+<tr class="odd">
+<td align="center">Jim</td>
+<td align="center">2</td>
+<td align="center">1/2 = 0.500</td>
+<td align="center">0.500*4 = 0.200</td>
+</tr>
+</tbody>
+</table>
+<p><br></p>
+<p>Note that when we are looking at <em>outgoing</em> ties, as we did
+above, this tells us how close a node is to other nodes. For example,
+Tom’s total distance is 5, meaning that in total, he is 5 steps from the
+other nodes in the graph.</p>
+<p>We can reverse this and look at the <em>incoming</em> ties. This
+would tell us how close the other nodes are to a particular node. This
+is a bit nuanced, by the difference is meaningful. In this case, instead
+of summing the rows as we did above, we could sum the columns.</p>
+<div class="float">
+<img src="../sna-textbook/images/ch-06-matrix-12.jpeg"
+alt="Figure #.#" />
+<div class="figcaption">Figure #.#</div>
+</div>
+<p>If we sum the columns, then we get these scores:</p>
+<table>
+<thead>
+<tr class="header">
+<th align="center">Node</th>
+<th align="center">Distance</th>
+<th align="center">Closeness</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="center">Jen</td>
+<td align="center">0</td>
+<td align="center">1/0 = Undefined</td>
+</tr>
+<tr class="even">
+<td align="center">Tom</td>
+<td align="center">1</td>
+<td align="center">1/1 = 1.000</td>
+</tr>
+<tr class="odd">
+<td align="center">Bob</td>
+<td align="center">5</td>
+<td align="center">1/5 = 0.200</td>
+</tr>
+<tr class="even">
+<td align="center">Leaf</td>
+<td align="center">7</td>
+<td align="center">1/7 = 0.143</td>
+</tr>
+<tr class="odd">
+<td align="center">Jim</td>
+<td align="center">7</td>
+<td align="center">1/2 = 0.143</td>
+</tr>
+</tbody>
+</table>
+<p>While these are correct, mathematically, they are far less intuitive
+than the scores we calculated based on the <em>outgoing</em> ties.</p>
+<p><br></p>
+</div>
+</div>
+</div>
+
+
+
+
+</div>
+
+<script>
+
+// add bootstrap table styles to pandoc tables
+function bootstrapStylePandocTables() {
+  $('tr.odd').parent('tbody').parent('table').addClass('table table-condensed');
+}
+$(document).ready(function () {
+  bootstrapStylePandocTables();
+});
+
+
+</script>
+
+<!-- tabsets -->
+
+<script>
+$(document).ready(function () {
+  window.buildTabsets("TOC");
+});
+
+$(document).ready(function () {
+  $('.tabset-dropdown > .nav-tabs > li').click(function () {
+    $(this).parent().toggleClass('nav-tabs-open');
+  });
+});
+</script>
+
+<!-- code folding -->
+
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    script.src  = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+
+</body>
+</html>

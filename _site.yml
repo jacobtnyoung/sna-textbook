@@ -1,0 +1,12 @@
+name: "Social Network Analysis Textbook"
+navbar:
+  title: "Social Network Analysis Textbook"
+  left:
+    - text: "Social Network Analysis Textbook"
+      href: index.html
+    - text: "Chapter 1"
+      href: ch-01-intro-to-sna.html
+    - text: "Chapter 2"
+      href: ch-02-sna-theory.html
+    - text: "Chapter 3"
+      href: ch-03-sna-methods.html

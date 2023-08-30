@@ -1,4 +1,5 @@
 name: "Social Network Analysis Textbook"
+output_dir: "docs"
 navbar:
   title: "Social Network Analysis Textbook"
   left:

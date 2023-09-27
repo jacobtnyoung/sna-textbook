@@ -1,0 +1,543 @@
+<!DOCTYPE html>
+
+<html>
+
+<head>
+
+<meta charset="utf-8" />
+<meta name="generator" content="pandoc" />
+<meta http-equiv="X-UA-Compatible" content="IE=EDGE" />
+
+
+
+
+<title>Network Data Structures</title>
+
+<script src="site_libs/header-attrs-2.23/header-attrs.js"></script>
+<script src="site_libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link href="site_libs/bootstrap-3.3.5/css/sandstone.min.css" rel="stylesheet" />
+<script src="site_libs/bootstrap-3.3.5/js/bootstrap.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/html5shiv.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/respond.min.js"></script>
+<style>h1 {font-size: 34px;}
+       h1.title {font-size: 38px;}
+       h2 {font-size: 30px;}
+       h3 {font-size: 24px;}
+       h4 {font-size: 18px;}
+       h5 {font-size: 16px;}
+       h6 {font-size: 12px;}
+       code {color: inherit; background-color: rgba(0, 0, 0, 0.04);}
+       pre:not([class]) { background-color: white }</style>
+<script src="site_libs/navigation-1.1/tabsets.js"></script>
+<link href="site_libs/pagedtable-1.1/css/pagedtable.css" rel="stylesheet" />
+<script src="site_libs/pagedtable-1.1/js/pagedtable.js"></script>
+
+<style type="text/css">
+  code{white-space: pre-wrap;}
+  span.smallcaps{font-variant: small-caps;}
+  span.underline{text-decoration: underline;}
+  div.column{display: inline-block; vertical-align: top; width: 50%;}
+  div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+  ul.task-list{list-style: none;}
+    </style>
+
+
+
+
+
+
+
+
+
+
+<style type = "text/css">
+.main-container {
+  max-width: 940px;
+  margin-left: auto;
+  margin-right: auto;
+}
+img {
+  max-width:100%;
+}
+.tabbed-pane {
+  padding-top: 12px;
+}
+.html-widget {
+  margin-bottom: 20px;
+}
+button.code-folding-btn:focus {
+  outline: none;
+}
+summary {
+  display: list-item;
+}
+details > summary > p:only-child {
+  display: inline;
+}
+pre code {
+  padding: 0;
+}
+</style>
+
+
+<style type="text/css">
+.dropdown-submenu {
+  position: relative;
+}
+.dropdown-submenu>.dropdown-menu {
+  top: 0;
+  left: 100%;
+  margin-top: -6px;
+  margin-left: -1px;
+  border-radius: 0 6px 6px 6px;
+}
+.dropdown-submenu:hover>.dropdown-menu {
+  display: block;
+}
+.dropdown-submenu>a:after {
+  display: block;
+  content: " ";
+  float: right;
+  width: 0;
+  height: 0;
+  border-color: transparent;
+  border-style: solid;
+  border-width: 5px 0 5px 5px;
+  border-left-color: #cccccc;
+  margin-top: 5px;
+  margin-right: -10px;
+}
+.dropdown-submenu:hover>a:after {
+  border-left-color: #adb5bd;
+}
+.dropdown-submenu.pull-left {
+  float: none;
+}
+.dropdown-submenu.pull-left>.dropdown-menu {
+  left: -100%;
+  margin-left: 10px;
+  border-radius: 6px 0 6px 6px;
+}
+</style>
+
+<script type="text/javascript">
+// manage active state of menu based on current page
+$(document).ready(function () {
+  // active menu anchor
+  href = window.location.pathname
+  href = href.substr(href.lastIndexOf('/') + 1)
+  if (href === "")
+    href = "index.html";
+  var menuAnchor = $('a[href="' + href + '"]');
+
+  // mark the anchor link active (and if it's in a dropdown, also mark that active)
+  var dropdown = menuAnchor.closest('li.dropdown');
+  if (window.bootstrap) { // Bootstrap 4+
+    menuAnchor.addClass('active');
+    dropdown.find('> .dropdown-toggle').addClass('active');
+  } else { // Bootstrap 3
+    menuAnchor.parent().addClass('active');
+    dropdown.addClass('active');
+  }
+
+  // Navbar adjustments
+  var navHeight = $(".navbar").first().height() + 15;
+  var style = document.createElement('style');
+  var pt = "padding-top: " + navHeight + "px; ";
+  var mt = "margin-top: -" + navHeight + "px; ";
+  var css = "";
+  // offset scroll position for anchor links (for fixed navbar)
+  for (var i = 1; i <= 6; i++) {
+    css += ".section h" + i + "{ " + pt + mt + "}\n";
+  }
+  style.innerHTML = "body {" + pt + "padding-bottom: 40px; }\n" + css;
+  document.head.appendChild(style);
+});
+</script>
+
+<!-- tabsets -->
+
+<style type="text/css">
+.tabset-dropdown > .nav-tabs {
+  display: inline-table;
+  max-height: 500px;
+  min-height: 44px;
+  overflow-y: auto;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+}
+
+.tabset-dropdown > .nav-tabs > li.active:before, .tabset-dropdown > .nav-tabs.nav-tabs-open:before {
+  content: "\e259";
+  font-family: 'Glyphicons Halflings';
+  display: inline-block;
+  padding: 10px;
+  border-right: 1px solid #ddd;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open > li.active:before {
+  content: "\e258";
+  font-family: 'Glyphicons Halflings';
+  border: none;
+}
+
+.tabset-dropdown > .nav-tabs > li.active {
+  display: block;
+}
+
+.tabset-dropdown > .nav-tabs > li > a,
+.tabset-dropdown > .nav-tabs > li > a:focus,
+.tabset-dropdown > .nav-tabs > li > a:hover {
+  border: none;
+  display: inline-block;
+  border-radius: 4px;
+  background-color: transparent;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open > li {
+  display: block;
+  float: none;
+}
+
+.tabset-dropdown > .nav-tabs > li {
+  display: none;
+}
+</style>
+
+<!-- code folding -->
+
+
+
+
+</head>
+
+<body>
+
+
+<div class="container-fluid main-container">
+
+
+
+
+<div class="navbar navbar-default  navbar-fixed-top" role="navigation">
+  <div class="container">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-bs-toggle="collapse" data-target="#navbar" data-bs-target="#navbar">
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="index.html">Social Network Analysis Textbook</a>
+    </div>
+    <div id="navbar" class="navbar-collapse collapse">
+      <ul class="nav navbar-nav">
+        <li>
+  <a href="index.html">Social Network Analysis Textbook</a>
+</li>
+<li>
+  <a href="ch-01-intro-to-sna.html">Chapter 1</a>
+</li>
+<li>
+  <a href="ch-02-sna-theory.html">Chapter 2</a>
+</li>
+<li>
+  <a href="ch-03-sna-methods.html">Chapter 3</a>
+</li>
+      </ul>
+      <ul class="nav navbar-nav navbar-right">
+        
+      </ul>
+    </div><!--/.nav-collapse -->
+  </div><!--/.container -->
+</div><!--/.navbar -->
+
+<div id="header">
+
+
+
+<h1 class="title toc-ignore">Network Data Structures</h1>
+
+</div>
+
+
+<div id="network-data-structures" class="section level1">
+<h1>Network Data Structures</h1>
+<div id="learning-goals" class="section level2">
+<h2>Learning Goals</h2>
+<ul>
+<li><p>Be able to answer these questions:</p>
+<ul>
+<li><p>How can we represent networks using graphs and graph
+notation?</p></li>
+<li><p>How can we represent undirected and directed networks using
+matrices?</p></li>
+</ul></li>
+</ul>
+</div>
+<div id="motivating-problem" class="section level2">
+<h2>Motivating Problem</h2>
+<p>Review the figure below, and consider the following problem: Devise a
+route in which you could cross all seven bridges.</p>
+<p><img src="../sna-textbook/images/ch-04-bridge-01.jpeg" /></p>
+<p><em>Now</em>, consider a different problem: Devise a route in which
+you could cross all seven bridges, <strong>but</strong> crossing each of
+the seven bridges <u>only once</u>.</p>
+<p>Did you figure it out?</p>
+<p><br></p>
+<div id="konigsberg-bridge-problem" class="section level3">
+<h3>Konigsberg Bridge Problem</h3>
+<p>Leonard Euler worked on this problem in the mid 18th century,
+eventually representing the solution with a set of points and lines. For
+a great overview fo the problem (and some interesting history), check
+out this <a
+href="https://www.youtube.com/watch?v=nZwSo4vfw6c">video</a>.</p>
+<p>Recall the discussion from LINK TO LECTURE about the importance of
+conceptualizing and operationalizing concepts in network science.
+<em>Graph theory</em> provides a foundation for operationalizing
+concepts of interest among network scientists.</p>
+</div>
+<div id="graph-notation" class="section level3">
+<h3>Graph Notation</h3>
+<p>Definition of a <em>graph</em> is <span class="math inline">\(G =
+(N,L)\)</span>, where <span class="math inline">\(N = {n_1, n_2...,
+n_g}\)</span> defines the set of nodes and <span class="math inline">\(L
+= {l_1, l_2..., l_L}\)</span> defines the set of edges. This definition
+simply states that there are <span class="math inline">\(N\)</span>
+nodes and <span class="math inline">\(L\)</span> edges in a graph.</p>
+<p>Two nodes, <span class="math inline">\(n_i\)</span> and <span
+class="math inline">\(n_j\)</span> are called <strong>adjacent</strong>
+if the line <span class="math inline">\(l_k = (n_i, n_j)\)</span>. What
+this means is that in the graph, there exists a line between nodes
+<em>i</em> and <em>j</em>.</p>
+<div id="node-sets" class="section level4">
+<h4>Node Sets</h4>
+<div id="undirected-binary-graphs" class="section level5">
+<h5>Undirected, Binary Graphs</h5>
+<p>Recall the discussion from LINK TO LECTURE about the directionality
+of graphs. Edges can be either <strong>undirected</strong> or
+<strong>directed</strong>. In an <strong>undirected</strong> graph, the
+order of the nodes does not matter. In other words, <span
+class="math inline">\(l_k = (n_i, n_j) = (n_j, n_i)\)</span>. This is to
+say that if there exists a line between nodes <em>i</em> and <em>j</em>,
+then a line exists between <em>j</em> and <em>i</em>. (This may seem
+obvious, but will make more sense why we talk about it this way when we
+get to <strong>directed</strong> graphs.)</p>
+<p><img src="ch-04-net-data-structures_files/figure-html/unnamed-chunk-2-1.png" width="480" /></p>
+</div>
+<div id="directed-binary-graphs" class="section level5">
+<h5>Directed, Binary Graphs</h5>
+<p>In a <strong>directed</strong> graph, the order of the nodes
+<u>does</u> matter. Specifically, <span class="math inline">\(l_k1 =
+(n_i, n_j) \neq (n_j, n_i) = l_k2\)</span>.</p>
+</div>
+</div>
+<div id="adjacency" class="section level4">
+<h4>Adjacency</h4>
+<p>Two nodes, <span class="math inline">\(n_i\)</span> and <span
+class="math inline">\(n_j\)</span> are <strong>adjacent</strong> if the
+link <span class="math inline">\(l_k = (n_i,n_j)\)</span>. This is to
+say that in the graph, there exists an edge between nodes <em>i</em> and
+<em>j</em>. For a set of relations, <span
+class="math inline">\(X\)</span>, we can define a matrix which
+represents these relations. We commonly use an <strong>adjacency
+matrix</strong>, where each node is listed on the row and the column.
+The <span class="math inline">\(i_{th}\)</span> row and the <span
+class="math inline">\(j_{th}\)</span> column of <span
+class="math inline">\(X_{ij}\)</span> records the value of a tie from
+<em>i</em> to <em>j</em>. In this approach, <span
+class="math inline">\(X\)</span>, can be thought of as a variable. The
+presence or absence of values in the cells represent variation. THIS
+WOUDL BE A GOOD SPOT FOR THAT ONE SLIDE FROM THE INTRO LECTURE THAT YOU
+WERE NOT SURE WHAT TO DO WITH.</p>
+<p>Here are some important definitions that we will come across as we
+talk about network data structures:</p>
+<ul>
+<li>Scalar: a single number</li>
+<li>Column vector: a column of numbers</li>
+<li>Row vector: a row of numbers</li>
+<li>Matrix: a rectangular array of numbers</li>
+<li>Order: number of rows and columns defining the matrix</li>
+<li>Square matrix: number of rows and columns of matrix are equal</li>
+</ul>
+<div id="undirected-binary-graphs-1" class="section level5">
+<h5>Undirected, Binary Graphs</h5>
+<p>The undirected network we showed above is called a
+<em>sociogram</em>:</p>
+<p>We can represent the graph as a matrix using an adjacency matrix
+(sometimes called a <em>sociomatrix</em>):</p>
+<div class="float">
+<img src="../sna-textbook/images/ch-04-matrix-01.jpeg"
+alt="figure #.#: NAME" />
+<div class="figcaption">figure #.#: NAME</div>
+</div>
+<p>In most instances, we do not allow self-nominations, so the diagonal
+of the matrix is usually undefined or set to zero. In networks that
+allow self-nominations, you can have values on the diagonal. These are
+refered to as loops.</p>
+<div class="float">
+<img src="../sna-textbook/images/ch-04-matrix-02.jpeg"
+alt="figure #.#: NAME" />
+<div class="figcaption">figure #.#: NAME</div>
+</div>
+<p><br></p>
+<p>In the first row, <em>i</em> sends to the second row only: <span
+class="math inline">\(X_{12}=1; X_{15}=0\)</span> (where <span
+class="math inline">\(X_{ij}\)</span> refers to the ith row and the jth
+column of the matrix).</p>
+<div class="float">
+<img src="../sna-textbook/images/ch-04-matrix-03.jpeg"
+alt="figure #.#: NAME" />
+<div class="figcaption">figure #.#: NAME</div>
+</div>
+<p><br></p>
+<p>Since this graph is <em>undirected</em>, it is
+<strong>symmetric</strong> about the diagonal. This means that <span
+class="math inline">\(X_{ij} = X_{ji}\)</span> or that the <em>jith</em>
+column is the transposition of the <em>ith</em> row, as shown in the
+figure.</p>
+<div class="float">
+<img src="../sna-textbook/images/ch-04-matrix-04.jpeg"
+alt="figure #.#: NAME" />
+<div class="figcaption">figure #.#: NAME</div>
+</div>
+<p><br></p>
+<p>Now, what does the rest of the matrix look like? Fill in the values
+in the matrix based on the graph.</p>
+<div class="float">
+<img src="../sna-textbook/images/ch-04-matrix-05.jpeg"
+alt="figure #.#: NAME" />
+<div class="figcaption">figure #.#: NAME</div>
+</div>
+<p>Done? It should look like this:</p>
+<div class="float">
+<img src="../sna-textbook/images/ch-04-matrix-06.jpeg"
+alt="figure #.#: NAME" />
+<div class="figcaption">figure #.#: NAME</div>
+</div>
+<p>Note that I added zeros to the diagonal. As we will see later, we
+want these values defined for working with the matrix in a software
+program.</p>
+<p>The highlighted section here is called the <strong>lower
+triangle</strong> of the matrix. The <em>sum</em> of the lower triangle
+should equal the number of edges in the graph.</p>
+<div class="float">
+<img src="../sna-textbook/images/ch-04-matrix-07.jpeg"
+alt="figure #.#: NAME" />
+<div class="figcaption">figure #.#: NAME</div>
+</div>
+<p>The other highlighted section here is called the <strong>upper
+triangle</strong> of the matrix. The <em>sum</em> of the upper triangle
+should also equal the number of edges in the graph.</p>
+<div class="float">
+<img src="../sna-textbook/images/ch-04-matrix-08.jpeg"
+alt="figure #.#: NAME" />
+<div class="figcaption">figure #.#: NAME</div>
+</div>
+<p>Alternatively, we could sum all the elements and divide by 2.</p>
+<p><br></p>
+</div>
+<div id="directed-binary-graphs-1" class="section level5">
+<h5>Directed, Binary Graphs</h5>
+<p>In a <strong>directed</strong> graph, the order of the nodes
+<u>does</u> matter. Specifically, <span class="math inline">\(l_k1 =
+(n_i, n_j) \neq (n_j, n_i) = l_k2\)</span>.</p>
+<p>What is different in our matrix when the graph is directed?</p>
+<div class="float">
+<img src="../sna-textbook/images/ch-04-matrix-01.jpeg"
+alt="figure #.#: NAME" />
+<div class="figcaption">figure #.#: NAME</div>
+</div>
+<p>In the first row, <em>i</em> sends to the second row: <span
+class="math inline">\(X_{12}=1\)</span>.</p>
+<div class="float">
+<img src="../sna-textbook/images/ch-04-matrix-09.jpeg"
+alt="figure #.#: NAME" />
+<div class="figcaption">figure #.#: NAME</div>
+</div>
+<p><br></p>
+<p>But, in the second row, <em>j</em> does not send <span
+class="math inline">\(X_{21}=0\)</span>. The Jen/Tom dyad is
+<strong>asymmetric</strong>. Directed graphs permit this asymmetric
+because <span class="math inline">\(l_k1 = (n_i, n_j) \neq (n_j, n_i) =
+l_k2\)</span>.</p>
+<p><img src="../sna-textbook/images/ch-04-matrix-10.jpeg"
+alt="figure #.#: NAME" /> <br></p>
+<p>What about the Leaf/Bob dyad? Is it <em>asymmetric</em> or is it
+<em>symmetric</em>?</p>
+<div class="float">
+<img src="../sna-textbook/images/ch-04-matrix-11.jpeg"
+alt="figure #.#: NAME" />
+<div class="figcaption">figure #.#: NAME</div>
+</div>
+<p><br></p>
+<p>Now, what does the rest of the matrix look like? Fill in the values
+in the matrix based on the graph.</p>
+<div class="float">
+<img src="../sna-textbook/images/ch-04-matrix-12.jpeg"
+alt="figure #.#: NAME" />
+<div class="figcaption">figure #.#: NAME</div>
+</div>
+<p>Done? It should look like this:</p>
+<div class="float">
+<img src="../sna-textbook/images/ch-04-matrix-13.jpeg"
+alt="figure #.#: NAME" />
+<div class="figcaption">figure #.#: NAME</div>
+</div>
+<p><br></p>
+<p>Note that, because we are allowing directionality to matter, the
+total number of edges in the network is just the sum of the entire
+matrix.</p>
+</div>
+</div>
+</div>
+</div>
+</div>
+
+
+
+
+</div>
+
+<script>
+
+// add bootstrap table styles to pandoc tables
+function bootstrapStylePandocTables() {
+  $('tr.odd').parent('tbody').parent('table').addClass('table table-condensed');
+}
+$(document).ready(function () {
+  bootstrapStylePandocTables();
+});
+
+
+</script>
+
+<!-- tabsets -->
+
+<script>
+$(document).ready(function () {
+  window.buildTabsets("TOC");
+});
+
+$(document).ready(function () {
+  $('.tabset-dropdown > .nav-tabs > li').click(function () {
+    $(this).parent().toggleClass('nav-tabs-open');
+  });
+});
+</script>
+
+<!-- code folding -->
+
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    script.src  = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+
+</body>
+</html>

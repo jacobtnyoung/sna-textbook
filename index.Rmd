@@ -1,12 +1,5 @@
 ---
 title: "Social Network Analysis Textbook"
-output: 
-  html_document:
-    theme: sandstone
-    toc: false
-    toc_float: false
-    collapsed: false
-    smooth_scroll: false
 ---
 
 <style>

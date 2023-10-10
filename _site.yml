@@ -1,4 +1,12 @@
 name: "Social Network Analysis Textbook"
+output:  
+  html_document:  
+    html_document:
+    theme: sandstone
+    toc: false
+    toc_float: false
+    collapsed: false
+    smooth_scroll: false
 output_dir: "docs"
 navbar:
   title: "Social Network Analysis Textbook"

@@ -7,7 +7,19 @@ output:
     self_contained: true
 ---
 
+```{r setup, include=FALSE}
+
+knitr::opts_chunk$set(echo = FALSE, message=FALSE, warning=FALSE, fig.width = 10)
+
+library( here )
+
+```
+
+<br>
+
 # Introduction to Social Network Analysis
+
+<br>
 
 ## Learning Goals
 
@@ -17,7 +29,8 @@ output:
     
     * What do networks "look like"?
     
-    
+<br>
+
 ## Motivating Question and Empirical Example
 
 To get a sense of what we do when we study networks, let's start with a motivating question:
@@ -39,12 +52,15 @@ For example, in a study by [Young & Ready (2015)](https://journals.sagepub.com/d
 
 To answer these questions, they proposed the following model:  
 
-![](../../sna-textbook/images/ch-01-model-figure.jpeg)
-  
+```{r, fig.cap = "", out.width = "60%"}
+knitr::include_graphics( "images/ch-01-model-figure.jpeg" )
+```
+
 In this model, the argued that police officers views of body-worn cameras influence whether they use their cameras in incidents. Where do these views come from? The authors proposed a *contagion* process whereby officers who shared incidents together exchanged views about the legitimacy of body-worn cameras.
 
 Thus, the network matters!
 
+<br>
 
 ## Network Science
 
@@ -59,7 +75,8 @@ Network science takes these **relational structures** as the primary domain of i
   * What effects the network?
     * Here, the network is a *dependent variable*. Do younger individuals who are involved in crime have more co-offenders? 
     
-    
+<br>
+
 ## Network Analysis
 
 Network **analysis** is the set of tools used to study *relational variables*. A set of methods for systematically understanding and identifying connections among actors. 
@@ -80,7 +97,10 @@ The questions differ substantially in causal logic:
   
 Here is another [example](https://www.theonion.com/sudden-death-of-aunt-creates-rupture-in-family-gossip-p-1819578447) from America's "finest news source", the Onion:
 
-![gossip story](../../sna-textbook/images/ch-01-gossip.jpeg)
+```{r, fig.cap = "", out.width = "60%"}
+knitr::include_graphics( "images/ch-01-gossip.jpeg" )
+```
+
 
 Conceptually, what does this story tell us about the **relational structure** of information transmission in the Shelton family?
 
@@ -88,26 +108,35 @@ It is *vulnerable*!
 
 To understand, we can draw a picture illustrating the network described in the story:
 
-![gossip net 1](../../sna-textbook/images/ch-01-gossip-laurie-01.jpeg)
+```{r, fig.cap = "", out.width = "30%"}
+knitr::include_graphics( "images/ch-01-gossip-laurie-01.jpeg" )
+```
 
 What makes it vulnerable? What happened when aunt Laurie died?
 
-![gossip net 2](../../sna-textbook/images/ch-01-gossip-laurie-02.jpeg)
+```{r, fig.cap = "", out.width = "60%"}
+knitr::include_graphics( "images/ch-01-gossip-laurie-02.jpeg" )
+```
 
 Communication is completed disrupted!
 
 Now, consider a separate network arrangement:
 
-![gossip net 3](../../sna-textbook/images/ch-01-gossip-laurie-03.jpeg)
+```{r, fig.cap = "", out.width = "30%"}
+knitr::include_graphics( "images/ch-01-gossip-laurie-03.jpeg" )
+```
 
 Now what happens when aunt Laurie dies?
 
-![gossip net 4](../../sna-textbook/images/ch-01-gossip-laurie-04.jpeg)
+```{r, fig.cap = "", out.width = "60%"}
+knitr::include_graphics( "images/ch-01-gossip-laurie-04.jpeg" )
+```
 
 Communication is *not* disrupted. This is because the network now has **redundant** ties which make it less vulnerable to disruption.
 
 The point here is this: these topics are inherently *relational*. 
 
+<br>
 
 ## Network Science and Network Analysis
 
@@ -123,6 +152,7 @@ In doing network research (i.e. asking questions that involve networks and perfo
     
 Let's take an example. Suppose we are interested in the concept of *power* in a gang. Some gang members may be more powerful than others. But, what does it mean to say that someone is powerful? There are many different ways to conceptualize power. One way is to think about it as being central members of the gang. So, we could create a conceptual definition: powerful gang members are those who are central to the gang network. Ok, so how do we measure it? In other words, how do we operationalize power based on our conceptual definition? We could say that individuals who are central in the gang are those who are perceived as being central. So, we could ask gang members "who is the most central person in your gang?". Then, we would have an operationalization of power in the gang.
 
+<br>
 
 ## Basic Data Elements
 
@@ -148,7 +178,9 @@ Examples:
 
 On a graph, nodes are represented by *points* and edges are represented by *lines*.
 
-![net 1](../../sna-textbook/images/ch-01-net-01.jpeg)
+```{r, fig.cap = "", out.width = "30%"}
+knitr::include_graphics( "images/ch-01-net-01.jpeg" )
+```
 
 ### Edges
 
@@ -156,15 +188,21 @@ On a graph, nodes are represented by *points* and edges are represented by *line
 
 Edges can be *undirected*, where an edge from A to B is the same as an edge from B to A:
 
-![net 2](../../sna-textbook/images/ch-01-net-02.jpeg)
+```{r, fig.cap = "", out.width = "30%"}
+knitr::include_graphics( "images/ch-01-net-02.jpeg" )
+```
 
- or *directed*, where an edge from A to B is separate from an edge from B to A:
+or *directed*, where an edge from A to B is separate from an edge from B to A:
 
-![net 3](../../sna-textbook/images/ch-01-net-03.jpeg)
+```{r, fig.cap = "", out.width = "30%"}
+knitr::include_graphics( "images/ch-01-net-03.jpeg" )
+```
 
 The difference is important. For example, suppose the edges of the networks below measure communication of information. 
 
-![net 4](../../sna-textbook/images/ch-01-net-04.jpeg)
+```{r, fig.cap = "", out.width = "60%"}
+knitr::include_graphics( "images/ch-01-net-04.jpeg" )
+```
 
 *How are these structures different?*
 
@@ -203,17 +241,23 @@ Networks can differ with respect to the sets of nodes that define them. This ref
   * One-mode/uni-partite (connections among one type of node). For example, A and B are friends. There is only one group of nodes, individuals.
   * Multi-mode/multi-partite (connections among two or more types of nodes). For example A and B attend protests 1, 2, and 3. There are two sets of nodes, individuals and protests. A and B are connected through their shared participation in the protests.
 
-![net 5](../../sna-textbook/images/ch-01-net-05.jpeg)
+```{r, fig.cap = "", out.width = "30%"}
+knitr::include_graphics( "images/ch-01-net-05.jpeg" )
+```
 
 As an example, the network for the study discussed above by [Young & Ready (2015)](https://journals.sagepub.com/doi/10.1177/1043986214553380) is shown below:
 
-![net 6](../../sna-textbook/images/ch-01-net-06.jpeg)
-  
+```{r, fig.cap = "", out.width = "60%"}
+knitr::include_graphics( "images/ch-01-net-06.jpeg" )
+```
+
 In this network, incidents (white circles) connect officers (squares and triangles). This is a two-mode/bipartite network because there are two sets of nodes: incidents and officers. The plot shows two types of officers, those who were in the treatment condition of the study (i.e. they were assigned a body-worn camera) and those who were in the control condition (i.e. they did not receive a camera). The focus of the study was how exposure to body-cameras during incidents influenced views, especially for those who were not assigned a camera.
 
 As another example, [Schjarback & Young](https://link.springer.com/article/10.1007/s12103-017-9395-5) examined the tendency for United States senators to sign different types of legislation. Specifically, the authors were interested in whether crime control legislation was more likely to be signed if individuals were from the same party.
 
-![net 7](../../sna-textbook/images/ch-01-net-07.jpeg)
+```{r, fig.cap = "", out.width = "60%"}
+knitr::include_graphics( "images/ch-01-net-07.jpeg" )
+```
 
 In this network, there are two sets of nodes: bills (crime control and non-control) and senators (Democrats and Republicans).
   
@@ -228,9 +272,18 @@ Networks can also differ with respect to the types of edges.
 
 For example, in the fictitious plot below, individual responded to three questions: "do you get along with this person?", "do you discuss important matters with this person?", and "is this person powerful/influential?"
 
-![net 8](../../sna-textbook/images/ch-01-net-08.jpeg)
+```{r, fig.cap = "", out.width = "40%"}
+knitr::include_graphics( "images/ch-01-net-08.jpeg" )
+```
+
+<br>
 
 #### Summary
 
 To summarize this section, the main take away is that *relational* data can take many different forms and be represented in many different ways.
 
+<br><br>
+
+***Please*** report any corrections or comments to the [Issues](https://github.com/jacobtnyoung/sna-textbook/issues) page. Thanks!
+
+<br><br>

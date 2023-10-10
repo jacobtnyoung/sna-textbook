@@ -260,9 +260,11 @@ $(document).ready(function () {
 </div>
 
 
+<p><br></p>
 <div id="introduction-to-social-network-analysis"
 class="section level1">
 <h1>Introduction to Social Network Analysis</h1>
+<p><br></p>
 <div id="learning-goals" class="section level2">
 <h2>Learning Goals</h2>
 <ul>
@@ -273,6 +275,7 @@ research?</p></li>
 <li><p>What do networks “look like”?</p></li>
 </ul></li>
 </ul>
+<p><br></p>
 </div>
 <div id="motivating-question-and-empirical-example"
 class="section level2">
@@ -301,13 +304,14 @@ questions:</p>
 in groups?</li>
 </ul>
 <p>To answer these questions, they proposed the following model:</p>
-<p><img src="../../sna-textbook/images/ch-01-model-figure.jpeg" /></p>
+<p><img src="images/ch-01-model-figure.jpeg" width="60%" /></p>
 <p>In this model, the argued that police officers views of body-worn
 cameras influence whether they use their cameras in incidents. Where do
 these views come from? The authors proposed a <em>contagion</em> process
 whereby officers who shared incidents together exchanged views about the
 legitimacy of body-worn cameras.</p>
 <p>Thus, the network matters!</p>
+<p><br></p>
 </div>
 <div id="network-science" class="section level2">
 <h2>Network Science</h2>
@@ -333,6 +337,7 @@ influenced views of body-worn cameras.</li>
 individuals who are involved in crime have more co-offenders?</li>
 </ul></li>
 </ul>
+<p><br></p>
 </div>
 <div id="network-analysis" class="section level2">
 <h2>Network Analysis</h2>
@@ -366,46 +371,27 @@ popular.</p></li>
 <p>Here is another <a
 href="https://www.theonion.com/sudden-death-of-aunt-creates-rupture-in-family-gossip-p-1819578447">example</a>
 from America’s “finest news source”, the Onion:</p>
-<div class="float">
-<img src="../../sna-textbook/images/ch-01-gossip.jpeg"
-alt="gossip story" />
-<div class="figcaption">gossip story</div>
-</div>
+<p><img src="images/ch-01-gossip.jpeg" width="60%" /></p>
 <p>Conceptually, what does this story tell us about the
 <strong>relational structure</strong> of information transmission in the
 Shelton family?</p>
 <p>It is <em>vulnerable</em>!</p>
 <p>To understand, we can draw a picture illustrating the network
 described in the story:</p>
-<div class="float">
-<img src="../../sna-textbook/images/ch-01-gossip-laurie-01.jpeg"
-alt="gossip net 1" />
-<div class="figcaption">gossip net 1</div>
-</div>
+<p><img src="images/ch-01-gossip-laurie-01.jpeg" width="30%" /></p>
 <p>What makes it vulnerable? What happened when aunt Laurie died?</p>
-<div class="float">
-<img src="../../sna-textbook/images/ch-01-gossip-laurie-02.jpeg"
-alt="gossip net 2" />
-<div class="figcaption">gossip net 2</div>
-</div>
+<p><img src="images/ch-01-gossip-laurie-02.jpeg" width="60%" /></p>
 <p>Communication is completed disrupted!</p>
 <p>Now, consider a separate network arrangement:</p>
-<div class="float">
-<img src="../../sna-textbook/images/ch-01-gossip-laurie-03.jpeg"
-alt="gossip net 3" />
-<div class="figcaption">gossip net 3</div>
-</div>
+<p><img src="images/ch-01-gossip-laurie-03.jpeg" width="30%" /></p>
 <p>Now what happens when aunt Laurie dies?</p>
-<div class="float">
-<img src="../../sna-textbook/images/ch-01-gossip-laurie-04.jpeg"
-alt="gossip net 4" />
-<div class="figcaption">gossip net 4</div>
-</div>
+<p><img src="images/ch-01-gossip-laurie-04.jpeg" width="60%" /></p>
 <p>Communication is <em>not</em> disrupted. This is because the network
 now has <strong>redundant</strong> ties which make it less vulnerable to
 disruption.</p>
 <p>The point here is this: these topics are inherently
 <em>relational</em>.</p>
+<p><br></p>
 </div>
 <div id="network-science-and-network-analysis" class="section level2">
 <h2>Network Science and Network Analysis</h2>
@@ -440,6 +426,7 @@ that individuals who are central in the gang are those who are perceived
 as being central. So, we could ask gang members “who is the most central
 person in your gang?”. Then, we would have an operationalization of
 power in the gang.</p>
+<p><br></p>
 </div>
 <div id="basic-data-elements" class="section level2">
 <h2>Basic Data Elements</h2>
@@ -468,10 +455,7 @@ which they both were present.</p></li>
 </ul>
 <p>On a graph, nodes are represented by <em>points</em> and edges are
 represented by <em>lines</em>.</p>
-<div class="float">
-<img src="../../sna-textbook/images/ch-01-net-01.jpeg" alt="net 1" />
-<div class="figcaption">net 1</div>
-</div>
+<p><img src="images/ch-01-net-01.jpeg" width="30%" /></p>
 </div>
 <div id="edges" class="section level3">
 <h3>Edges</h3>
@@ -479,22 +463,13 @@ represented by <em>lines</em>.</p>
 <h4>Directionality</h4>
 <p>Edges can be <em>undirected</em>, where an edge from A to B is the
 same as an edge from B to A:</p>
-<div class="float">
-<img src="../../sna-textbook/images/ch-01-net-02.jpeg" alt="net 2" />
-<div class="figcaption">net 2</div>
-</div>
+<p><img src="images/ch-01-net-02.jpeg" width="30%" /></p>
 <p>or <em>directed</em>, where an edge from A to B is separate from an
 edge from B to A:</p>
-<div class="float">
-<img src="../../sna-textbook/images/ch-01-net-03.jpeg" alt="net 3" />
-<div class="figcaption">net 3</div>
-</div>
+<p><img src="images/ch-01-net-03.jpeg" width="30%" /></p>
 <p>The difference is important. For example, suppose the edges of the
 networks below measure communication of information.</p>
-<div class="float">
-<img src="../../sna-textbook/images/ch-01-net-04.jpeg" alt="net 4" />
-<div class="figcaption">net 4</div>
-</div>
+<p><img src="images/ch-01-net-04.jpeg" width="60%" /></p>
 <p><em>How are these structures different?</em></p>
 <p>In the undirected network (on the left), all information can reach
 all three groups. To see this start at any node and you can reach any
@@ -546,17 +521,11 @@ nodes). For example A and B attend protests 1, 2, and 3. There are two
 sets of nodes, individuals and protests. A and B are connected through
 their shared participation in the protests.</li>
 </ul>
-<div class="float">
-<img src="../../sna-textbook/images/ch-01-net-05.jpeg" alt="net 5" />
-<div class="figcaption">net 5</div>
-</div>
+<p><img src="images/ch-01-net-05.jpeg" width="30%" /></p>
 <p>As an example, the network for the study discussed above by <a
 href="https://journals.sagepub.com/doi/10.1177/1043986214553380">Young
 &amp; Ready (2015)</a> is shown below:</p>
-<div class="float">
-<img src="../../sna-textbook/images/ch-01-net-06.jpeg" alt="net 6" />
-<div class="figcaption">net 6</div>
-</div>
+<p><img src="images/ch-01-net-06.jpeg" width="60%" /></p>
 <p>In this network, incidents (white circles) connect officers (squares
 and triangles). This is a two-mode/bipartite network because there are
 two sets of nodes: incidents and officers. The plot shows two types of
@@ -571,10 +540,7 @@ href="https://link.springer.com/article/10.1007/s12103-017-9395-5">Schjarback
 different types of legislation. Specifically, the authors were
 interested in whether crime control legislation was more likely to be
 signed if individuals were from the same party.</p>
-<div class="float">
-<img src="../../sna-textbook/images/ch-01-net-07.jpeg" alt="net 7" />
-<div class="figcaption">net 7</div>
-</div>
+<p><img src="images/ch-01-net-07.jpeg" width="60%" /></p>
 <p>In this network, there are two sets of nodes: bills (crime control
 and non-control) and senators (Democrats and Republicans).</p>
 </div>
@@ -590,16 +556,20 @@ types)</p></li>
 three questions: “do you get along with this person?”, “do you discuss
 important matters with this person?”, and “is this person
 powerful/influential?”</p>
-<div class="float">
-<img src="../../sna-textbook/images/ch-01-net-08.jpeg" alt="net 8" />
-<div class="figcaption">net 8</div>
-</div>
+<p><img src="images/ch-01-net-08.jpeg" width="40%" /></p>
+<p><br></p>
 </div>
 <div id="summary" class="section level4">
 <h4>Summary</h4>
 <p>To summarize this section, the main take away is that
 <em>relational</em> data can take many different forms and be
 represented in many different ways.</p>
+<p><br><br></p>
+<p><strong><em>Please</em></strong> report any corrections or comments
+to the <a
+href="https://github.com/jacobtnyoung/sna-textbook/issues">Issues</a>
+page. Thanks!</p>
+<p><br><br></p>
 </div>
 </div>
 </div>

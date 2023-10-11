@@ -28,7 +28,7 @@ For those readers who are new to SNA, I would suggest starting at the beginning 
 
 #### [*Chapter 1: Introduction to Social Network Analysis*](docs/ch-01-intro-to-sna.html)
 
-#### [*Chapter 2: Social Network Analysis and Theory*](/docs/ch-01-intro-to-sna.html)
+#### [*Chapter 2: Social Network Analysis and Theory*]()
 
 #### [*Chapter 3: Social Network Analysis and Methods for Data Collection*]()
 

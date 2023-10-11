@@ -13,6 +13,8 @@ navbar:
   left:
     - text: "Preface/Table of Contents"
       href: index.html
+    - text: ""
+      href: index.html
     - text: "Chapter 1"
       href: ch-01-intro-to-sna.html
     - text: "Chapter 2"

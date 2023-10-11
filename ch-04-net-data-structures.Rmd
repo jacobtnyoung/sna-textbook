@@ -1,21 +1,13 @@
 ---
-title: "Network Data Structures"
-output: 
-  html_document:
-    df_print: paged
-    theme: sandstone
-    highlight: haddock
-    self_contained: true
+title: ""
 ---
 
 ```{r setup, include=FALSE}
-
-knitr::opts_chunk$set( echo=FALSE, eval=TRUE, message=FALSE, warning=FALSE, results="hide", fig.show="hide" )
-
+knitr::opts_chunk$set( echo = FALSE, message=FALSE, warning=FALSE, fig.width = 10 )
+library( here )
 ```
 
-
-```{r}
+```{r net-setup, results="hide", fig.show="hide"}
 
 ### Set up the objects that will be used in the lecture
 
@@ -54,10 +46,13 @@ d.c.mat <- d.mat
 d.c.mat[d.mat == 0] <- 1
 diag( d.c.mat ) <- 0
 
-
 ```
 
-# Network Data Structures
+<br>
+
+# Chapter 4: Network Data Structures
+
+<br>
 
 ## Learning Goals
 
@@ -67,13 +62,17 @@ diag( d.c.mat ) <- 0
     
     * How can we represent undirected and directed networks using matrices?
   
-    
+<br>
+
 ## Motivating Problem
 
 Review the figure below, and consider the following problem: Devise a route in which you could cross all seven bridges. 
 
+```{r, fig.cap = "", out.width = "60%"}
+knitr::include_graphics( "images/ch-04-bridge-01.jpeg" )
+```
 
-![](../sna-textbook/images/ch-04-bridge-01.jpeg)
+<br>
 
 *Now*, consider a different problem: Devise a route in which you could cross all seven bridges, **but** crossing each of the seven bridges <u>only once</u>.
 
@@ -85,8 +84,9 @@ Did you figure it out?
 
 Leonard Euler worked on this problem in the mid 18th century, eventually representing the solution with a set of points and lines. For a great overview fo the problem (and some interesting history), check out this [video](https://www.youtube.com/watch?v=nZwSo4vfw6c).
 
-Recall the discussion from LINK TO LECTURE about the importance of conceptualizing and operationalizing concepts in network science. *Graph theory* provides a foundation for operationalizing concepts of interest among network scientists.
+Recall the discussion from [Chapter 1: Introduction to Social Network Analysis]() about the importance of conceptualizing and operationalizing concepts in network science. *Graph theory* provides a foundation for operationalizing concepts of interest among network scientists.
 
+<br>
 
 ### Graph Notation
 
@@ -141,45 +141,67 @@ gplot( u.mat, gmode = "graph", displaylabels = TRUE, label.pos = 5, label.cex = 
 
 We can represent the graph as a matrix using an adjacency matrix (sometimes called a *sociomatrix*):
 
-![figure #.#: NAME](../sna-textbook/images/ch-04-matrix-01.jpeg)
+```{r, fig.cap = "", out.width = "60%"}
+knitr::include_graphics( "images/ch-04-matrix-01.jpeg" )
+```
 
 In most instances, we do not allow self-nominations, so the diagonal of the matrix is usually undefined or set to zero. In networks that allow self-nominations, you can have values on the diagonal. These are refered to as loops.
 
-![figure #.#: NAME](../sna-textbook/images/ch-04-matrix-02.jpeg)
+```{r, fig.cap = "", out.width = "60%"}
+knitr::include_graphics( "images/ch-04-matrix-02.jpeg" )
+```
 
 <br>
 
 In the first row, *i* sends to the second row only: $X_{12}=1; X_{15}=0$ (where $X_{ij}$ refers to the ith row and the jth column of the matrix). 
 
-![figure #.#: NAME](../sna-textbook/images/ch-04-matrix-03.jpeg)
+```{r, fig.cap = "", out.width = "60%"}
+knitr::include_graphics( "images/ch-04-matrix-03.jpeg" )
+```
 
 <br>
 
 Since this graph is *undirected*, it is **symmetric** about the diagonal. This means that $X_{ij} = X_{ji}$ or that the *jith* column is the transposition of the *ith* row, as shown in the figure. 
 
-![figure #.#: NAME](../sna-textbook/images/ch-04-matrix-04.jpeg)
+```{r, fig.cap = "", out.width = "60%"}
+knitr::include_graphics( "images/ch-04-matrix-04.jpeg" )
+```
 
 <br>
 
 Now, what does the rest of the matrix look like? Fill in the values in the matrix based on the graph.
 
-![figure #.#: NAME](../sna-textbook/images/ch-04-matrix-05.jpeg)
+```{r, fig.cap = "", out.width = "60%"}
+knitr::include_graphics( "images/ch-04-matrix-05.jpeg" )
+```
 
+<br>
 
 Done? It should look like this:
 
-![figure #.#: NAME](../sna-textbook/images/ch-04-matrix-06.jpeg)
+```{r, fig.cap = "", out.width = "60%"}
+knitr::include_graphics( "images/ch-04-matrix-06.jpeg" )
+```
+
+<br>
 
 Note that I added zeros to the diagonal. As we will see later, we want these values defined for working with the matrix in a software program.
 
 The highlighted section here is called the **lower triangle** of the matrix. The *sum* of the lower triangle should equal the number of edges in the graph.
 
+```{r, fig.cap = "", out.width = "60%"}
+knitr::include_graphics( "images/ch-04-matrix-07.jpeg" )
+```
 
-![figure #.#: NAME](../sna-textbook/images/ch-04-matrix-07.jpeg)
+<br>
 
 The other highlighted section here is called the **upper triangle** of the matrix. The *sum* of the upper triangle should also equal the number of edges in the graph.
 
-![figure #.#: NAME](../sna-textbook/images/ch-04-matrix-08.jpeg)
+```{r, fig.cap = "", out.width = "60%"}
+knitr::include_graphics( "images/ch-04-matrix-08.jpeg" )
+```
+
+<br>
 
 Alternatively, we could sum all the elements and divide by 2.
 
@@ -197,38 +219,70 @@ gplot( d.mat, gmode = "digraph", displaylabels = TRUE, label.pos = 5, label.cex 
 
 What is different in our matrix when the graph is directed?
   
-![figure #.#: NAME](../sna-textbook/images/ch-04-matrix-01.jpeg)
-    
+```{r, fig.cap = "", out.width = "60%"}
+knitr::include_graphics( "images/ch-04-matrix-01.jpeg" )
+```
+
+<br>
+
 In the first row, *i* sends to the second row: $X_{12}=1$.
+
+```{r, fig.cap = "", out.width = "60%"}
+knitr::include_graphics( "images/ch-04-matrix-09.jpeg" )
+```
     
-![figure #.#: NAME](../sna-textbook/images/ch-04-matrix-09.jpeg)
-      
 <br>
         
 But, in the second row, *j* does not send $X_{21}=0$. The Jen/Tom dyad is **asymmetric**. Directed graphs permit this asymmetric because $l_k1 = (n_i, n_j) \neq (n_j, n_i) = l_k2$.
       
-![figure #.#: NAME](../sna-textbook/images/ch-04-matrix-10.jpeg)
+```{r, fig.cap = "", out.width = "60%"}
+knitr::include_graphics( "images/ch-04-matrix-10.jpeg" )
+```
+
 <br>
           
 What about the Leaf/Bob dyad? Is it *asymmetric* or is it *symmetric*? 
-          
-![figure #.#: NAME](../sna-textbook/images/ch-04-matrix-11.jpeg)
+
+```{r, fig.cap = "", out.width = "60%"}
+knitr::include_graphics( "images/ch-04-matrix-11.jpeg" )
+```
 
 <br>
               
 Now, what does the rest of the matrix look like? Fill in the values in the matrix based on the graph.
-            
-![figure #.#: NAME](../sna-textbook/images/ch-04-matrix-12.jpeg)
-              
-              
+
+```{r, fig.cap = "", out.width = "60%"}
+knitr::include_graphics( "images/ch-04-matrix-12.jpeg" )
+```
+
+<br>      
+
 Done? It should look like this:
-                
-![figure #.#: NAME](../sna-textbook/images/ch-04-matrix-13.jpeg)
-                  
+
+```{r, fig.cap = "", out.width = "60%"}
+knitr::include_graphics( "images/ch-04-matrix-13.jpeg" )
+```
+
 <br>                
 
 Note that, because we are allowing directionality to matter, the total number of edges in the network is just the sum of the entire matrix.
 
+<br>
 
+## Summary
 
+  * In this chapter, we discussed and illustrated:
+  
+    * How to represent networks using graphs and graph notation.
+    
+    * How to represent undirected and directed networks using matrices.
+  
+<br>
 
+#### Continue to [Chapter 5: Degree Centrality]()
+
+<br><br>
+
+***Please*** report any corrections or comments to the [Issues](https://github.com/jacobtnyoung/sna-textbook/issues) page. Thanks!
+
+<br><br>

@@ -1,20 +1,57 @@
 ---
-title: "Social Network Analysis Textbook"
+title: ""
 ---
 
-<style>
-body {
-text-align: justify}
-</style>
-
 ```{r setup, include=FALSE}
+
 knitr::opts_chunk$set( echo = TRUE )
+
 ```
 
 <br>
 
-## Social Network Analysis Textbook
+## Preface
 
 <br>
 
-### Chapter 1: 
+Welcome to the [Social Network Analysis Textbook](https://jacobtnyoung.github.io/sna-textbook/)!  
+
+This textbook is designed to introduce you to basic concepts used in social network analysis (SNA). The textbook is divided into chapters that cover a variety of these concepts. The textbook is not exhaustive, but most of the major topics are discussed.
+
+For those readers who are new to SNA, I would suggest starting at the beginning ([Chapter 1]()) and working through in chronological order. For those readers who are already familiar with SNA, feel free to skip through the chapters.
+
+<br>
+
+## Table of Contents
+
+<br>
+
+#### [*Chapter 1: Introduction to Social Network Analysis*]()
+
+#### [*Chapter 2: Social Network Analysis and Theory*]()
+
+#### [*Chapter 3: Social Network Analysis and Methods for Data Collection*]()
+
+#### [*Chapter 4: Network Data Structures*]()
+
+#### [*Chapter 5: Degree Centrality*]()
+
+#### [*Chapter 6: Closeness Centrality*]()
+
+#### [*Chapter 7: Betweenness Centrality*]()
+
+#### [*Chapter 8: Comparison of Centrality Measures*]()
+
+#### [*Chapter 9: Local Structure*]()
+
+#### [*Chapter 10: Bipartite Graphs/Two-Mode Networks*]()
+
+#### [*Chapter 11: Projection*]()
+
+#### [*Chapter 12: Weighted Graphs*]()
+
+<br><br>
+
+***Please*** report any corrections or comments to the [Issues](https://github.com/jacobtnyoung/sna-textbook/issues) page. Thanks!
+
+<br><br>

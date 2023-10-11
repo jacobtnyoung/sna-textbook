@@ -11,7 +11,7 @@
 
 
 
-<title>Bipartite Graphs/Two-Mode Networks</title>
+<title>ch-10-bipartite-graphs.knit</title>
 
 <script src="site_libs/header-attrs-2.23/header-attrs.js"></script>
 <script src="site_libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
@@ -30,8 +30,8 @@
        code {color: inherit; background-color: rgba(0, 0, 0, 0.04);}
        pre:not([class]) { background-color: white }</style>
 <script src="site_libs/navigation-1.1/tabsets.js"></script>
-<link href="site_libs/pagedtable-1.1/css/pagedtable.css" rel="stylesheet" />
-<script src="site_libs/pagedtable-1.1/js/pagedtable.js"></script>
+<link href="site_libs/highlightjs-9.12.0/default.css" rel="stylesheet" />
+<script src="site_libs/highlightjs-9.12.0/highlight.js"></script>
 
 <style type="text/css">
   code{white-space: pre-wrap;}
@@ -42,6 +42,16 @@
   ul.task-list{list-style: none;}
     </style>
 
+<style type="text/css">code{white-space: pre;}</style>
+<script type="text/javascript">
+if (window.hljs) {
+  hljs.configure({languages: []});
+  hljs.initHighlightingOnLoad();
+  if (document.readyState && document.readyState === "complete") {
+    window.setTimeout(function() { hljs.initHighlighting(); }, 0);
+  }
+}
+</script>
 
 
 
@@ -233,7 +243,7 @@ $(document).ready(function () {
     <div id="navbar" class="navbar-collapse collapse">
       <ul class="nav navbar-nav">
         <li>
-  <a href="index.html">Social Network Analysis Textbook</a>
+  <a href="index.html">Preface/Table of Contents</a>
 </li>
 <li>
   <a href="ch-01-intro-to-sna.html">Chapter 1</a>
@@ -243,6 +253,33 @@ $(document).ready(function () {
 </li>
 <li>
   <a href="ch-03-sna-methods.html">Chapter 3</a>
+</li>
+<li>
+  <a href="ch-04-net-data-structures.html">Chapter 4</a>
+</li>
+<li>
+  <a href="ch-05-centrality-degree.html">Chapter 5</a>
+</li>
+<li>
+  <a href="ch-06-centrality-closeness.html">Chapter 6</a>
+</li>
+<li>
+  <a href="ch-07-centrality-betweenness.html">Chapter 7</a>
+</li>
+<li>
+  <a href="ch-08-centrality-comparison.html">Chapter 8</a>
+</li>
+<li>
+  <a href="ch-09-local-structure.html">Chapter 9</a>
+</li>
+<li>
+  <a href="ch-10-bipartite-graphs.html">Chapter 10</a>
+</li>
+<li>
+  <a href="ch-11-projection.html">Chapter 11</a>
+</li>
+<li>
+  <a href="ch-12-weighted-graphs.html">Chapter 12</a>
 </li>
       </ul>
       <ul class="nav navbar-nav navbar-right">
@@ -256,13 +293,15 @@ $(document).ready(function () {
 
 
 
-<h1 class="title toc-ignore">Bipartite Graphs/Two-Mode Networks</h1>
 
 </div>
 
 
-<div id="bipartite-graphstwo-mode-networks" class="section level1">
-<h1>Bipartite Graphs/Two-Mode Networks</h1>
+<p><br></p>
+<div id="chapter-10-bipartite-graphstwo-mode-networks"
+class="section level1">
+<h1>Chapter 10: Bipartite Graphs/Two-Mode Networks</h1>
+<p><br></p>
 <div id="learning-goals" class="section level2">
 <h2>Learning Goals</h2>
 <ul>
@@ -272,6 +311,7 @@ two-mode networks).</p></li>
 form.</p></li>
 <li><p>Analyze the properties of bipartite graphs.</p></li>
 </ul>
+<p><br></p>
 </div>
 <div id="introduction" class="section level2">
 <h2>Introduction</h2>
@@ -328,11 +368,8 @@ questions:</p>
 in groups?</li>
 </ul>
 <p>To answer these questions, they proposed the following model:</p>
-<div class="float">
-<img src="../sna-textbook/images/ch-01-model-figure.jpeg"
-alt="Figure #.#" />
-<div class="figcaption">Figure #.#</div>
-</div>
+<p><img src="images/ch-01-model-figure.jpeg" width="60%" /></p>
+<p><br></p>
 <p>In this model, the argued that police officers views of body-worn
 cameras influence whether they use their cameras in incidents. Where do
 these views come from? The authors proposed a <em>contagion</em> process
@@ -342,10 +379,8 @@ legitimacy of body-worn cameras.</p>
 <p>The network <a
 href="https://journals.sagepub.com/doi/10.1177/1043986214553380">Young
 &amp; Ready (2015)</a> analyzed is shown below:</p>
-<div class="float">
-<img src="../sna-textbook/images/ch-01-net-06.jpeg" alt="Figure #.#" />
-<div class="figcaption">Figure #.#</div>
-</div>
+<p><img src="images/ch-01-net-06.jpeg" width="60%" /></p>
+<p><br></p>
 <p>In this network, incidents (white circles) connect officers (squares
 and triangles). This is a bipartite graph because there are two sets of
 nodes: incidents and officers. The plot shows two types of officers,
@@ -379,11 +414,8 @@ nodes in the first set, <span class="math inline">\(M\)</span> nodes in
 the second set, and <span class="math inline">\(L\)</span> lines/edges
 in the graph.</p>
 <p>We can visualize an example as:</p>
-<div class="float">
-<img src="../sna-textbook/images/ch-10-graph-01.jpeg"
-alt="Figure #.#" />
-<div class="figcaption">Figure #.#</div>
-</div>
+<p><img src="images/ch-10-graph-01.jpeg" width="60%" /></p>
+<p><br></p>
 <p>In this example, we can define all of pieces of the graph using our
 definition above:</p>
 <ul>
@@ -434,27 +466,21 @@ nodes in <span class="math inline">\(M\)</span>, we have a
 unipartite graphs).</p>
 <p>Let’s take our example network above and build the adjacency
 matrix:</p>
-<div class="float">
-<img src="../sna-textbook/images/ch-10-graph-02.jpeg"
-alt="Figure #.#" />
-<div class="figcaption">Figure #.#</div>
-</div>
+<p><img src="images/ch-10-graph-02.jpeg" width="60%" /></p>
+<p><br></p>
 <p>Each column corresponds to the edges incident on a node, <span
 class="math inline">\(m_i\)</span>, from the set <span
 class="math inline">\(M\)</span>. The set of nodes <span
 class="math inline">\(M\)</span> usually corresponds to an event, group,
 etc.</p>
-<div class="float">
-<img src="../sna-textbook/images/ch-10-graph-03.jpeg"
-alt="Figure #.#" />
-<div class="figcaption">Figure #.#</div>
-</div>
+<p><img src="images/ch-10-graph-03.jpeg" width="60%" /></p>
+<p><br></p>
 <p>Each row corresponds to the edges incident on a node, <span
 class="math inline">\(n_j\)</span>, from the set <span
 class="math inline">\(N\)</span>. The set of nodes <span
 class="math inline">\(N\)</span> usually corresponds to a person.</p>
-<p><img src="../sna-textbook/images/ch-10-graph-04.jpeg"
-alt="Figure #.#" /> <br></p>
+<p><img src="images/ch-10-graph-04.jpeg" width="60%" /></p>
+<p><br></p>
 <p>Here is a question: what does <span class="math inline">\(l_k =
 (n_i,n_i)\)</span> represent in a <strong>unipartite</strong> graph?
 What does <span class="math inline">\(l_k = (n_i,m_i)\)</span> represent
@@ -501,11 +527,8 @@ between the nodes is <span class="math inline">\(N \times M\)</span>.
 Thus, the density is:</p>
 <p><span class="math display">\[\frac{L}{N \times M}\]</span></p>
 <p>What is the <em>density</em> of our example network?</p>
-<div class="float">
-<img src="../sna-textbook/images/ch-10-graph-02.jpeg"
-alt="Figure #.#" />
-<div class="figcaption">Figure #.#</div>
-</div>
+<p><img src="images/ch-10-graph-02.jpeg" width="60%" /></p>
+<p><br></p>
 <p>First, calculate the number of edges <span
 class="math inline">\(L\)</span>. This is just the sum over the rows and
 columns of the matrix. In our example, <span class="math inline">\(L =
@@ -519,7 +542,8 @@ class="math inline">\(N \times M = 6 = 5 = 30\)</span>.</p>
 0.4?</em></p>
 <p>It tells us that 40% of the edges that could occur in the network did
 occur. In other words, 60% of the edges that could have occurred were
-not observed. <br></p>
+not observed.</p>
+<p><br></p>
 </div>
 <div id="degree-centrality-bipartite-graphs" class="section level3">
 <h3>Degree Centrality: Bipartite Graphs</h3>
@@ -547,11 +571,8 @@ and</li>
 <p><br></p>
 <p>What are the <em>degree centrality</em> scores for our example
 network?</p>
-<div class="float">
-<img src="../sna-textbook/images/ch-10-graph-02.jpeg"
-alt="Figure #.#" />
-<div class="figcaption">Figure #.#</div>
-</div>
+<p><img src="images/ch-10-graph-02.jpeg" width="60%" /></p>
+<p><br></p>
 <p>To get the scores for the nodes in <span
 class="math inline">\(N\)</span>, we calculate the row sums. For
 example, for node <em>A</em> in <span class="math inline">\(N\)</span>,
@@ -563,11 +584,8 @@ x_{A, 2} + x_{A, 3} + x_{A, 4} + x_{A, 5} = 1 + 1 + 0 + 0 + 0 =
 class="math inline">\(N\)</span> is 2. This means that <em>A</em> is
 connected to 2 nodes in <span class="math inline">\(M\)</span>.</p>
 <p>Doing this for all the nodes we get:</p>
-<div class="float">
-<img src="../sna-textbook/images/ch-10-graph-05.jpeg"
-alt="Figure #.#" />
-<div class="figcaption">Figure #.#</div>
-</div>
+<p><img src="images/ch-10-graph-05.jpeg" width="60%" /></p>
+<p><br></p>
 <p>To get the scores for the nodes in <span
 class="math inline">\(M\)</span>, we calculate the column sums. For
 example, for node <em>1</em> in <span class="math inline">\(M\)</span>,
@@ -579,11 +597,7 @@ x_{1, B} + x_{1, C} + x_{1, D} + x_{1, E} + x_{1, F} = 1 + 1 + 1 + 0 + 0
 class="math inline">\(M\)</span> is 3. This means that <em>1</em> is
 connected to # nodes in <span class="math inline">\(N\)</span>.</p>
 <p>Doing this for all the nodes we get:</p>
-<div class="float">
-<img src="../sna-textbook/images/ch-10-graph-06.jpeg"
-alt="Figure #.#" />
-<div class="figcaption">Figure #.#</div>
-</div>
+<p><img src="images/ch-10-graph-06.jpeg" width="60%" /></p>
 <p><br></p>
 <div id="standardization" class="section level4">
 <h4>Standardization</h4>
@@ -621,11 +635,7 @@ have <span class="math inline">\(C&#39;_D(N_A) = 2 / 5 = 0.4\)</span>.
 <em>A</em> in <span class="math inline">\(N\)</span> is connected to 40%
 of the nodes in <span class="math inline">\(M\)</span>.</p>
 <p>Let’s finish standardizing the rest of the scores:</p>
-<div class="float">
-<img src="../sna-textbook/images/ch-10-graph-07.jpeg"
-alt="Figure #.#" />
-<div class="figcaption">Figure #.#</div>
-</div>
+<p><img src="images/ch-10-graph-07.jpeg" width="60%" /></p>
 <p><br></p>
 <p>What are the standardized degree centrality scores for the nodes in
 <span class="math inline">\(M\)</span>? All we need to do is divide
@@ -638,8 +648,8 @@ have <span class="math inline">\(C&#39;_D(M_1) = 3 / 6 = 0.5\)</span>.
 <em>1</em> in <span class="math inline">\(M\)</span> is connected to 50%
 of the nodes in <span class="math inline">\(N\)</span>.</p>
 <p>Let’s finish standardizing the rest of the scores:</p>
-<p><img src="../sna-textbook/images/ch-10-graph-08.jpeg"
-alt="Figure #.#" /> <br></p>
+<p><img src="images/ch-10-graph-08.jpeg" width="60%" /></p>
+<p><br></p>
 </div>
 <div id="mean-degree-centrality-bipartite-graphs"
 class="section level4">
@@ -683,6 +693,27 @@ bipartite graphs, the node set with more nodes will have a higher mean
 degree.</p>
 <p><br></p>
 </div>
+</div>
+</div>
+<div id="summary" class="section level2">
+<h2>Summary</h2>
+<p>In this chapter we:</p>
+<ul>
+<li><p>Introduced the structure of bipartite graphs (also called
+two-mode networks).</p></li>
+<li><p>Discussed how bipartite graphs are represented in matrix
+form.</p></li>
+<li><p>Analyzed the properties of bipartite graphs.</p></li>
+</ul>
+<p><br></p>
+<div id="continue-to-chapter-11-projection" class="section level4">
+<h4>Continue to <a href="">Chapter 11: Projection</a></h4>
+<p><br><br></p>
+<p><strong><em>Please</em></strong> report any corrections or comments
+to the <a
+href="https://github.com/jacobtnyoung/sna-textbook/issues">Issues</a>
+page. Thanks!</p>
+<p><br><br></p>
 </div>
 </div>
 </div>

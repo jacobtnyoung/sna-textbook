@@ -11,7 +11,7 @@
 
 
 
-<title>Betweenness Centrality</title>
+<title>ch-07-centrality-betweenness.knit</title>
 
 <script src="site_libs/header-attrs-2.23/header-attrs.js"></script>
 <script src="site_libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
@@ -30,8 +30,8 @@
        code {color: inherit; background-color: rgba(0, 0, 0, 0.04);}
        pre:not([class]) { background-color: white }</style>
 <script src="site_libs/navigation-1.1/tabsets.js"></script>
-<link href="site_libs/pagedtable-1.1/css/pagedtable.css" rel="stylesheet" />
-<script src="site_libs/pagedtable-1.1/js/pagedtable.js"></script>
+<link href="site_libs/highlightjs-9.12.0/default.css" rel="stylesheet" />
+<script src="site_libs/highlightjs-9.12.0/highlight.js"></script>
 
 <style type="text/css">
   code{white-space: pre-wrap;}
@@ -42,6 +42,16 @@
   ul.task-list{list-style: none;}
     </style>
 
+<style type="text/css">code{white-space: pre;}</style>
+<script type="text/javascript">
+if (window.hljs) {
+  hljs.configure({languages: []});
+  hljs.initHighlightingOnLoad();
+  if (document.readyState && document.readyState === "complete") {
+    window.setTimeout(function() { hljs.initHighlighting(); }, 0);
+  }
+}
+</script>
 
 
 
@@ -233,7 +243,7 @@ $(document).ready(function () {
     <div id="navbar" class="navbar-collapse collapse">
       <ul class="nav navbar-nav">
         <li>
-  <a href="index.html">Social Network Analysis Textbook</a>
+  <a href="index.html">Preface/Table of Contents</a>
 </li>
 <li>
   <a href="ch-01-intro-to-sna.html">Chapter 1</a>
@@ -243,6 +253,33 @@ $(document).ready(function () {
 </li>
 <li>
   <a href="ch-03-sna-methods.html">Chapter 3</a>
+</li>
+<li>
+  <a href="ch-04-net-data-structures.html">Chapter 4</a>
+</li>
+<li>
+  <a href="ch-05-centrality-degree.html">Chapter 5</a>
+</li>
+<li>
+  <a href="ch-06-centrality-closeness.html">Chapter 6</a>
+</li>
+<li>
+  <a href="ch-07-centrality-betweenness.html">Chapter 7</a>
+</li>
+<li>
+  <a href="ch-08-centrality-comparison.html">Chapter 8</a>
+</li>
+<li>
+  <a href="ch-09-local-structure.html">Chapter 9</a>
+</li>
+<li>
+  <a href="ch-10-bipartite-graphs.html">Chapter 10</a>
+</li>
+<li>
+  <a href="ch-11-projection.html">Chapter 11</a>
+</li>
+<li>
+  <a href="ch-12-weighted-graphs.html">Chapter 12</a>
 </li>
       </ul>
       <ul class="nav navbar-nav navbar-right">
@@ -256,13 +293,14 @@ $(document).ready(function () {
 
 
 
-<h1 class="title toc-ignore">Betweenness Centrality</h1>
 
 </div>
 
 
-<div id="betweenness-centrality" class="section level1">
-<h1>Betweenness Centrality</h1>
+<p><br></p>
+<div id="chapter-7-betweenness-centrality" class="section level1">
+<h1>Chapter 7: Betweenness Centrality</h1>
+<p><br></p>
 <div id="learning-goals" class="section level2">
 <h2>Learning Goals</h2>
 <ul>
@@ -270,6 +308,7 @@ $(document).ready(function () {
 <li><p>Understand the calculation of <em>betweenness</em>
 centrality.</p></li>
 </ul>
+<p><br></p>
 </div>
 <div id="concepts-and-operationalization" class="section level2">
 <h2>Concepts and Operationalization</h2>
@@ -287,8 +326,9 @@ interest. Various measures of centrality are correlated, but they
 <em>operationalize</em> different concepts. Put differently, there is
 not a single measure of centrality because what we mean by “centrality”
 can differ.</p>
+<p><br></p>
 </div>
-<div id="betweenness-centrality-1" class="section level3">
+<div id="betweenness-centrality" class="section level3">
 <h3>Betweenness Centrality</h3>
 <p>With <a href=""><em>degree</em> centrality</a> we conceptualized a
 central node as one that has a high number of ties. With <a
@@ -327,14 +367,14 @@ will have high betweenness because <em>i</em> is
 <strong>between</strong> <em>j</em> and <em>k</em>.</p>
 <p><br></p>
 <p>Let’s consider an example. Take a look at this graph:</p>
-<p><img src="ch-07-centrality-betweenness_files/figure-html/unnamed-chunk-2-1.png" width="480" /></p>
+<p><img src="ch-07-centrality-betweenness_files/figure-html/unnamed-chunk-1-1.png" width="480" style="display: block; margin: auto;" /></p>
 <p><em>What are the paths between Jen and Jim?</em> There are two:</p>
 <ul>
 <li>Jen to Tom to Bob to Jim</li>
 <li>Jen to Tom to Bob to Leaf to Jim</li>
 </ul>
 <p>We can see this visually:</p>
-<p><img src="ch-07-centrality-betweenness_files/figure-html/unnamed-chunk-3-1.png" width="480" /></p>
+<p><img src="ch-07-centrality-betweenness_files/figure-html/unnamed-chunk-2-1.png" width="480" style="display: block; margin: auto;" /></p>
 <p>Note that Bob is on both of those paths. He is between Jen and Jim on
 both paths. Note, however, that only one of the paths is a geodesic
 path. The Jen to Tom to Bob to Jim path. That is because it is
@@ -343,69 +383,42 @@ shorter.</p>
 we need to find are the geodesic paths. Then, figure out how many of
 those geodesic paths contain Bob. We do this be creating a table of
 geodesic proportions for Bob.</p>
-<div class="float">
-<img src="../sna-textbook/images/ch-07-matrix-01.jpeg"
-alt="Figure #.#" />
-<div class="figcaption">Figure #.#</div>
-</div>
+<p><img src="images/ch-07-matrix-01.jpeg" width="40%" style="display: block; margin: auto;" /></p>
+<p><br></p>
 <p><em>How many geodesics from Jen to Jim?</em></p>
-<div class="float">
-<img src="../sna-textbook/images/ch-07-matrix-02.jpeg"
-alt="Figure #.#" />
-<div class="figcaption">Figure #.#</div>
-</div>
+<p><img src="images/ch-07-matrix-02.jpeg" width="40%" style="display: block; margin: auto;" /></p>
+<p><br></p>
 <p>There is 1 geodesic from Jen to Jim. How many geodesics from Jen to
 Jim include Bob?</p>
-<div class="float">
-<img src="../sna-textbook/images/ch-07-matrix-03.jpeg"
-alt="Figure #.#" />
-<div class="figcaption">Figure #.#</div>
-</div>
+<p><img src="images/ch-07-matrix-03.jpeg" width="40%" style="display: block; margin: auto;" /></p>
+<p><br></p>
 <p>Bob is on the only geodesic between Jen and Jim.</p>
 <p>What about Jen to Tom?</p>
-<div class="float">
-<img src="../sna-textbook/images/ch-07-matrix-04.jpeg"
-alt="Figure #.#" />
-<div class="figcaption">Figure #.#</div>
-</div>
-<p><img src="ch-07-centrality-betweenness_files/figure-html/unnamed-chunk-4-1.png" width="480" /></p>
+<p><img src="images/ch-07-matrix-04.jpeg" width="40%" style="display: block; margin: auto;" /></p>
+<p><br></p>
+<p><img src="ch-07-centrality-betweenness_files/figure-html/unnamed-chunk-7-1.png" width="480" style="display: block; margin: auto;" /></p>
 <p>We can see from the plot that Bob is not on the only geodesic from
 Jen to Tom. So, that leads to:</p>
-<div class="float">
-<img src="../sna-textbook/images/ch-07-matrix-05.jpeg"
-alt="Figure #.#" />
-<div class="figcaption">Figure #.#</div>
-</div>
+<p><img src="images/ch-07-matrix-05.jpeg" width="40%" style="display: block; margin: auto;" /></p>
+<p><br></p>
 <p>Finally, we can look at the Jen to Leaf path:</p>
-<p><img src="ch-07-centrality-betweenness_files/figure-html/unnamed-chunk-5-1.png" width="480" /></p>
-<div class="float">
-<img src="../sna-textbook/images/ch-07-matrix-06.jpeg"
-alt="Figure #.#" />
-<div class="figcaption">Figure #.#</div>
-</div>
+<p><img src="ch-07-centrality-betweenness_files/figure-html/unnamed-chunk-9-1.png" width="480" style="display: block; margin: auto;" /></p>
+<p><img src="images/ch-07-matrix-06.jpeg" width="40%" style="display: block; margin: auto;" /></p>
+<p><br></p>
 <p>Of the geodesics between <span
 class="math inline">\(Jen,Tom\)</span>, <span
 class="math inline">\(Jen,Leaf\)</span>, and <span
 class="math inline">\(Jen,Tom\)</span>, how many include Bob?</p>
-<div class="float">
-<img src="../sna-textbook/images/ch-07-matrix-07.jpeg"
-alt="Figure #.#" />
-<div class="figcaption">Figure #.#</div>
-</div>
+<p><img src="images/ch-07-matrix-07.jpeg" width="40%" style="display: block; margin: auto;" /></p>
+<p><br></p>
 <p>We just some the ratios across the row. It gives us 2.</p>
 <p>Now, to finish our calculation for Bob, we need to calculate the
 geodesics for the rest of the matrix:</p>
-<div class="float">
-<img src="../sna-textbook/images/ch-07-matrix-08.jpeg"
-alt="Figure #.#" />
-<div class="figcaption">Figure #.#</div>
-</div>
+<p><img src="images/ch-07-matrix-08.jpeg" width="40%" style="display: block; margin: auto;" /></p>
+<p><br></p>
 <p>That gives us this matrix:</p>
-<div class="float">
-<img src="../sna-textbook/images/ch-07-matrix-09.jpeg"
-alt="Figure #.#" />
-<div class="figcaption">Figure #.#</div>
-</div>
+<p><img src="images/ch-07-matrix-09.jpeg" width="40%" style="display: block; margin: auto;" /></p>
+<p><br></p>
 <p>The sum of all these ratios is Bob’s betweenness centrality
 score:</p>
 <p><span class="math display">\[C_B(Bob) = \sum\limits_{j&lt;k}
@@ -414,21 +427,16 @@ g_{jk}(Bob) / g_{jk}\]</span></p>
 that he occupies a position between two nodes on 4 of the geodesics in
 the graph.</p>
 <p><em>What about Leaf?</em></p>
-<div class="float">
-<img src="../sna-textbook/images/ch-07-matrix-10.jpeg"
-alt="Figure #.#" />
-<div class="figcaption">Figure #.#</div>
-</div>
+<p><img src="images/ch-07-matrix-10.jpeg" width="60%" style="display: block; margin: auto;" /></p>
+<p><br></p>
 <p>We can see by looking at the plot that Leaf is not on any of the
 geodesics between Jen, Tom, Bob, and Jim:</p>
-<p><img src="ch-07-centrality-betweenness_files/figure-html/unnamed-chunk-6-1.png" width="480" /></p>
+<p><img src="ch-07-centrality-betweenness_files/figure-html/unnamed-chunk-15-1.png" width="480" style="display: block; margin: auto;" /></p>
+<p><br></p>
 <p>This means that Leaf’s betweenness is zero. We can see this from the
 completed geodesic proportions table for Leaf:</p>
-<div class="float">
-<img src="../sna-textbook/images/ch-07-matrix-11.jpeg"
-alt="Figure #.#" />
-<div class="figcaption">Figure #.#</div>
-</div>
+<p><img src="images/ch-07-matrix-11.jpeg" width="60%" style="display: block; margin: auto;" /></p>
+<p><br></p>
 <table>
 <thead>
 <tr class="header">
@@ -542,7 +550,7 @@ betweenness score (as opposed to the <em>raw</em> score).</p>
 If I lost you in some of the math, don’t worry. Let’s calculate the
 betweenness centralization score for our example graph:</p>
 <p><br></p>
-<p><img src="ch-07-centrality-betweenness_files/figure-html/unnamed-chunk-7-1.png" width="480" /></p>
+<p><img src="ch-07-centrality-betweenness_files/figure-html/unnamed-chunk-17-1.png" width="480" style="display: block; margin: auto;" /></p>
 <p><br></p>
 <p>Recall our table of standardized betweenness scores:</p>
 <table>
@@ -586,7 +594,8 @@ betweenness centralization score for our example graph:</p>
 0.667 for Bob. Also, we have <span class="math inline">\(g-1 = 5 - 1 =
 4\)</span>. Now, we just plug these into our equation:</p>
 <p><span class="math display">\[C_B =
-\frac{\sum\limits_{i=1}^g[0.667-C&#39;_B(n_i)]}{4} \]</span> <br></p>
+\frac{\sum\limits_{i=1}^g[0.667-C&#39;_B(n_i)]}{4} \]</span></p>
+<p><br></p>
 <table>
 <colgroup>
 <col width="5%" />
@@ -652,7 +661,7 @@ that the graph is hierarchically structured and closer to 0 means that
 the graph is more decentralized.</p>
 <p>We can see this by examining two additional undirected networks.</p>
 <p><br></p>
-<p><img src="ch-07-centrality-betweenness_files/figure-html/unnamed-chunk-8-1.png" width="480" style="display: block; margin: auto;" /></p>
+<p><img src="ch-07-centrality-betweenness_files/figure-html/unnamed-chunk-18-1.png" width="480" style="display: block; margin: auto;" /></p>
 <p>The closeness centralization score for the figure on the left is 1,
 whereas the closeness centralization score for the figure on the right
 is 0.</p>
@@ -661,35 +670,26 @@ is 0.</p>
 </div>
 <div id="directed-graphs" class="section level2">
 <h2>Directed Graphs</h2>
-<p>As discussed in <a href="">CHAPTER</a>, when we have a directed
-graph, we have to consider directionality when evaluating a centrality
-measure.</p>
+<p>As discussed in <a href="">Chapter 1: Introduction to Social Network
+Analysis</a>, when we have a directed graph, we have to consider
+directionality when evaluating a centrality measure.</p>
 <p>If we are interested in the betweenness score for Bob, we would do
 the same thing: create a geodesic proportions table for Bob. The
 difference is that we want to consider the directionality.</p>
 <p>Let’s take the example that we have been working with for directed
 graphs and change the layout of the edges slightly (the sociomatrix is
 the same, just curving the edges in the plot):</p>
-<p><img src="ch-07-centrality-betweenness_files/figure-html/unnamed-chunk-9-1.png" width="480" /></p>
+<p><img src="ch-07-centrality-betweenness_files/figure-html/unnamed-chunk-19-1.png" width="480" style="display: block; margin: auto;" /></p>
 <p><em>Is Bob on the geodesic between Jen and Jim?</em> Yes.</p>
-<div class="float">
-<img src="../sna-textbook/images/ch-07-matrix-12.jpeg"
-alt="Figure #.#" />
-<div class="figcaption">Figure #.#</div>
-</div>
+<p><img src="images/ch-07-matrix-12.jpeg" width="40%" style="display: block; margin: auto;" /></p>
+<p><br></p>
 <p><em>Is Bob on the geodesic between Jen and Leaf?</em> Yes. <em>Jen
 and Tom?</em> No.</p>
-<div class="float">
-<img src="../sna-textbook/images/ch-07-matrix-13.jpeg"
-alt="Figure #.#" />
-<div class="figcaption">Figure #.#</div>
-</div>
+<p><img src="images/ch-07-matrix-13.jpeg" width="40%" style="display: block; margin: auto;" /></p>
+<p><br></p>
 <p>Now, we just need to complete the matrix:</p>
-<div class="float">
-<img src="../sna-textbook/images/ch-07-matrix-14.jpeg"
-alt="Figure #.#" />
-<div class="figcaption">Figure #.#</div>
-</div>
+<p><img src="images/ch-07-matrix-14.jpeg" width="40%" style="display: block; margin: auto;" /></p>
+<p><br></p>
 <p><em>Why are there no geodesics for Tom to Jen? Leaf to Jen? Leaf to
 Tom? Jim to Jen? Jim to Tom?</em> Tom and Jen cannot be reached past
 Bob, because there are not outgoing ties from Bob. Thus, a geodesic does
@@ -731,6 +731,29 @@ not exist for these node sets.</p>
 </tbody>
 </table>
 <p><br></p>
+</div>
+<div id="summary" class="section level2">
+<h2>Summary</h2>
+<p>In this chapter we:</p>
+<ul>
+<li><p>Revisited the conceptualization of “centrality” and discussed
+what it means to be central in terms of being in a position that is
+between other nodes.</p></li>
+<li><p>We also examined the calculation of <em>betweenness</em>
+centrality for undirected and directed graphs.</p></li>
+</ul>
+<p><br></p>
+<div id="continue-to-chapter-2-social-network-analysis-and-theory"
+class="section level4">
+<h4>Continue to <a href="">Chapter 2: Social Network Analysis and
+Theory</a></h4>
+<p><br><br></p>
+<p><strong><em>Please</em></strong> report any corrections or comments
+to the <a
+href="https://github.com/jacobtnyoung/sna-textbook/issues">Issues</a>
+page. Thanks!</p>
+<p><br><br></p>
+</div>
 </div>
 </div>
 

@@ -11,7 +11,7 @@
 
 
 
-<title>Degree Centrality</title>
+<title>ch-05-centrality-degree.knit</title>
 
 <script src="site_libs/header-attrs-2.23/header-attrs.js"></script>
 <script src="site_libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
@@ -30,8 +30,8 @@
        code {color: inherit; background-color: rgba(0, 0, 0, 0.04);}
        pre:not([class]) { background-color: white }</style>
 <script src="site_libs/navigation-1.1/tabsets.js"></script>
-<link href="site_libs/pagedtable-1.1/css/pagedtable.css" rel="stylesheet" />
-<script src="site_libs/pagedtable-1.1/js/pagedtable.js"></script>
+<link href="site_libs/highlightjs-9.12.0/default.css" rel="stylesheet" />
+<script src="site_libs/highlightjs-9.12.0/highlight.js"></script>
 
 <style type="text/css">
   code{white-space: pre-wrap;}
@@ -42,6 +42,16 @@
   ul.task-list{list-style: none;}
     </style>
 
+<style type="text/css">code{white-space: pre;}</style>
+<script type="text/javascript">
+if (window.hljs) {
+  hljs.configure({languages: []});
+  hljs.initHighlightingOnLoad();
+  if (document.readyState && document.readyState === "complete") {
+    window.setTimeout(function() { hljs.initHighlighting(); }, 0);
+  }
+}
+</script>
 
 
 
@@ -233,7 +243,7 @@ $(document).ready(function () {
     <div id="navbar" class="navbar-collapse collapse">
       <ul class="nav navbar-nav">
         <li>
-  <a href="index.html">Social Network Analysis Textbook</a>
+  <a href="index.html">Preface/Table of Contents</a>
 </li>
 <li>
   <a href="ch-01-intro-to-sna.html">Chapter 1</a>
@@ -243,6 +253,33 @@ $(document).ready(function () {
 </li>
 <li>
   <a href="ch-03-sna-methods.html">Chapter 3</a>
+</li>
+<li>
+  <a href="ch-04-net-data-structures.html">Chapter 4</a>
+</li>
+<li>
+  <a href="ch-05-centrality-degree.html">Chapter 5</a>
+</li>
+<li>
+  <a href="ch-06-centrality-closeness.html">Chapter 6</a>
+</li>
+<li>
+  <a href="ch-07-centrality-betweenness.html">Chapter 7</a>
+</li>
+<li>
+  <a href="ch-08-centrality-comparison.html">Chapter 8</a>
+</li>
+<li>
+  <a href="ch-09-local-structure.html">Chapter 9</a>
+</li>
+<li>
+  <a href="ch-10-bipartite-graphs.html">Chapter 10</a>
+</li>
+<li>
+  <a href="ch-11-projection.html">Chapter 11</a>
+</li>
+<li>
+  <a href="ch-12-weighted-graphs.html">Chapter 12</a>
 </li>
       </ul>
       <ul class="nav navbar-nav navbar-right">
@@ -256,19 +293,21 @@ $(document).ready(function () {
 
 
 
-<h1 class="title toc-ignore">Degree Centrality</h1>
 
 </div>
 
 
-<div id="degree-centrality" class="section level1">
-<h1>Degree Centrality</h1>
+<p><br></p>
+<div id="chapter-5-degree-centrality" class="section level1">
+<h1>Chapter 5: Degree Centrality</h1>
+<p><br></p>
 <div id="learning-goals" class="section level2">
 <h2>Learning Goals</h2>
 <ul>
 <li><p>Understand the conceptualization of “centrality”.</p></li>
 <li><p>Know how to calculate degree centrality.</p></li>
 </ul>
+<p><br></p>
 </div>
 <div id="concepts-and-operationalization" class="section level2">
 <h2>Concepts and Operationalization</h2>
@@ -327,7 +366,7 @@ move to directed graphs.</p>
 </div>
 <div id="undirected-graphs" class="section level2">
 <h2>Undirected Graphs</h2>
-<div id="degree-centrality-1" class="section level3">
+<div id="degree-centrality" class="section level3">
 <h3>Degree Centrality</h3>
 <p>In an undirected binary graph, <em>degree centrality</em> measures
 the extent to which a node connects to all other nodes in a network. In
@@ -353,20 +392,17 @@ us to some all of the entries.</p></li>
 <p><br></p>
 <p>Let’s take a look at this with some data. Recall our example network
 with Jen, Tom, Bob, Leaf, and Jim:</p>
-<p><img src="ch-05-centrality-degree_files/figure-html/unnamed-chunk-2-1.png" width="480" /></p>
+<p><img src="ch-05-centrality-degree_files/figure-html/unnamed-chunk-1-1.png" width="480" /></p>
 <p><br></p>
 <p>Let’s find the degree centrality score for each node. First, let’s
 take our graph and create the sociomatrix.</p>
-<div class="float">
-<img src="../sna-textbook/images/ch-05-matrix-01.jpeg"
-alt="Figure #.#" />
-<div class="figcaption">Figure #.#</div>
-</div>
+<p><img src="images/ch-05-matrix-01.jpeg" width="60%" /></p>
+<p><br></p>
 <p>Recall from above that in an undirected network the degree centrality
 score is either the sum of the row <strong>or</strong> the sum of the
 column. Let’s calculate the score for Jen:</p>
-<p><img src="../sna-textbook/images/ch-05-matrix-02.jpeg"
-alt="Figure #.#" /> <br></p>
+<p><img src="images/ch-05-matrix-02.jpeg" width="60%" /></p>
+<p><br></p>
 <p><span class="math inline">\(C_D(Jen) = \sum_j x_{ij} = x_{Jen, Tom} +
 x_{Jen, Bob} + x_{Jen, Leaf} + x_{Jen, Jim} = 1 + 0 + 0 + 0 =
 1\)</span></p>
@@ -377,8 +413,8 @@ class="math inline">\(x_{Jen, Jen}\)</span> because this is zero. Be
 careful when you do the calculations that you don’t confuse these. Since
 self-nominations are usually set to zero, this is not a problem when we
 use the row or column totals. Just something to keep in mind.</p>
-<p><img src="../../sna-textbook/images/ch-05-matrix-01.jpeg"
-alt="Figure #.#" /> <br></p>
+<p><img src="images/ch-05-matrix-01.jpeg" width="60%" /></p>
+<p><br></p>
 <p><em>What about the other nodes?</em></p>
 <p>Let’s do the calculations:</p>
 <ul>
@@ -417,11 +453,8 @@ to actor <em>i</em>. A convenient feature of standardizing in this way
 is that it means the index varies between 0 (no connections; isolate) to
 1 (ties to every actor).</p>
 <p>Let’s take a look at our example network:</p>
-<div class="float">
-<img src="../../sna-textbook/images/ch-05-matrix-01.jpeg"
-alt="Figure #.#" />
-<div class="figcaption">Figure #.#</div>
-</div>
+<p><img src="images/ch-05-matrix-01.jpeg" width="60%" /></p>
+<p><br></p>
 <p>For this graph, the denominator, <em>g-1</em> is <span
 class="math inline">\(5 - 1 = 4\)</span>. Plugging that in we get: <span
 class="math inline">\(C&#39;_D(n_i) = \dfrac{C_D(n_i)}{4}\)</span>.</p>
@@ -471,7 +504,7 @@ the graph, <em>L</em>, multiplied by 2 and then divided by the number of
 nodes, <em>g</em>.</p></li>
 </ul>
 <p>What is the mean degree for this graph?</p>
-<p><img src="ch-05-centrality-degree_files/figure-html/unnamed-chunk-3-1.png" width="480" /></p>
+<p><img src="ch-05-centrality-degree_files/figure-html/unnamed-chunk-6-1.png" width="480" /></p>
 <p>Well, we have <span class="math inline">\(L=5\)</span> and <span
 class="math inline">\(g = 5\)</span>, so plugging the numbers we
 get:</p>
@@ -526,11 +559,8 @@ makes the equation:</p>
 </ul>
 <p>If I lost you in some of the math, don’t worry. Let’s calculate the
 degree centralization score for our example graph:</p>
-<div class="float">
-<img src="../../sna-textbook/images/ch-05-matrix-01.jpeg"
-alt="Figure #.#" />
-<div class="figcaption">Figure #.#</div>
-</div>
+<p><img src="images/ch-05-matrix-01.jpeg" width="60%" /></p>
+<p><br></p>
 <p>And recall our raw scores:</p>
 <ul>
 <li>Jen = 1</li>
@@ -558,7 +588,7 @@ hierarchically structured and closer to 0 means that the graph is more
 decentralized.</p>
 <p>We can see this by examining two additional undirected networks.</p>
 <p><br></p>
-<p><img src="ch-05-centrality-degree_files/figure-html/unnamed-chunk-4-1.png" width="480" style="display: block; margin: auto;" /></p>
+<p><img src="ch-05-centrality-degree_files/figure-html/unnamed-chunk-8-1.png" width="480" style="display: block; margin: auto;" /></p>
 <p>The degree centralization score for the figure on the left is 1.0. We
 can see this by doing the calculations:</p>
 <p><span class="math display">\[C_D =  \dfrac{\sum\limits_{i=1}^g
@@ -570,13 +600,12 @@ can see this by doing the calculations:</p>
 <p><span class="math display">\[C_D =  \dfrac{\sum\limits_{i=1}^g
 [C_D(n^*) - C_D(n_i)]}{[(g-1)(g-2)]} =
 \dfrac{(2-2)+(2-2)+(2-2)+(2-2)+(2-2)}{(5-1)(5-2)} =
-\dfrac{0+0+0+0+0}{4*3}= \dfrac{0}{12}= 0.0\]</span></p>
-<p><br></p>
+\dfrac{0+0+0+0+0}{4*3}= \dfrac{0}{12}= 0.0\]</span> <br></p>
 </div>
 </div>
 <div id="directed-graphs" class="section level2">
 <h2>Directed Graphs</h2>
-<div id="degree-centrality-2" class="section level3">
+<div id="degree-centrality-1" class="section level3">
 <h3>Degree Centrality</h3>
 <p>In a directed binary graph, degree centrality can be broken down into
 <em>indegree</em> and <em>outdegree</em> centrality:</p>
@@ -596,11 +625,8 @@ the <strong>row</strong> sum:</li>
 <p><span class="math display">\[C_O(n_i) = \sum_j x_{ij}\]</span></p>
 <p>What are the <em>indegree</em> and <em>outdegree</em> centrality
 scores in the following graph?:</p>
-<div class="float">
-<img src="../../sna-textbook/images/ch-05-matrix-03.jpeg"
-alt="Figure #.#" />
-<div class="figcaption">Figure #.#</div>
-</div>
+<p><img src="images/ch-05-matrix-03.jpeg" width="60%" /></p>
+<p><br></p>
 <div id="indegree" class="section level4">
 <h4>Indegree</h4>
 <p>Let’s start with the indegree. As stated above, indegree, <span
@@ -611,11 +637,8 @@ the <strong>column</strong> sum: <span class="math inline">\(C_I(n_i) =
 \sum_j x_{ji}\)</span>.</p>
 <p>So, to get the indegree for each node, we just sum over the columns.
 Recall that columns are vertical.</p>
-<div class="float">
-<img src="../../sna-textbook/images/ch-05-matrix-04.jpeg"
-alt="Figure #.#" />
-<div class="figcaption">Figure #.#</div>
-</div>
+<p><img src="images/ch-05-matrix-04.jpeg" width="60%" /></p>
+<p><br></p>
 <p>Let’s calculate the indegree for Jen: <span
 class="math inline">\(C_I(Jen) = \sum_j x_{j,Jen} = x_{Tom,Jen} +
 x_{Bob,Jen} + x_{Leaf,Jen} + x_{Jim,Jen} = 0+0+0+0 = 0\)</span></p>
@@ -650,11 +673,8 @@ the <strong>row</strong> sum <span class="math inline">\(C_O(n_i) =
 \sum_j x_{ij}\)</span>.</p>
 <p>So, to get the outdegree for each node, we just sum over the rows.
 Recall that rows are horizontal.</p>
-<div class="float">
-<img src="../../sna-textbook/images/ch-05-matrix-05.jpeg"
-alt="Figure #.#" />
-<div class="figcaption">Figure #.#</div>
-</div>
+<p><img src="images/ch-05-matrix-05.jpeg" width="60%" /></p>
+<p><br></p>
 <p>Let’s calculate the outdegree for Jen: <span
 class="math inline">\(C_O(Jen) = \sum_j x_{Jen,j} = x_{Jen,Tom} +
 x_{Jen,Bob} + x_{Jen,Leaf} + x_{Jen,Jim} = 1+0+0+0 = 1\)</span></p>
@@ -798,6 +818,7 @@ nodes in the graph, <span class="math inline">\(g\)</span>.</p>
 is because we are counting up, for the numerator, the number of
 edges.</p>
 <p>What is the mean indegree/outdegree for this graph?</p>
+<p><img src="ch-05-centrality-degree_files/figure-html/unnamed-chunk-12-1.png" width="480" /></p>
 <p><span class="math display">\[\bar d =  \dfrac{C_I(n_i)}{g} =
 \dfrac{C_O(n_i)}{g} = \dfrac{L}{g} = \dfrac{8}{5} = 1.6\]</span></p>
 <p>This means that, on average, a node sends 1.6 ties and receives 1.6
@@ -822,11 +843,8 @@ centralization score:</p>
 <h4>Indegree Centralization</h4>
 <p>Let’s calculate the indegree centralization score for our example
 graph:</p>
-<div class="float">
-<img src="../../sna-textbook/images/ch-05-matrix-03.jpeg"
-alt="Figure #.#" />
-<div class="figcaption">Figure #.#</div>
-</div>
+<p><img src="images/ch-05-matrix-03.jpeg" width="60%" /></p>
+<p><br></p>
 <p>And recall our raw indegree scores:</p>
 <ul>
 <li>Jen = 0</li>
@@ -864,11 +882,8 @@ more decentralized.</p>
 <h4>Outdegree Centralization</h4>
 <p>Now, let’s calculate the outdegree centralization score for our
 example graph:</p>
-<div class="float">
-<img src="../../sna-textbook/images/ch-05-matrix-03.jpeg"
-alt="Figure #.#" />
-<div class="figcaption">Figure #.#</div>
-</div>
+<p><img src="images/ch-05-matrix-03.jpeg" width="60%" /></p>
+<p><br></p>
 <p>And recall our raw outdegree scores:</p>
 <ul>
 <li>Jen = 1</li>
@@ -904,6 +919,27 @@ indegrees. Put another way, the indegrees are more centralized than are
 the outdegrees.</p>
 <p><br></p>
 </div>
+</div>
+</div>
+<div id="summary" class="section level2">
+<h2>Summary</h2>
+<p>In this chapter we:</p>
+<ul>
+<li><p>Discussed the conceptualization of “centrality” and reviewed how
+to calculate degree centrality for undirected and directed
+networks.</p></li>
+<li><p>We also covered the concept of centralization.</p></li>
+</ul>
+<p><br></p>
+<div id="continue-to-chapter-6-closeness-centrality"
+class="section level4">
+<h4>Continue to <a href="">Chapter 6: Closeness Centrality</a></h4>
+<p><br><br></p>
+<p><strong><em>Please</em></strong> report any corrections or comments
+to the <a
+href="https://github.com/jacobtnyoung/sna-textbook/issues">Issues</a>
+page. Thanks!</p>
+<p><br><br></p>
 </div>
 </div>
 </div>

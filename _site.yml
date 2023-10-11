@@ -11,7 +11,7 @@ output_dir: "docs"
 navbar:
   title: "Social Network Analysis Textbook"
   left:
-    - text: "Social Network Analysis Textbook"
+    - text: "Preface/Table of Contents"
       href: index.html
     - text: "Chapter 1"
       href: ch-01-intro-to-sna.html
@@ -19,3 +19,21 @@ navbar:
       href: ch-02-sna-theory.html
     - text: "Chapter 3"
       href: ch-03-sna-methods.html
+    - text: "Chapter 4"
+      href: ch-04-net-data-structures.html
+    - text: "Chapter 5"
+      href: ch-05-centrality-degree.html
+    - text: "Chapter 6"
+      href: ch-06-centrality-closeness.html
+    - text: "Chapter 7"
+      href: ch-07-centrality-betweenness.html
+    - text: "Chapter 8"
+      href: ch-08-centrality-comparison.html
+    - text: "Chapter 9"
+      href: ch-09-local-structure.html
+    - text: "Chapter 10"
+      href: ch-10-bipartite-graphs.html
+    - text: "Chapter 11"
+      href: ch-11-projection.html
+    - text: "Chapter 12"
+      href: ch-12-weighted-graphs.html

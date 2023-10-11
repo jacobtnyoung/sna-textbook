@@ -1,13 +1,17 @@
 ---
-output: 
-  html_document:
-    df_print: paged
-    theme: sandstone
-    highlight: haddock
-    self_contained: true
+title: ""
 ---
 
-# Social Network Analysis and Methods for Data Collection
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = FALSE, message=FALSE, warning=FALSE, fig.width = 10)
+library( here )
+```
+
+<br>
+
+# Chapter 3: Social Network Analysis and Methods for Data Collection
+
+<br>
 
 ## Learning Goals
 
@@ -15,3 +19,12 @@ output:
   
     * ?
     
+<br>
+
+#### Continue to [Chapter 4: Network Data Structures]()
+
+<br><br>
+
+***Please*** report any corrections or comments to the [Issues](https://github.com/jacobtnyoung/sna-textbook/issues) page. Thanks!
+
+<br><br>

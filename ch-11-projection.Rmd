@@ -1,33 +1,15 @@
 ---
-title: "Projection"
-output: 
-  html_document:
-    df_print: paged
-    theme: sandstone
-    highlight: haddock
-    self_contained: true
+title: ""
 ---
 
 ```{r setup, include=FALSE}
-
-knitr::opts_chunk$set( echo=FALSE, eval=TRUE, message=FALSE, warning=FALSE, results="hide", fig.show="hide" )
-
+knitr::opts_chunk$set( echo = FALSE, eval = TRUE, message=FALSE, warning=FALSE, fig.width = 10 )
+library( here )
 ```
 
+<br>
 
-```{r}
-
-rm( list = ls() )
-library( network )
-library( RColorBrewer )
-library( sna )
-
-## Set up the objects that will be used in the lecture ----
-
-```
-
-
-# Projection
+# Chapter 11: Projection
 
 ## Learning Goals
 
@@ -46,7 +28,11 @@ Let's revisit an empirical question from the [introduction]() to the course and 
   
 To answer these questions, they proposed the following model:  
 
-![Figure #.#](../sna-textbook/images/ch-01-model-figure.jpeg)
+```{r, fig.cap = "", out.width = "60%"}
+knitr::include_graphics( "images/ch-01-model-figure.jpeg" )
+```
+
+<br>
 
 In this model, the argued that police officers views of body-worn cameras influence whether they use their cameras in incidents. Where do these views come from? The authors proposed a *contagion* process whereby officers who shared incidents together exchanged views about the legitimacy of body-worn cameras.
 
@@ -54,13 +40,21 @@ Thus, the network matters!
 
 The network [Young & Ready (2015)](https://journals.sagepub.com/doi/10.1177/1043986214553380) analyzed is shown below:
 
-![Figure #.#](../sna-textbook/images/ch-01-net-06.jpeg)
-  
+```{r, fig.cap = "", out.width = "60%"}
+knitr::include_graphics( "images/ch-01-net-06.jpeg" )
+```
+
+<br>
+
 In this network, incidents (white circles) connect officers (squares and triangles). This is a bipartite graph because there are two sets of nodes: incidents and officers. The plot shows two types of officers, those who were in the treatment condition of the study (i.e. they were assigned a body-worn camera) and those who were in the control condition (i.e. they did not receive a camera). The focus of the study was how exposure to body-cameras during incidents influenced views, especially for those who were not assigned a camera.
 
 To examine influence in this network, the authors *actually* examined this network:
 
-![Figure #.#](../sna-textbook/images/ch-11-figure-01.jpeg)
+```{r, fig.cap = "", out.width = "60%"}
+knitr::include_graphics( "images/ch-11-figure-01.jpeg" )
+```
+
+<br>
 
 In this network, the nodes are police officers and the edges represent shared incidents. The width of the edges represents the number of shared incidents. That is, wider edges between two nodes mean that more incidents were shared between those nodes.
 
@@ -79,17 +73,29 @@ For example, let's say we have a two-mode network of people ($N$) in groups ($M$
 
 We can see this graphically by taking a look at our example network from the chapter on [bipartite graphs]():
 
-![Figure #.#](../sna-textbook/images/ch-10-figure-01.jpeg)
+```{r, fig.cap = "", out.width = "60%"}
+knitr::include_graphics( "images/ch-10-graph-01.jpeg" )
+```
+
+<br>
 
 Consider nodes *A*, *B*, and *C*. Are the connected?
 
-![Figure #.#](../sna-textbook/images/ch-11-figure-02.jpeg)
+```{r, fig.cap = "", out.width = "60%"}
+knitr::include_graphics( "images/ch-11-figure-02.jpeg" )
+```
+
+<br>
 
 We can see that *A*, *B*, and *C* are connected through the shared edges with node *1*. That is, the edges $L_{A,1}$ and $L_{B,1}$ connect nodes *A* and *B*. The same for edges $L_{B,1}$ and $L_{C,1}$ which connect nodes *B* and *C*.
 
 What about node *2*? 
 
-![Figure #.#](../sna-textbook/images/ch-11-figure-03.jpeg)
+```{r, fig.cap = "", out.width = "60%"}
+knitr::include_graphics( "images/ch-11-figure-03.jpeg" )
+```
+
+<br>
 
 We can see that *A*, *C*, and *D* are connected through the shared edges with node *2*. That is, the edges $L_{A,2}$ and $L_{C,2}$ connect nodes *A* and *C* and edges $L_{C,2}$ and $L_{D,2}$ connect nodes *C* and *D*.
 
@@ -97,12 +103,22 @@ These connections are what the projection to the $N$ node set will render in the
 
 What about the $M$ nodes? 
 
-![Figure #.#](../sna-textbook/images/ch-11-figure-04.jpeg)
+```{r, fig.cap = "", out.width = "60%"}
+knitr::include_graphics( "images/ch-11-figure-04.jpeg" )
+```
+
+<br>
+
 We can see that *2*, *3*, *4*, and *5* are connected through the shared edges with node *D*. That is, the edges $L_{D,2}$ and $L_{D,3}$ connect nodes *2* and *3* and edges $L_{D,4}$ and $L_{D,5}$ connect nodes *4* and *5*.
 
 Note that nodes in one node set can be connected through multiple nodes in the alternative node set. For example:
 
-![Figure #.#](../sna-textbook/images/ch-11-figure-05.jpeg)
+```{r, fig.cap = "", out.width = "60%"}
+knitr::include_graphics( "images/ch-11-figure-05.jpeg" )
+```
+
+<br>
+
 That is, the edges $L_{D,3}$ and $L_{D,5}$ connect nodes *3* and *5*. But, nodes *3* and *5* are also connected by edges $L_{F,3}$ and $L_{F,5}$ (highlighted in the figure).
 
 <br>
@@ -125,14 +141,28 @@ A two-mode $N \times M$ adjacency matrix, can be projected to:
 
 Let's take our example network above and look at this a bit closer:
 
-![Figure #.#](../sna-textbook/images/ch-10-figure-02.jpeg)
+```{r, fig.cap = "", out.width = "60%"}
+knitr::include_graphics( "images/ch-10-graph-02.jpeg" )
+```
+
+<br>
 
 Note that our matrix, $A$, has 6 rows and 5 columns. This means it has *order* $6 \times 5$. 
 
-![Figure #.#](../sna-textbook/images/ch-11-figure-06.jpeg)
+```{r, fig.cap = "", out.width = "60%"}
+knitr::include_graphics( "images/ch-11-figure-06.jpeg" )
+```
+
+<br>
+
 Recall, that the transpose of a matrix simply reverses the columns and rows. To get the transpose, imagine rotating the matrix 90 degrees, and then flipping it over. That would give us this:
 
-![Figure #.#](../sna-textbook/images/ch-11-figure-07.jpeg)
+```{r, fig.cap = "", out.width = "60%"}
+knitr::include_graphics( "images/ch-11-figure-07.jpeg" )
+```
+
+<br>
+
 In the transpose, $A^T$, the rows and columns have been switched. We now have 5 rows and 6 columns. This means it has *order* $5 \times 6$. 
 
 *So what?* 
@@ -172,11 +202,20 @@ To create the "people" matrix, $P$, which connects nodes in the the set $N$, we 
 $$A \times A^T = P$$
 Let's see how this works by visualizing our example:
 
-![Figure #.#](../sna-textbook/images/ch-11-figure-08.jpeg)
+```{r, fig.cap = "", out.width = "60%"}
+knitr::include_graphics( "images/ch-11-figure-08.jpeg" )
+```
+
+<br>
 
 After multiplication we get:
 
-![Figure #.#](../sna-textbook/images/ch-11-figure-09.jpeg)
+```{r, fig.cap = "", out.width = "60%"}
+knitr::include_graphics( "images/ch-11-figure-09.jpeg" )
+```
+
+<br>
+
 The product matrix as rows $N \times N$ shows us how people are connected by groups. 
 
 The values of the matrix show two important things:
@@ -192,7 +231,12 @@ The diagonal tells us the count of count of ties that a specific node in $N$ has
 
 For example, in the figure below, *D* is in 4 groups:
 
-![Figure #.#](../sna-textbook/images/ch-11-figure-10.jpeg)
+```{r, fig.cap = "", out.width = "60%"}
+knitr::include_graphics( "images/ch-11-figure-10.jpeg" )
+```
+
+<br>
+
 We can see this in the graph by counting the edges, but also by looking at the $P_{D,D}$ cell of the adjacency matrix $P$ (highlighted in red).
 
 Here is a question. *What network measure does the diagonal give us?* Think back to the chapter on [bipartite graphs]().
@@ -205,13 +249,21 @@ The off-diagonal cells count the number of ways that separate nodes in $N$ are c
 
 For example, in the figure below, nodes *A* and *B* are linked through a single node, *1*. This means the value for the $P_{A,B}$ cell of the adjacency matrix $P$ (highlighted in green) is 1. 
 
-![Figure #.#](../sna-textbook/images/ch-11-figure-11.jpeg)
+```{r, fig.cap = "", out.width = "60%"}
+knitr::include_graphics( "images/ch-11-figure-11.jpeg" )
+```
+
+<br>
 
 Note that when we project, it forces the matrix to be symmetric about the diagonal. This means that the projection creates an **undirected unipartite** graph. As a result, the value for the $P_{B,A}$ cell of the adjacency matrix $P$ (also highlighted in green) is 1.  
 
 Let's look at another example:
 
-![Figure #.#](../sna-textbook/images/ch-11-figure-12.jpeg)
+```{r, fig.cap = "", out.width = "60%"}
+knitr::include_graphics( "images/ch-11-figure-12.jpeg" )
+```
+
+<br>
 
 Here, *A* and *C* are linked through two nodes in $M$, *1* and *2*. This means that the value for the $P_{A,C}$ cell of the adjacency matrix $P$ (highlighted in green) is 2 and the value for the $P_{C,A}$ cell is also 2 (also highlighted in green). Using the language of "groups" to refer to the $M$ nodes, we can say that *A* and *C* are share membership in 2 groups. 
 
@@ -226,7 +278,12 @@ To create the "group" matrix, $G$, which connects nodes in the the set $M$, we p
 $$A^T \times A = G$$
 After multiplication we get:
 
-![Figure #.#](../sna-textbook/images/ch-11-figure-13.jpeg)
+```{r, fig.cap = "", out.width = "60%"}
+knitr::include_graphics( "images/ch-11-figure-13.jpeg" )
+```
+
+<br>
+
 The product matrix as rows $M \times M$ shows us how groups are connected by people. 
 
 As with the product matrix $P$, the values of the product matrix $G$ shows two important things:
@@ -242,7 +299,12 @@ The diagonal tells us the count of count of ties that a specific node in $M$ has
 
 For example, in the figure below, *2* is in 3 groups:
 
-![Figure #.#](../sna-textbook/images/ch-11-figure-14.jpeg)
+```{r, fig.cap = "", out.width = "60%"}
+knitr::include_graphics( "images/ch-11-figure-14.jpeg" )
+```
+
+<br>
+
 We can see this in the graph by counting the edges, but also by looking at the $G_{2,2}$ cell of the adjacency matrix $G$ (highlighted in red).
 
 Here is a question. *What network measure does the diagonal give us?* Think back to the chapter on [bipartite graphs]().
@@ -255,7 +317,11 @@ The off-diagonal cells count the number of ways that separate nodes in $M$ are c
 
 For example, in the figure below, nodes *1* and *2* are linked through 2 nodes in $M$, *A* and *C*. This means the value for the $G_{2,1}$ cell of the adjacency matrix $G$ (highlighted in green) is 2. 
 
-![Figure #.#](../sna-textbook/images/ch-11-figure-15.jpeg)
+```{r, fig.cap = "", out.width = "60%"}
+knitr::include_graphics( "images/ch-11-figure-15.jpeg" )
+```
+
+<br>
 
 Again, note that when we project it forces the matrix to be symmetric about the diagonal. This means that the projection creates an **undirected unipartite** graph. As a result, the value for the $G_{1,2}$ cell of the adjacency matrix $G$ (also highlighted in green) is 2.  
 
@@ -269,24 +335,58 @@ Now that we have a projected $N \times N$ network, we can visually represent the
 
 For the people matrix $P$, we can visualize this process here:
 
-![Figure #.#](../sna-textbook/images/ch-11-figure-16.jpeg)
+```{r, fig.cap = "", out.width = "60%"}
+knitr::include_graphics( "images/ch-11-figure-16.jpeg" )
+```
+
+<br>
 
 And for the group matrix $G$, we can visualize this process here:
 
-![Figure #.#](../sna-textbook/images/ch-11-figure-17.jpeg)
+```{r, fig.cap = "", out.width = "60%"}
+knitr::include_graphics( "images/ch-11-figure-17.jpeg" )
+```
+
+<br>
 
 However, note that we lose some information when we dichotomize. Specifically, we are treating an connections that are greater than 1 as being the same as connections exactly equal to one. This may be problematic in some cases. 
 
 For example, consider the two bipartite graphs below. *Are they the same?*
 
-![Figure #.#](../sna-textbook/images/ch-11-figure-18.jpeg)
+```{r, fig.cap = "", out.width = "60%"}
+knitr::include_graphics( "images/ch-11-figure-18.jpeg" )
+```
+
+<br>
 
 No. We can see in the plot on the right that the distribution of the edges is different from the plot on the left. *But*, the projection is the same:
 
-![Figure #.#](../sna-textbook/images/ch-11-figure-19.jpeg)
+```{r, fig.cap = "", out.width = "60%"}
+knitr::include_graphics( "images/ch-11-figure-19.jpeg" )
+```
+
+<br>
 
 This is a simple example, but illustrates an important point.
 
 We will return to this idea in greater detail in the chapter on [weighted networks]().
 
 <br>
+
+## Summary
+
+In this chapter we:
+
+  * Introduced the technique of *projection* for converting bipartite graphs to unipartite graphs.
+  
+  * Then, we reviewed the consequences of projecting bipartite graphs to unipartite graphs.
+  
+<br>
+
+#### Continue to [Chapter 12: Weighted Graphs]()
+
+<br><br>
+
+***Please*** report any corrections or comments to the [Issues](https://github.com/jacobtnyoung/sna-textbook/issues) page. Thanks!
+
+<br><br>

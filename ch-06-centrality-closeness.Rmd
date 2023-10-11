@@ -1,21 +1,13 @@
 ---
-title: "Closeness Centrality"
-output: 
-  html_document:
-    df_print: paged
-    theme: sandstone
-    highlight: haddock
-    self_contained: true
+title: ""
 ---
 
 ```{r setup, include=FALSE}
-
-knitr::opts_chunk$set( echo=FALSE, eval=TRUE, message=FALSE, warning=FALSE, results="hide", fig.show="hide" )
-
+knitr::opts_chunk$set( echo = FALSE, message=FALSE, warning=FALSE, fig.width = 10 )
+library( here )
 ```
 
-
-```{r}
+```{r net-setup, results="hide", fig.show="hide"}
 
 rm( list = ls() )
 library( network )
@@ -83,8 +75,11 @@ circle_net <- network( dum2, directed=FALSE )
 
 ```
 
+<br>
 
-# Closeness Centrality
+# Chapter 6: Closeness Centrality
+
+<br>
 
 ## Learning Goals
 
@@ -92,7 +87,8 @@ circle_net <- network( dum2, directed=FALSE )
   
   * Understand the calculation of *closeness* centrality.
 
-  
+<br>
+
 ## Concepts and Operationalization
 
 When we say a *node* is "central", what do we mean conceptually? Think of a few examples (again).
@@ -104,6 +100,8 @@ When we say a *node* is "central", what do we mean conceptually? Think of a few 
 “Everyone agrees, it seems, that centrality is an important structural attribute of networks. All concede that it is related to a high degree to other important group properties and processes. But there consensus ends.” ([Freeman](), 1978/1979: 217)
 
 The type of measure we use depends on the substantive question of interest. Various measures of centrality are correlated, but they *operationalize* different concepts. Put differently, there is not a single measure of centrality because what we mean by "centrality" can differ.
+
+<br>
 
 ### Closeness Centrality
 
@@ -139,9 +137,9 @@ To find the closeness centrality score, we need to first find the distances betw
 
 Let's take a look at this with some data. Recall our example network with Jen, Tom, Bob, Leaf, and Jim:
 
-```{r, echo=FALSE, eval=TRUE, fig.width=5, fig.height=5, fig.show="show"}
+```{r, echo=FALSE, eval=TRUE, fig.width=5, fig.height=5, fig.show="show", fig.align="center"}
 
-gplot( u.mat, gmode = "graph", displaylabels = TRUE, label.pos = 5, label.cex = 2.2, vertex.col = "lightblue", vertex.cex=3.2 )
+gplot( u.mat, gmode = "graph", displaylabels = TRUE, label.pos = 5, label.cex = 1.2, vertex.col = "lightblue", vertex.cex=3.2 )
 
 ```
 
@@ -149,28 +147,52 @@ gplot( u.mat, gmode = "graph", displaylabels = TRUE, label.pos = 5, label.cex = 
 
 For our graph, we want to first build a *distance matrix* which shows the value of the geodesic (i.e. shortest path) from *i* to *j*.
 
-![Figure #.#](../sna-textbook/images/ch-06-matrix-01.jpeg)
+```{r, fig.cap = "", out.width = "60%"}
+knitr::include_graphics( "images/ch-06-matrix-01.jpeg" )
+```
+
+<br>
 
 In the graph, how far is Jen from Tom? How far is Jen from Bob? In other words, how many edges do we count in going from Jen to Tom? From Jen to Bob?
 
-![Figure #.#](../sna-textbook/images/ch-06-matrix-02.jpeg)
+```{r, fig.cap = "", out.width = "60%"}
+knitr::include_graphics( "images/ch-06-matrix-02.jpeg" )
+```
+
+<br>
 
 We can see that Jen can reach Tom in 1 step (i.e. $L_{Jen,Tom}$) and that Jen can reach Bob in 2 steps (i.e. $L_{Jen,Tom}$ & $L_{Tom,Bob}$).
 
 What about the rest of the distance matrix?
 
-![Figure #.#](../sna-textbook/images/ch-06-matrix-03.jpeg)
+```{r, fig.cap = "", out.width = "60%"}
+knitr::include_graphics( "images/ch-06-matrix-03.jpeg" )
+```
+
+<br>
+
 If we follow what we did above, then we get the following distance matrix:
 
-![Figure #.#](../sna-textbook/images/ch-06-matrix-04.jpeg)
+```{r, fig.cap = "", out.width = "60%"}
+knitr::include_graphics( "images/ch-06-matrix-04.jpeg" )
+```
+
+<br>
 
 Since the graph is undirected, the distance matrix is symmetric. That is, $d(n_i,n_j) = d(n_j,n_i)$. 
 
-![Figure #.#](../sna-textbook/images/ch-06-matrix-05.jpeg)
+```{r, fig.cap = "", out.width = "60%"}
+knitr::include_graphics( "images/ch-06-matrix-05.jpeg" )
+```
+
+<br>
 
 Now, it we take the sum of the rows, this gives us $\sum\limits_{j=1}^g d(n_i,n_j)$. 
 
-![Figure #.#](../sna-textbook/images/ch-06-matrix-06.jpeg)
+```{r, fig.cap = "", out.width = "60%"}
+knitr::include_graphics( "images/ch-06-matrix-06.jpeg" )
+```
+
 <br>
 
 Note that since the graph is undirected, the column sum would give us the same values.
@@ -229,7 +251,7 @@ gplot( graph.a,
        edge.col="grey50", 
        label=c( "0.33","","" ), 
        label.pos=5, 
-       label.cex = 2.2,
+       label.cex = 1.2,
        main = "Network A: Raw")
 
 set.seed( 605 )
@@ -239,7 +261,7 @@ gplot( graph.b,
        vertex.col = c( "orange","white","white","white" ), 
        edge.col="grey50",label=c( "0.33","","","" ),
        label.pos=5, 
-       label.cex = 2.2,
+       label.cex = 1.2,
        main = "Network B: Raw")
 
 ```
@@ -264,7 +286,7 @@ gplot( graph.a,
        edge.col="grey50", 
        label=c( "0.66","","" ), 
        label.pos=5, 
-       label.cex = 2.2,
+       label.cex = 1.2,
        main = "Network A: Standardized")
 
 set.seed( 605 )
@@ -274,7 +296,7 @@ gplot( graph.b,
        vertex.col = c( "orange","white","white","white" ), 
        edge.col="grey50",label=c( "1.00","","","" ),
        label.pos=5, 
-       label.cex = 2.2,
+       label.cex = 1.2,
        main = "Network B: Standardized")
 
 
@@ -294,7 +316,7 @@ gplot( graph.a,
        edge.col="grey50", 
        label=c( "0.66","1","0.66" ), 
        label.pos=5, 
-       label.cex = 2.2,
+       label.cex = 1.2,
        main = "Network A: Standardized")
 
 set.seed( 605 )
@@ -304,7 +326,7 @@ gplot( graph.b,
        vertex.col = "orange", 
        edge.col="grey50",label=c( "1","1","1","1" ),
        label.pos=5, 
-       label.cex = 2.2,
+       label.cex = 1.2,
        main = "Network B: Standardized")
 
 
@@ -333,7 +355,7 @@ If I lost you in some of the math, don't worry. Let's calculate the closeness ce
 
 ```{r, echo=FALSE, eval=TRUE, fig.width=5, fig.height=5, fig.show="show"}
 
-gplot( u.mat, gmode = "graph", displaylabels = TRUE, label.pos = 5, label.cex = 2.2, vertex.col = "lightblue", vertex.cex=3.2 )
+gplot( u.mat, gmode = "graph", displaylabels = TRUE, label.pos = 5, label.cex = 1.2, vertex.col = "lightblue", vertex.cex=3.2 )
 
 ```
 
@@ -418,7 +440,7 @@ As discussed in [CHAPTER](), when we have a directed graph, we have to consider 
 
 ```{r, echo=FALSE, eval=TRUE, fig.width=5, fig.height=5, results="show"}
 
-gplot( d.mat, gmode = "digraph", displaylabels = TRUE, label.pos = 5, label.cex = 2.2, vertex.col = "orange", vertex.cex=3.2 )
+gplot( d.mat, gmode = "digraph", displaylabels = TRUE, label.pos = 5, label.cex = 1.2, vertex.col = "orange", vertex.cex=3.2 )
 
 ```
 
@@ -430,26 +452,46 @@ Note, however, that the distance of *i* to *j*, $d(n_i,n_j)$, does not necessari
 
 As before, we want to first build a *distance matrix* which shows the value of the geodesic (i.e. shortest path) from *i* to *j*.
 
-![Figure #.#](../sna-textbook/images/ch-06-matrix-07.jpeg)
+```{r, fig.cap = "", out.width = "60%"}
+knitr::include_graphics( "images/ch-06-matrix-07.jpeg" )
+```
+
+<br>
 
 *How far is Jen from Tom?* *How far is Jen from Bob?*
 
-![Figure #.#](../sna-textbook/images/ch-06-matrix-08.jpeg)
+```{r, fig.cap = "", out.width = "60%"}
+knitr::include_graphics( "images/ch-06-matrix-08.jpeg" )
+```
+
+<br>
 
 Jen is 1 step from Tom and 2 steps from Bob. *What about the rest of the scores for Jen?*
 
-![Figure #.#](../sna-textbook/images/ch-06-matrix-09.jpeg)
+```{r, fig.cap = "", out.width = "60%"}
+knitr::include_graphics( "images/ch-06-matrix-09.jpeg" )
+```
+
+<br>
 
 Now, recall that we sum these distances, and then take the reciprocal:
 
 $$C_C(Jen) =  \frac{1}{[\sum\limits_{j=1}^g d(Jen,n_j)]} = \frac{1}{9} = 0.111$$
 *What about Bob? How far is Bob from everyone?*
 
-![Figure #.#](../sna-textbook/images/ch-06-matrix-10.jpeg)
+```{r, fig.cap = "", out.width = "60%"}
+knitr::include_graphics( "images/ch-06-matrix-10.jpeg" )
+```
+
+<br>
 
 How far is Bob from Jen? Bob, is "infinite distance" from Jen because there is not a directed path by when he can reach her. This is the same for the distance from Bob to Tom. But, Bob does have directed ties to Jim and Leaf.
 
-![Figure #.#](../sna-textbook/images/ch-06-matrix-11.jpeg)
+```{r, fig.cap = "", out.width = "60%"}
+knitr::include_graphics( "images/ch-06-matrix-11.jpeg" )
+```
+
+<br>
 
 So what is Bob's closeness centrality score? If we do not count the cells that have "infinite distance", effectively treating these as zeros, then we just count the distance for Leaf and Jim, which sums to 2. We just plug this in:
 
@@ -486,7 +528,11 @@ Note that when we are looking at *outgoing* ties, as we did above, this tells us
 
 We can reverse this and look at the *incoming* ties. This would tell us how close the other nodes are to a particular node. This is a bit nuanced, by the difference is meaningful. In this case, instead of summing the rows as we did above, we could sum the columns.
 
-![Figure #.#](../sna-textbook/images/ch-06-matrix-12.jpeg)
+```{r, fig.cap = "", out.width = "60%"}
+knitr::include_graphics( "images/ch-06-matrix-12.jpeg" )
+```
+
+<br>
 
 If we sum the columns, then we get these scores:
 
@@ -502,3 +548,20 @@ While these are correct, mathematically, they are far less intuitive than the sc
 
 <br>
 
+## Summary
+
+In this chapter, we:
+
+  * Revisited the conceptualization of "centrality" to discuss a different way of thinking about being central. Specifically, the idea that actors who are "closer" to others are more central.
+  
+  * We also covered the calculation of *closeness* centrality for directed an undirected graphs.
+  
+<br>
+
+#### Continue to [Chapter 7: Betweenness Centrality]()
+
+<br><br>
+
+***Please*** report any corrections or comments to the [Issues](https://github.com/jacobtnyoung/sna-textbook/issues) page. Thanks!
+
+<br><br>

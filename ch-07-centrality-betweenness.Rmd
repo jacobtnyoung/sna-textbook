@@ -1,21 +1,13 @@
 ---
-title: "Betweenness Centrality"
-output: 
-  html_document:
-    df_print: paged
-    theme: sandstone
-    highlight: haddock
-    self_contained: true
+title: ""
 ---
 
 ```{r setup, include=FALSE}
-
-knitr::opts_chunk$set( echo=FALSE, eval=TRUE, message=FALSE, warning=FALSE, results="hide", fig.show="hide" )
-
+knitr::opts_chunk$set( echo = FALSE, message=FALSE, warning=FALSE, fig.width = 10, fig.align = "center" )
+library( here )
 ```
 
-
-```{r}
+```{r net-setup, results="hide", fig.show="hide"}
 
 rm( list = ls() )
 library( network )
@@ -83,8 +75,11 @@ circle_net <- network( dum2, directed=FALSE )
 
 ```
 
+<br>
 
-# Betweenness Centrality
+# Chapter 7: Betweenness Centrality
+
+<br>
 
 ## Learning Goals
 
@@ -92,7 +87,8 @@ circle_net <- network( dum2, directed=FALSE )
   
   * Understand the calculation of *betweenness* centrality.
 
-  
+<br>
+
 ## Concepts and Operationalization
 
 When we say a *node* is "central", what do we mean conceptually? Think of a few examples (again).
@@ -104,6 +100,8 @@ When we say a *node* is "central", what do we mean conceptually? Think of a few 
 “Everyone agrees, it seems, that centrality is an important structural attribute of networks. All concede that it is related to a high degree to other important group properties and processes. But there consensus ends.” ([Freeman](), 1978/1979: 217)
 
 The type of measure we use depends on the substantive question of interest. Various measures of centrality are correlated, but they *operationalize* different concepts. Put differently, there is not a single measure of centrality because what we mean by "centrality" can differ.
+
+<br>
 
 ### Betweenness Centrality
 
@@ -131,7 +129,7 @@ In words, if *j* has to go through *i* to reach *k*, $j-i-k$, then *i* will have
   
 Let's consider an example. Take a look at this graph:  
 
-```{r, echo=FALSE, eval=TRUE, fig.width=5, fig.height=5, fig.show="show"}
+```{r, echo=FALSE, eval=TRUE, fig.width=5, fig.height=5, fig.show="show", fig.align="center"}
 
 set.seed( 1 )
 gplot( u.mat, 
@@ -141,7 +139,7 @@ gplot( u.mat,
        edge.col="grey50", 
        displaylabels = TRUE, 
        label.pos=5, 
-       label.cex = 2.5 )
+       label.cex = 1.5 )
 
 ```
 
@@ -152,7 +150,7 @@ gplot( u.mat,
 
 We can see this visually:
 
-```{r, echo=FALSE, eval=TRUE, fig.width=5, fig.height=5, fig.show="show"}
+```{r, echo=FALSE, eval=TRUE, fig.width=5, fig.height=5, fig.show="show", fig.align="center", results=FALSE}
 
 par( mar=c( 4,4,0.1,0.1 ), mfrow = c( 1,2 ) )
 
@@ -163,7 +161,7 @@ gplot( u.net,
        vertex.col = "lightblue", 
        displaylabels = TRUE, 
        label.pos=5, 
-       label.cex = 2.5,
+       label.cex = 1.5,
        edge.col = c("green","green","grey50","green","grey50" ) )
 
 set.seed( 605 )
@@ -173,7 +171,7 @@ gplot( u.net,
        vertex.col = "lightblue", 
        displaylabels = TRUE, 
        label.pos=5, 
-       label.cex = 2.5,
+       label.cex = 1.5,
        edge.col = c("green","green","green","grey50","green" ) )
 
 
@@ -183,21 +181,37 @@ Note that Bob is on both of those paths. He is between Jen and Jim on both paths
 
 Let's calculate the betweenness centrality for Bob. The first thing we need to find are the geodesic paths. Then, figure out how many of those geodesic paths contain Bob. We do this be creating a table of geodesic proportions for Bob.
 
-![Figure #.#](../sna-textbook/images/ch-07-matrix-01.jpeg)
+```{r, fig.cap = "", out.width = "40%"}
+knitr::include_graphics( "images/ch-07-matrix-01.jpeg" )
+```
+
+<br>
 
 *How many geodesics from Jen to Jim?*
 
-![Figure #.#](../sna-textbook/images/ch-07-matrix-02.jpeg)
+```{r, fig.cap = "", out.width = "40%"}
+knitr::include_graphics( "images/ch-07-matrix-02.jpeg" )
+```
+
+<br>
 
 There is 1 geodesic from Jen to Jim. How many geodesics from Jen to Jim include Bob?
 
-![Figure #.#](../sna-textbook/images/ch-07-matrix-03.jpeg)
+```{r, fig.cap = "", out.width = "40%"}
+knitr::include_graphics( "images/ch-07-matrix-03.jpeg" )
+```
+
+<br>
 
 Bob is on the only geodesic between Jen and Jim. 
 
 What about Jen to Tom?
 
-![Figure #.#](../sna-textbook/images/ch-07-matrix-04.jpeg)
+```{r, fig.cap = "", out.width = "40%"}
+knitr::include_graphics( "images/ch-07-matrix-04.jpeg" )
+```
+
+<br>
 
 ```{r, echo=FALSE, eval=TRUE, fig.width=5, fig.height=5, fig.show="show"}
 
@@ -208,18 +222,22 @@ gplot( u.net,
        vertex.col = "lightblue", 
        displaylabels = TRUE, 
        label.pos=5, 
-       label.cex = 2.5,
+       label.cex = 1.5,
        edge.col = c("green","grey50","grey50","grey50","grey50" ) )
 
 ```
 
 We can see from the plot that Bob is not on the only geodesic from Jen to Tom. So, that leads to:
 
-![Figure #.#](../sna-textbook/images/ch-07-matrix-05.jpeg)
+```{r, fig.cap = "", out.width = "40%"}
+knitr::include_graphics( "images/ch-07-matrix-05.jpeg" )
+```
+
+<br>
 
 Finally, we can look at the Jen to Leaf path:
 
-```{r, echo=FALSE, eval=TRUE, fig.width=5, fig.height=5, fig.show="show"}
+```{r, echo=FALSE, eval=TRUE, fig.width=5, fig.height=5, fig.show="show", fig.align="center"}
 
 set.seed( 605 )
 gplot( u.net, 
@@ -228,26 +246,42 @@ gplot( u.net,
        vertex.col = "lightblue", 
        displaylabels = TRUE, 
        label.pos=5, 
-       label.cex = 2.5,
+       label.cex = 1.5,
        edge.col = c("green","green","green","grey50","grey50" ) )
 
 ```
 
-![Figure #.#](../sna-textbook/images/ch-07-matrix-06.jpeg)
+```{r, fig.cap = "", out.width = "40%"}
+knitr::include_graphics( "images/ch-07-matrix-06.jpeg" )
+```
+
+<br>
 
 Of the geodesics between $Jen,Tom$, $Jen,Leaf$, and $Jen,Tom$, how many include Bob?
 
-![Figure #.#](../sna-textbook/images/ch-07-matrix-07.jpeg)
+```{r, fig.cap = "", out.width = "40%"}
+knitr::include_graphics( "images/ch-07-matrix-07.jpeg" )
+```
+
+<br>
 
 We just some the ratios across the row. It gives us 2.
 
 Now, to finish our calculation for Bob, we need to calculate the geodesics for the rest of the matrix:
 
-![Figure #.#](../sna-textbook/images/ch-07-matrix-08.jpeg)
+```{r, fig.cap = "", out.width = "40%"}
+knitr::include_graphics( "images/ch-07-matrix-08.jpeg" )
+```
+
+<br>
 
 That gives us this matrix:
 
-![Figure #.#](../sna-textbook/images/ch-07-matrix-09.jpeg)
+```{r, fig.cap = "", out.width = "40%"}
+knitr::include_graphics( "images/ch-07-matrix-09.jpeg" )
+```
+
+<br>
 
 The sum of all these ratios is Bob's betweenness centrality score:
 
@@ -257,11 +291,15 @@ That sum is 4. Bob's betweenness centrality score is 4 indicating that he occupi
 
 *What about Leaf?*
 
-![Figure #.#](../sna-textbook/images/ch-07-matrix-10.jpeg)
+```{r, fig.cap = "", out.width = "60%"}
+knitr::include_graphics( "images/ch-07-matrix-10.jpeg" )
+```
+
+<br>
 
 We can see by looking at the plot that Leaf is not on any of the geodesics between Jen, Tom, Bob, and Jim:
 
-```{r, echo=FALSE, eval=TRUE, fig.width=5, fig.height=5, fig.show="show"}
+```{r, echo=FALSE, eval=TRUE, fig.width=5, fig.height=5, fig.show="show", fig.align="center"}
 
 set.seed( 605 )
 gplot( u.net, 
@@ -275,9 +313,15 @@ gplot( u.net,
 
 ```
 
+<br>
+
 This means that Leaf's betweenness is zero. We can see this from the completed geodesic proportions table for Leaf:
 
-![Figure #.#](../sna-textbook/images/ch-07-matrix-11.jpeg)
+```{r, fig.cap = "", out.width = "60%"}
+knitr::include_graphics( "images/ch-07-matrix-11.jpeg" )
+```
+
+<br>
 
 | Node  | Betweenness |
 | :---: | :---------: |
@@ -286,7 +330,6 @@ This means that Leaf's betweenness is zero. We can see this from the completed g
 | Bob   | 4           |
 | Leaf  | 0           |
 | Jim   | 0           |
-
 
 <br>
 
@@ -316,7 +359,6 @@ When we calculate the *raw* betweenness scores, we get the following table
 
 <br>
 
-
 ### Betweenness Centralization
 
 As we did with [degree centralization]() and [closeness centralization](), we can calculate the betweenness centralization of the graph. Recall that centralization measures the extent to which the nodes in a social network differ from one another in their individual centrality scores. Put differently, how much variation is there in the distribution of centrality scores? As with [closeness centralization](), we use the *standardized* betweenness score (as opposed to the *raw* score).
@@ -328,7 +370,7 @@ If I lost you in some of the math, don't worry. Let's calculate the betweenness 
 
 <br>
 
-```{r, echo=FALSE, eval=TRUE, fig.width=5, fig.height=5, fig.show="show"}
+```{r, echo=FALSE, eval=TRUE, fig.width=5, fig.height=5, fig.show="show", fig.align="center"}
 
 gplot( u.mat, gmode = "graph", displaylabels = TRUE, label.pos = 5, label.cex = 2.2, vertex.col = "lightblue", vertex.cex=3.2 )
 
@@ -351,6 +393,7 @@ Recall our table of standardized betweenness scores:
 *What is the largest standardized betweenness score?* It is 0.667 for Bob. Also, we have $g-1 = 5 - 1 = 4$. Now, we just plug these into our equation:
 
 $$C_B = \frac{\sum\limits_{i=1}^g[0.667-C'_B(n_i)]}{4} $$
+
 <br>
 
 | Node  | Betweenness | Standardized Betweenness | Deviations of Betweenness Closeness $0.667-C'_B(n_i)$ |
@@ -375,7 +418,7 @@ We can see this by examining two additional undirected networks.
 
 <br>
 
-```{r, echo=FALSE, eval=TRUE, fig.width=5, fig.height=5, fig.show="show", fig.align="center"}
+```{r, echo=FALSE, eval=TRUE, fig.width=5, fig.height=5, fig.show="show", fig.align="center", results="hide"}
 
 centralization( star_net, betweenness, mode="graph" )
 centralization( circle_net, betweenness, mode="graph" )
@@ -412,13 +455,13 @@ The closeness centralization score for the figure on the left is `r centralizati
 
 ## Directed Graphs
 
-As discussed in [CHAPTER](), when we have a directed graph, we have to consider directionality when evaluating a centrality measure. 
+As discussed in [Chapter 1: Introduction to Social Network Analysis](), when we have a directed graph, we have to consider directionality when evaluating a centrality measure. 
 
 If we are interested in the betweenness score for Bob, we would do the same thing: create a geodesic proportions table for Bob. The difference is that we want to consider the directionality.
 
 Let's take the example that we have been working with for directed graphs and change the layout of the edges slightly (the sociomatrix is the same, just curving the edges in the plot): 
 
-```{r, echo=FALSE, eval=TRUE, fig.width=5, fig.height=5, fig.show="show"}
+```{r, echo=FALSE, eval=TRUE, fig.width=5, fig.height=5, fig.show="show", fig.align="center"}
 
 set.seed( 605 )
 gplot( 
@@ -437,15 +480,27 @@ gplot(
 
 *Is Bob on the geodesic between Jen and Jim?* Yes.
 
-![Figure #.#](../sna-textbook/images/ch-07-matrix-12.jpeg)
+```{r, fig.cap = "", out.width = "40%"}
+knitr::include_graphics( "images/ch-07-matrix-12.jpeg" )
+```
+
+<br>
 
 *Is Bob on the geodesic between Jen and Leaf?* Yes. *Jen and Tom?* No.
 
-![Figure #.#](../sna-textbook/images/ch-07-matrix-13.jpeg)
+```{r, fig.cap = "", out.width = "40%"}
+knitr::include_graphics( "images/ch-07-matrix-13.jpeg" )
+```
+
+<br>
 
 Now, we just need to complete the matrix:
 
-![Figure #.#](../sna-textbook/images/ch-07-matrix-14.jpeg)
+```{r, fig.cap = "", out.width = "40%"}
+knitr::include_graphics( "images/ch-07-matrix-14.jpeg" )
+```
+
+<br>
 
 *Why are there no geodesics for Tom to Jen? Leaf to Jen? Leaf to Tom? Jim to Jen? Jim to Tom?* Tom and Jen cannot be reached past Bob, because there are not outgoing ties from Bob. Thus, a geodesic does not exist for these node sets. 
 
@@ -459,3 +514,20 @@ Now, we just need to complete the matrix:
 
 <br>
 
+## Summary
+
+In this chapter we:
+
+  * Revisited the conceptualization of "centrality" and discussed what it means to be central in terms of being in a position that is between other nodes.
+  
+  * We also examined the calculation of *betweenness* centrality for undirected and directed graphs.
+
+<br>
+
+#### Continue to [Chapter 2: Social Network Analysis and Theory]()
+
+<br><br>
+
+***Please*** report any corrections or comments to the [Issues](https://github.com/jacobtnyoung/sna-textbook/issues) page. Thanks!
+
+<br><br>

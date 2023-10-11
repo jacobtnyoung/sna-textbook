@@ -1,33 +1,17 @@
 ---
-title: "Bipartite Graphs/Two-Mode Networks"
-output: 
-  html_document:
-    df_print: paged
-    theme: sandstone
-    highlight: haddock
-    self_contained: true
+title: ""
 ---
 
 ```{r setup, include=FALSE}
-
-knitr::opts_chunk$set( echo=FALSE, eval=TRUE, message=FALSE, warning=FALSE, results="hide", fig.show="hide" )
-
+knitr::opts_chunk$set( echo = FALSE, eval = TRUE, message=FALSE, warning=FALSE, fig.width = 10 )
+library( here )
 ```
 
+<br>
 
-```{r}
+# Chapter 10: Bipartite Graphs/Two-Mode Networks
 
-rm( list = ls() )
-library( network )
-library( RColorBrewer )
-library( sna )
-
-## Set up the objects that will be used in the lecture ----
-
-```
-
-
-# Bipartite Graphs/Two-Mode Networks
+<br>
 
 ## Learning Goals
 
@@ -37,7 +21,8 @@ library( sna )
   
   * Analyze the properties of bipartite graphs.
 
-  
+<br>
+
 ## Introduction
 
 In the prior chapters, we examined [data structures]() and [centrality]() for simple networks. That is, networks that have one set of nodes and one set of edges. As discussed in the [introductory chapter](), these sort of graphs are referred to as *unipartite*. This term means "one partition" and is in reference to the fact that there is only one partition of the node set. 
@@ -70,7 +55,11 @@ Rather than focus on individual characteristics (e.g. age, experience) or situat
   
 To answer these questions, they proposed the following model:  
 
-![Figure #.#](../sna-textbook/images/ch-01-model-figure.jpeg)
+```{r, fig.cap = "", out.width = "60%"}
+knitr::include_graphics( "images/ch-01-model-figure.jpeg" )
+```
+
+<br>
 
 In this model, the argued that police officers views of body-worn cameras influence whether they use their cameras in incidents. Where do these views come from? The authors proposed a *contagion* process whereby officers who shared incidents together exchanged views about the legitimacy of body-worn cameras.
 
@@ -78,8 +67,12 @@ Thus, the network matters!
 
 The network [Young & Ready (2015)](https://journals.sagepub.com/doi/10.1177/1043986214553380) analyzed is shown below:
 
-![Figure #.#](../sna-textbook/images/ch-01-net-06.jpeg)
-  
+```{r, fig.cap = "", out.width = "60%"}
+knitr::include_graphics( "images/ch-01-net-06.jpeg" )
+```
+
+<br>
+
 In this network, incidents (white circles) connect officers (squares and triangles). This is a bipartite graph because there are two sets of nodes: incidents and officers. The plot shows two types of officers, those who were in the treatment condition of the study (i.e. they were assigned a body-worn camera) and those who were in the control condition (i.e. they did not receive a camera). The focus of the study was how exposure to body-cameras during incidents influenced views, especially for those who were not assigned a camera.
 
 *When you look at the network, what do you see?*
@@ -100,7 +93,11 @@ In this definition, there are $N$ nodes in the first set, $M$ nodes in the secon
 
 We can visualize an example as:
 
-![Figure #.#](../sna-textbook/images/ch-10-graph-01.jpeg)
+```{r, fig.cap = "", out.width = "60%"}
+knitr::include_graphics( "images/ch-10-graph-01.jpeg" )
+```
+
+<br>
 
 In this example, we can define all of pieces of the graph using our definition above:
 
@@ -118,15 +115,26 @@ In bipartite graphs, we can also use an **adjacency matrix**. But, we have to re
 
 Let's take our example network above and build the adjacency matrix:
 
-![Figure #.#](../sna-textbook/images/ch-10-graph-02.jpeg)
+```{r, fig.cap = "", out.width = "60%"}
+knitr::include_graphics( "images/ch-10-graph-02.jpeg" )
+```
+
+<br>
 
 Each column corresponds to the edges incident on a node, $m_i$, from the set $M$. The set of nodes $M$ usually corresponds to an event, group, etc.
 
-![Figure #.#](../sna-textbook/images/ch-10-graph-03.jpeg)
+```{r, fig.cap = "", out.width = "60%"}
+knitr::include_graphics( "images/ch-10-graph-03.jpeg" )
+```
+
+<br>
 
 Each row corresponds to the edges incident on a node, $n_j$, from the set $N$. The set of nodes $N$ usually corresponds to a person.
 
-![Figure #.#](../sna-textbook/images/ch-10-graph-04.jpeg)
+```{r, fig.cap = "", out.width = "60%"}
+knitr::include_graphics( "images/ch-10-graph-04.jpeg" )
+```
+
 <br>
 
 Here is a question: what does $l_k = (n_i,n_i)$ represent in a **unipartite** graph? What does $l_k = (n_i,m_i)$ represent in a **bipartite** graph?
@@ -155,7 +163,11 @@ $$\frac{L}{N \times M}$$
 
 What is the *density* of our example network?
 
-![Figure #.#](../sna-textbook/images/ch-10-graph-02.jpeg)
+```{r, fig.cap = "", out.width = "60%"}
+knitr::include_graphics( "images/ch-10-graph-02.jpeg" )
+```
+
+<br>
 
 First, calculate the number of edges $L$. This is just the sum over the rows and columns of the matrix. In our example, $L = 12$.
 
@@ -168,6 +180,7 @@ $$\frac{L}{N \times M} = \frac{12}{6 \times 5}= \frac{12}{30} = 0.4$$
 *What does it mean to say that the density of the network is 0.4?*
 
 It tells us that 40% of the edges that could occur in the network did occur. In other words, 60% of the edges that could have occurred were not observed. 
+
 <br>
 
 ### Degree Centrality: Bipartite Graphs
@@ -186,7 +199,11 @@ We can calculate each degree using the adjacency matrix. The **row sum** for the
 
 What are the *degree centrality* scores for our example network?
 
-![Figure #.#](../sna-textbook/images/ch-10-graph-02.jpeg)
+```{r, fig.cap = "", out.width = "60%"}
+knitr::include_graphics( "images/ch-10-graph-02.jpeg" )
+```
+
+<br>
 
 To get the scores for the nodes in $N$, we calculate the row sums. For example, for node *A* in $N$, we sum across the rows:
 
@@ -196,7 +213,11 @@ The degree centrality score for node *A* in $N$ is 2. This means that *A* is con
 
 Doing this for all the nodes we get:
 
-![Figure #.#](../sna-textbook/images/ch-10-graph-05.jpeg)
+```{r, fig.cap = "", out.width = "60%"}
+knitr::include_graphics( "images/ch-10-graph-05.jpeg" )
+```
+
+<br>
 
 To get the scores for the nodes in $M$, we calculate the column sums. For example, for node *1* in $M$, we sum across the columns:
 
@@ -206,8 +227,9 @@ The degree centrality score for node *1* in $M$ is 3. This means that *1* is con
 
 Doing this for all the nodes we get:
 
-
-![Figure #.#](../sna-textbook/images/ch-10-graph-06.jpeg)
+```{r, fig.cap = "", out.width = "60%"}
+knitr::include_graphics( "images/ch-10-graph-06.jpeg" )
+```
 
 <br>
 
@@ -234,7 +256,9 @@ A standardized degree centrality score of 0.4 means that node *A* in $N$ is conn
 
 Let's finish standardizing the rest of the scores:
 
-![Figure #.#](../sna-textbook/images/ch-10-graph-07.jpeg)
+```{r, fig.cap = "", out.width = "60%"}
+knitr::include_graphics( "images/ch-10-graph-07.jpeg" )
+```
 
 <br>
 
@@ -246,7 +270,10 @@ A standardized degree centrality score of 0.5 means that node *1* in $M$ is conn
 
 Let's finish standardizing the rest of the scores:
 
-![Figure #.#](../sna-textbook/images/ch-10-graph-08.jpeg)
+```{r, fig.cap = "", out.width = "60%"}
+knitr::include_graphics( "images/ch-10-graph-08.jpeg" )
+```
+
 <br>
 
 #### Mean Degree Centrality: Bipartite Graphs
@@ -270,3 +297,23 @@ To do this we simply take the number of edges, $L$, and divide by the correspond
 Since we have two sets of nodes, we can compare the means. The average node in $M$ has a higher degree than the average node in $N$. This makes sense given that the edge count is the same. As a rule, in bipartite graphs, the node set with more nodes will have a higher mean degree.
 
 <br>
+
+## Summary
+
+In this chapter we:  
+
+  * Introduced the structure of bipartite graphs (also called two-mode networks).
+  
+  * Discussed how bipartite graphs are represented in matrix form.
+  
+  * Analyzed the properties of bipartite graphs.
+  
+<br>
+
+#### Continue to [Chapter 11: Projection]()
+
+<br><br>
+
+***Please*** report any corrections or comments to the [Issues](https://github.com/jacobtnyoung/sna-textbook/issues) page. Thanks!
+
+<br><br>

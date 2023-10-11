@@ -1,23 +1,15 @@
 ---
-output: 
-  html_document:
-    df_print: paged
-    theme: sandstone
-    highlight: haddock
-    self_contained: true
+title: ""
 ---
 
 ```{r setup, include=FALSE}
-
 knitr::opts_chunk$set(echo = FALSE, message=FALSE, warning=FALSE, fig.width = 10)
-
 library( here )
-
 ```
 
 <br>
 
-# Introduction to Social Network Analysis
+# Chapter 1: Introduction to Social Network Analysis
 
 <br>
 
@@ -281,6 +273,10 @@ knitr::include_graphics( "images/ch-01-net-08.jpeg" )
 #### Summary
 
 To summarize this section, the main take away is that *relational* data can take many different forms and be represented in many different ways.
+
+<br>
+
+#### Continue to [Chapter 2: Social Network Analysis and Theory]()
 
 <br><br>
 

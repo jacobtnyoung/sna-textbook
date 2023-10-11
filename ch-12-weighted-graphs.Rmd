@@ -1,43 +1,31 @@
 ---
-title: "Weighted Graphs"
-output: 
-  html_document:
-    df_print: paged
-    theme: sandstone
-    highlight: haddock
-    self_contained: true
+title: ""
 ---
 
 ```{r setup, include=FALSE}
-
-knitr::opts_chunk$set( echo=FALSE, eval=TRUE, message=FALSE, warning=FALSE, results="hide", fig.show="hide" )
-
+knitr::opts_chunk$set( echo = FALSE, message=FALSE, warning=FALSE, fig.width = 10 )
+library( here )
 ```
 
+<br>
 
-```{r}
+# Chapter 12: Weighted Graphs
 
-rm( list = ls() )
-library( network )
-library( RColorBrewer )
-library( sna )
-
-## Set up the objects that will be used in the lecture ----
-
-```
-
-
-# Weighted Graphs
+<br>
 
 ## Learning Goals
 
-  * ????
+  * ???
   
-  * Know the consequences of projecting bipartite graphs to unipartite graphs.
-
+  * ???
+  
+  
 <br>
 
-## ???
+#### Return to [Preface/Table of Contents]()
 
+<br><br>
 
-<br>
+***Please*** report any corrections or comments to the [Issues](https://github.com/jacobtnyoung/sna-textbook/issues) page. Thanks!
+
+<br><br>

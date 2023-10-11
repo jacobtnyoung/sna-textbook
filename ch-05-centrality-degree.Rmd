@@ -1,21 +1,13 @@
 ---
-title: "Degree Centrality"
-output: 
-  html_document:
-    df_print: paged
-    theme: sandstone
-    highlight: haddock
-    self_contained: true
+title: ""
 ---
 
 ```{r setup, include=FALSE}
-
-knitr::opts_chunk$set( echo=FALSE, eval=TRUE, message=FALSE, warning=FALSE, results="hide", fig.show="hide" )
-
+knitr::opts_chunk$set(echo = FALSE, message=FALSE, warning=FALSE, fig.width = 10)
+library( here )
 ```
 
-
-```{r}
+```{r net-setup, results="hide", fig.show="hide"}
 
 rm( list = ls() )
 library( network )
@@ -68,7 +60,11 @@ circle_net <- network( dum2, directed=FALSE )
 
 ```
 
-# Degree Centrality
+<br>
+
+# Chapter 5: Degree Centrality
+
+<br>
 
 ## Learning Goals
 
@@ -76,7 +72,8 @@ circle_net <- network( dum2, directed=FALSE )
   
   * Know how to calculate degree centrality.
 
-  
+<br>
+
 ## Concepts and Operationalization
 
 When we say a *node* is "central", what do we mean conceptually? Think of a few examples.
@@ -138,18 +135,28 @@ gplot( u.mat, gmode = "graph", displaylabels = TRUE, label.pos = 5, label.cex = 
 
 Let's find the degree centrality score for each node. First, let's take our graph and create the sociomatrix.
 
-![Figure #.#](../sna-textbook/images/ch-05-matrix-01.jpeg)
+```{r, fig.cap = "", out.width = "60%"}
+knitr::include_graphics( "images/ch-05-matrix-01.jpeg" )
+```
+
+<br>
 
 Recall from above that in an undirected network the degree centrality score is either the sum of the row **or** the sum of the column. Let's calculate the score for Jen:
 
-![Figure #.#](../sna-textbook/images/ch-05-matrix-02.jpeg)
+```{r, fig.cap = "", out.width = "60%"}
+knitr::include_graphics( "images/ch-05-matrix-02.jpeg" )
+```
+
 <br>
 
 $C_D(Jen) = \sum_j x_{ij} = x_{Jen, Tom} + x_{Jen, Bob} + x_{Jen, Leaf} + x_{Jen, Jim} = 1 + 0 + 0 + 0 = 1$
 
 Jen's degree centrality score is 1, meaning that she has 1 tie. Notice in the calculation that we didn't include $x_{ii}$ which is $x_{Jen, Jen}$ because this is zero. Be careful when you do the calculations that you don't confuse these. Since self-nominations are usually set to zero, this is not a problem when we use the row or column totals. Just something to keep in mind.
 
-![Figure #.#](../../sna-textbook/images/ch-05-matrix-01.jpeg)
+```{r, fig.cap = "", out.width = "60%"}
+knitr::include_graphics( "images/ch-05-matrix-01.jpeg" )
+```
+
 <br>
 
 *What about the other nodes?*
@@ -177,7 +184,11 @@ What this gives us is the proportion of the network members with ties to actor *
 
 Let's take a look at our example network:
 
-![Figure #.#](../../sna-textbook/images/ch-05-matrix-01.jpeg)
+```{r, fig.cap = "", out.width = "60%"}
+knitr::include_graphics( "images/ch-05-matrix-01.jpeg" )
+```
+
+<br>
 
 For this graph, the denominator, *g-1* is $5 - 1 = 4$. Plugging that in we get: $C'_D(n_i) =  \dfrac{C_D(n_i)}{4}$.
 
@@ -257,7 +268,11 @@ For degree centrality, the maximum possible sum of differences is calculated as 
 
 If I lost you in some of the math, don't worry. Let's calculate the degree centralization score for our example graph:
 
-![Figure #.#](../../sna-textbook/images/ch-05-matrix-01.jpeg)
+```{r, fig.cap = "", out.width = "60%"}
+knitr::include_graphics( "images/ch-05-matrix-01.jpeg" )
+```
+
+<br>
 
 And recall our raw scores:
 
@@ -316,7 +331,6 @@ $$C_D =  \dfrac{\sum\limits_{i=1}^g [C_D(n^*) - C_D(n_i)]}{[(g-1)(g-2)]} = \dfra
 The degree centralization score for the figure on the right is 0. We can see this by doing the calculations: 
 
 $$C_D =  \dfrac{\sum\limits_{i=1}^g [C_D(n^*) - C_D(n_i)]}{[(g-1)(g-2)]} = \dfrac{(2-2)+(2-2)+(2-2)+(2-2)+(2-2)}{(5-1)(5-2)} = \dfrac{0+0+0+0+0}{4*3}= \dfrac{0}{12}= 0.0$$
-
 <br>
 
 ## Directed Graphs
@@ -335,7 +349,11 @@ In a directed binary graph, degree centrality can be broken down into *indegree*
 
 What are the *indegree* and *outdegree* centrality scores in the following graph?:
 
-![Figure #.#](../../sna-textbook/images/ch-05-matrix-03.jpeg)
+```{r, fig.cap = "", out.width = "60%"}
+knitr::include_graphics( "images/ch-05-matrix-03.jpeg" )
+```
+
+<br>
 
 #### Indegree
 
@@ -343,7 +361,11 @@ Let's start with the indegree. As stated above, indegree, $CI(n_i)$, measures th
 
 So, to get the indegree for each node, we just sum over the columns. Recall that columns are vertical.
 
-![Figure #.#](../../sna-textbook/images/ch-05-matrix-04.jpeg)
+```{r, fig.cap = "", out.width = "60%"}
+knitr::include_graphics( "images/ch-05-matrix-04.jpeg" )
+```
+
+<br>
 
 Let's calculate the indegree for Jen:
 $C_I(Jen) = \sum_j x_{j,Jen} = x_{Tom,Jen} + x_{Bob,Jen} + x_{Leaf,Jen} + x_{Jim,Jen} = 0+0+0+0 = 0$
@@ -363,7 +385,11 @@ Let's now look at the outdegree. With indegree, we are looking at the ties comin
 
 So, to get the outdegree for each node, we just sum over the rows. Recall that rows are horizontal.
 
-![Figure #.#](../../sna-textbook/images/ch-05-matrix-05.jpeg)
+```{r, fig.cap = "", out.width = "60%"}
+knitr::include_graphics( "images/ch-05-matrix-05.jpeg" )
+```
+
+<br>
 
 Let's calculate the outdegree for Jen:
 $C_O(Jen) = \sum_j x_{Jen,j} = x_{Jen,Tom} + x_{Jen,Bob} + x_{Jen,Leaf} + x_{Jen,Jim} = 1+0+0+0 = 1$
@@ -471,7 +497,11 @@ $$C_D =  \dfrac{\sum\limits_{i=1}^g [C_D(n^*) - C_D(n_i)]}{[(g-1)^2]}$$
 
 Let's calculate the indegree centralization score for our example graph:
 
-![Figure #.#](../../sna-textbook/images/ch-05-matrix-03.jpeg)
+```{r, fig.cap = "", out.width = "60%"}
+knitr::include_graphics( "images/ch-05-matrix-03.jpeg" )
+```
+
+<br>
 
 And recall our raw indegree scores:
 
@@ -497,7 +527,11 @@ When we introduce directionality, we have to alter our language a bit. When inde
 
 Now, let's calculate the outdegree centralization score for our example graph:
 
-![Figure #.#](../../sna-textbook/images/ch-05-matrix-03.jpeg)
+```{r, fig.cap = "", out.width = "60%"}
+knitr::include_graphics( "images/ch-05-matrix-03.jpeg" )
+```
+
+<br>
 
 And recall our raw outdegree scores:
 
@@ -526,3 +560,21 @@ The indegree centralization score, $C_I$, is 0.4375 and the outdegree centraliza
 It tells us that the outdegrees are more decentralized than the indegrees. Put another way, the indegrees are more centralized than are the outdegrees. 
 
 <br>
+
+## Summary
+
+In this chapter we: 
+
+  * Discussed the conceptualization of "centrality" and reviewed how to calculate degree centrality for undirected and directed networks. 
+  
+  * We also covered the concept of centralization.
+
+<br>
+
+#### Continue to [Chapter 6: Closeness Centrality]()
+
+<br><br>
+
+***Please*** report any corrections or comments to the [Issues](https://github.com/jacobtnyoung/sna-textbook/issues) page. Thanks!
+
+<br><br>

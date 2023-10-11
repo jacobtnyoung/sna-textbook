@@ -11,7 +11,7 @@
 
 
 
-<title>Projection</title>
+<title>ch-11-projection.knit</title>
 
 <script src="site_libs/header-attrs-2.23/header-attrs.js"></script>
 <script src="site_libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
@@ -30,8 +30,8 @@
        code {color: inherit; background-color: rgba(0, 0, 0, 0.04);}
        pre:not([class]) { background-color: white }</style>
 <script src="site_libs/navigation-1.1/tabsets.js"></script>
-<link href="site_libs/pagedtable-1.1/css/pagedtable.css" rel="stylesheet" />
-<script src="site_libs/pagedtable-1.1/js/pagedtable.js"></script>
+<link href="site_libs/highlightjs-9.12.0/default.css" rel="stylesheet" />
+<script src="site_libs/highlightjs-9.12.0/highlight.js"></script>
 
 <style type="text/css">
   code{white-space: pre-wrap;}
@@ -42,6 +42,16 @@
   ul.task-list{list-style: none;}
     </style>
 
+<style type="text/css">code{white-space: pre;}</style>
+<script type="text/javascript">
+if (window.hljs) {
+  hljs.configure({languages: []});
+  hljs.initHighlightingOnLoad();
+  if (document.readyState && document.readyState === "complete") {
+    window.setTimeout(function() { hljs.initHighlighting(); }, 0);
+  }
+}
+</script>
 
 
 
@@ -233,7 +243,7 @@ $(document).ready(function () {
     <div id="navbar" class="navbar-collapse collapse">
       <ul class="nav navbar-nav">
         <li>
-  <a href="index.html">Social Network Analysis Textbook</a>
+  <a href="index.html">Preface/Table of Contents</a>
 </li>
 <li>
   <a href="ch-01-intro-to-sna.html">Chapter 1</a>
@@ -243,6 +253,33 @@ $(document).ready(function () {
 </li>
 <li>
   <a href="ch-03-sna-methods.html">Chapter 3</a>
+</li>
+<li>
+  <a href="ch-04-net-data-structures.html">Chapter 4</a>
+</li>
+<li>
+  <a href="ch-05-centrality-degree.html">Chapter 5</a>
+</li>
+<li>
+  <a href="ch-06-centrality-closeness.html">Chapter 6</a>
+</li>
+<li>
+  <a href="ch-07-centrality-betweenness.html">Chapter 7</a>
+</li>
+<li>
+  <a href="ch-08-centrality-comparison.html">Chapter 8</a>
+</li>
+<li>
+  <a href="ch-09-local-structure.html">Chapter 9</a>
+</li>
+<li>
+  <a href="ch-10-bipartite-graphs.html">Chapter 10</a>
+</li>
+<li>
+  <a href="ch-11-projection.html">Chapter 11</a>
+</li>
+<li>
+  <a href="ch-12-weighted-graphs.html">Chapter 12</a>
 </li>
       </ul>
       <ul class="nav navbar-nav navbar-right">
@@ -256,13 +293,13 @@ $(document).ready(function () {
 
 
 
-<h1 class="title toc-ignore">Projection</h1>
 
 </div>
 
 
-<div id="projection" class="section level1">
-<h1>Projection</h1>
+<p><br></p>
+<div id="chapter-11-projection" class="section level1">
+<h1>Chapter 11: Projection</h1>
 <div id="learning-goals" class="section level2">
 <h2>Learning Goals</h2>
 <ul>
@@ -287,11 +324,8 @@ href="https://journals.sagepub.com/doi/10.1177/1043986214553380">Young
 in groups?</li>
 </ul>
 <p>To answer these questions, they proposed the following model:</p>
-<div class="float">
-<img src="../sna-textbook/images/ch-01-model-figure.jpeg"
-alt="Figure #.#" />
-<div class="figcaption">Figure #.#</div>
-</div>
+<p><img src="images/ch-01-model-figure.jpeg" width="60%" /></p>
+<p><br></p>
 <p>In this model, the argued that police officers views of body-worn
 cameras influence whether they use their cameras in incidents. Where do
 these views come from? The authors proposed a <em>contagion</em> process
@@ -301,10 +335,8 @@ legitimacy of body-worn cameras.</p>
 <p>The network <a
 href="https://journals.sagepub.com/doi/10.1177/1043986214553380">Young
 &amp; Ready (2015)</a> analyzed is shown below:</p>
-<div class="float">
-<img src="../sna-textbook/images/ch-01-net-06.jpeg" alt="Figure #.#" />
-<div class="figcaption">Figure #.#</div>
-</div>
+<p><img src="images/ch-01-net-06.jpeg" width="60%" /></p>
+<p><br></p>
 <p>In this network, incidents (white circles) connect officers (squares
 and triangles). This is a bipartite graph because there are two sets of
 nodes: incidents and officers. The plot shows two types of officers,
@@ -315,11 +347,8 @@ exposure to body-cameras during incidents influenced views, especially
 for those who were not assigned a camera.</p>
 <p>To examine influence in this network, the authors <em>actually</em>
 examined this network:</p>
-<div class="float">
-<img src="../sna-textbook/images/ch-11-figure-01.jpeg"
-alt="Figure #.#" />
-<div class="figcaption">Figure #.#</div>
-</div>
+<p><img src="images/ch-11-figure-01.jpeg" width="60%" /></p>
+<p><br></p>
 <p>In this network, the nodes are police officers and the edges
 represent shared incidents. The width of the edges represents the number
 of shared incidents. That is, wider edges between two nodes mean that
@@ -349,18 +378,12 @@ class="math inline">\(M \times M\)</span> adjacency matrix).</li>
 </ul>
 <p>We can see this graphically by taking a look at our example network
 from the chapter on <a href="">bipartite graphs</a>:</p>
-<div class="float">
-<img src="../sna-textbook/images/ch-10-figure-01.jpeg"
-alt="Figure #.#" />
-<div class="figcaption">Figure #.#</div>
-</div>
+<p><img src="images/ch-10-graph-01.jpeg" width="60%" /></p>
+<p><br></p>
 <p>Consider nodes <em>A</em>, <em>B</em>, and <em>C</em>. Are the
 connected?</p>
-<div class="float">
-<img src="../sna-textbook/images/ch-11-figure-02.jpeg"
-alt="Figure #.#" />
-<div class="figcaption">Figure #.#</div>
-</div>
+<p><img src="images/ch-11-figure-02.jpeg" width="60%" /></p>
+<p><br></p>
 <p>We can see that <em>A</em>, <em>B</em>, and <em>C</em> are connected
 through the shared edges with node <em>1</em>. That is, the edges <span
 class="math inline">\(L_{A,1}\)</span> and <span
@@ -370,11 +393,8 @@ class="math inline">\(L_{B,1}\)</span> and <span
 class="math inline">\(L_{C,1}\)</span> which connect nodes <em>B</em>
 and <em>C</em>.</p>
 <p>What about node <em>2</em>?</p>
-<div class="float">
-<img src="../sna-textbook/images/ch-11-figure-03.jpeg"
-alt="Figure #.#" />
-<div class="figcaption">Figure #.#</div>
-</div>
+<p><img src="images/ch-11-figure-03.jpeg" width="60%" /></p>
+<p><br></p>
 <p>We can see that <em>A</em>, <em>C</em>, and <em>D</em> are connected
 through the shared edges with node <em>2</em>. That is, the edges <span
 class="math inline">\(L_{A,2}\)</span> and <span
@@ -386,23 +406,23 @@ and <em>D</em>.</p>
 class="math inline">\(N\)</span> node set will render in the unpartite
 graph.</p>
 <p>What about the <span class="math inline">\(M\)</span> nodes?</p>
-<p><img src="../sna-textbook/images/ch-11-figure-04.jpeg"
-alt="Figure #.#" /> We can see that <em>2</em>, <em>3</em>, <em>4</em>,
-and <em>5</em> are connected through the shared edges with node
-<em>D</em>. That is, the edges <span
-class="math inline">\(L_{D,2}\)</span> and <span
+<p><img src="images/ch-11-figure-04.jpeg" width="60%" /></p>
+<p><br></p>
+<p>We can see that <em>2</em>, <em>3</em>, <em>4</em>, and <em>5</em>
+are connected through the shared edges with node <em>D</em>. That is,
+the edges <span class="math inline">\(L_{D,2}\)</span> and <span
 class="math inline">\(L_{D,3}\)</span> connect nodes <em>2</em> and
 <em>3</em> and edges <span class="math inline">\(L_{D,4}\)</span> and
 <span class="math inline">\(L_{D,5}\)</span> connect nodes <em>4</em>
 and <em>5</em>.</p>
 <p>Note that nodes in one node set can be connected through multiple
 nodes in the alternative node set. For example:</p>
-<p><img src="../sna-textbook/images/ch-11-figure-05.jpeg"
-alt="Figure #.#" /> That is, the edges <span
-class="math inline">\(L_{D,3}\)</span> and <span
-class="math inline">\(L_{D,5}\)</span> connect nodes <em>3</em> and
-<em>5</em>. But, nodes <em>3</em> and <em>5</em> are also connected by
-edges <span class="math inline">\(L_{F,3}\)</span> and <span
+<p><img src="images/ch-11-figure-05.jpeg" width="60%" /></p>
+<p><br></p>
+<p>That is, the edges <span class="math inline">\(L_{D,3}\)</span> and
+<span class="math inline">\(L_{D,5}\)</span> connect nodes <em>3</em>
+and <em>5</em>. But, nodes <em>3</em> and <em>5</em> are also connected
+by edges <span class="math inline">\(L_{F,3}\)</span> and <span
 class="math inline">\(L_{F,5}\)</span> (highlighted in the figure).</p>
 <p><br></p>
 </div>
@@ -436,24 +456,22 @@ class="math inline">\(M\)</span>)</li>
 </ul>
 <p>Let’s take our example network above and look at this a bit
 closer:</p>
-<div class="float">
-<img src="../sna-textbook/images/ch-10-figure-02.jpeg"
-alt="Figure #.#" />
-<div class="figcaption">Figure #.#</div>
-</div>
+<p><img src="images/ch-10-graph-02.jpeg" width="60%" /></p>
+<p><br></p>
 <p>Note that our matrix, <span class="math inline">\(A\)</span>, has 6
 rows and 5 columns. This means it has <em>order</em> <span
 class="math inline">\(6 \times 5\)</span>.</p>
-<p><img src="../sna-textbook/images/ch-11-figure-06.jpeg"
-alt="Figure #.#" /> Recall, that the transpose of a matrix simply
-reverses the columns and rows. To get the transpose, imagine rotating
-the matrix 90 degrees, and then flipping it over. That would give us
-this:</p>
-<p><img src="../sna-textbook/images/ch-11-figure-07.jpeg"
-alt="Figure #.#" /> In the transpose, <span
-class="math inline">\(A^T\)</span>, the rows and columns have been
-switched. We now have 5 rows and 6 columns. This means it has
-<em>order</em> <span class="math inline">\(5 \times 6\)</span>.</p>
+<p><img src="images/ch-11-figure-06.jpeg" width="60%" /></p>
+<p><br></p>
+<p>Recall, that the transpose of a matrix simply reverses the columns
+and rows. To get the transpose, imagine rotating the matrix 90 degrees,
+and then flipping it over. That would give us this:</p>
+<p><img src="images/ch-11-figure-07.jpeg" width="60%" /></p>
+<p><br></p>
+<p>In the transpose, <span class="math inline">\(A^T\)</span>, the rows
+and columns have been switched. We now have 5 rows and 6 columns. This
+means it has <em>order</em> <span class="math inline">\(5 \times
+6\)</span>.</p>
 <p><em>So what?</em></p>
 <p>We need to briefly review some rules about matrix multiplication to
 understand why the emphasis on order is important.</p>
@@ -503,16 +521,13 @@ multiplication for our adjacency matrix <span
 class="math inline">\(A\)</span>:</p>
 <p><span class="math display">\[A \times A^T = P\]</span> Let’s see how
 this works by visualizing our example:</p>
-<div class="float">
-<img src="../sna-textbook/images/ch-11-figure-08.jpeg"
-alt="Figure #.#" />
-<div class="figcaption">Figure #.#</div>
-</div>
+<p><img src="images/ch-11-figure-08.jpeg" width="60%" /></p>
+<p><br></p>
 <p>After multiplication we get:</p>
-<p><img src="../sna-textbook/images/ch-11-figure-09.jpeg"
-alt="Figure #.#" /> The product matrix as rows <span
-class="math inline">\(N \times N\)</span> shows us how people are
-connected by groups.</p>
+<p><img src="images/ch-11-figure-09.jpeg" width="60%" /></p>
+<p><br></p>
+<p>The product matrix as rows <span class="math inline">\(N \times
+N\)</span> shows us how people are connected by groups.</p>
 <p>The values of the matrix show two important things:</p>
 <ul>
 <li>The diagonal cells represents the count of ties that a specific node
@@ -532,11 +547,12 @@ refer to the <span class="math inline">\(M\)</span> node set, the
 diagonal is the count of groups to which a node in <span
 class="math inline">\(N\)</span> is connected.</p>
 <p>For example, in the figure below, <em>D</em> is in 4 groups:</p>
-<p><img src="../sna-textbook/images/ch-11-figure-10.jpeg"
-alt="Figure #.#" /> We can see this in the graph by counting the edges,
-but also by looking at the <span class="math inline">\(P_{D,D}\)</span>
-cell of the adjacency matrix <span class="math inline">\(P\)</span>
-(highlighted in red).</p>
+<p><img src="images/ch-11-figure-10.jpeg" width="60%" /></p>
+<p><br></p>
+<p>We can see this in the graph by counting the edges, but also by
+looking at the <span class="math inline">\(P_{D,D}\)</span> cell of the
+adjacency matrix <span class="math inline">\(P\)</span> (highlighted in
+red).</p>
 <p>Here is a question. <em>What network measure does the diagonal give
 us?</em> Think back to the chapter on <a href="">bipartite
 graphs</a>.</p>
@@ -555,11 +571,8 @@ linked through a single node, <em>1</em>. This means the value for the
 <span class="math inline">\(P_{A,B}\)</span> cell of the adjacency
 matrix <span class="math inline">\(P\)</span> (highlighted in green) is
 1.</p>
-<div class="float">
-<img src="../sna-textbook/images/ch-11-figure-11.jpeg"
-alt="Figure #.#" />
-<div class="figcaption">Figure #.#</div>
-</div>
+<p><img src="images/ch-11-figure-11.jpeg" width="60%" /></p>
+<p><br></p>
 <p>Note that when we project, it forces the matrix to be symmetric about
 the diagonal. This means that the projection creates an
 <strong>undirected unipartite</strong> graph. As a result, the value for
@@ -567,11 +580,8 @@ the <span class="math inline">\(P_{B,A}\)</span> cell of the adjacency
 matrix <span class="math inline">\(P\)</span> (also highlighted in
 green) is 1.</p>
 <p>Let’s look at another example:</p>
-<div class="float">
-<img src="../sna-textbook/images/ch-11-figure-12.jpeg"
-alt="Figure #.#" />
-<div class="figcaption">Figure #.#</div>
-</div>
+<p><img src="images/ch-11-figure-12.jpeg" width="60%" /></p>
+<p><br></p>
 <p>Here, <em>A</em> and <em>C</em> are linked through two nodes in <span
 class="math inline">\(M\)</span>, <em>1</em> and <em>2</em>. This means
 that the value for the <span class="math inline">\(P_{A,C}\)</span> cell
@@ -596,10 +606,10 @@ multiplication for our adjacency matrix <span
 class="math inline">\(A\)</span>:</p>
 <p><span class="math display">\[A^T \times A = G\]</span> After
 multiplication we get:</p>
-<p><img src="../sna-textbook/images/ch-11-figure-13.jpeg"
-alt="Figure #.#" /> The product matrix as rows <span
-class="math inline">\(M \times M\)</span> shows us how groups are
-connected by people.</p>
+<p><img src="images/ch-11-figure-13.jpeg" width="60%" /></p>
+<p><br></p>
+<p>The product matrix as rows <span class="math inline">\(M \times
+M\)</span> shows us how groups are connected by people.</p>
 <p>As with the product matrix <span class="math inline">\(P\)</span>,
 the values of the product matrix <span class="math inline">\(G\)</span>
 shows two important things:</p>
@@ -621,11 +631,12 @@ refer to the <span class="math inline">\(N\)</span> node set, the
 diagonal is the count of people to which a node in <span
 class="math inline">\(M\)</span> is connected.</p>
 <p>For example, in the figure below, <em>2</em> is in 3 groups:</p>
-<p><img src="../sna-textbook/images/ch-11-figure-14.jpeg"
-alt="Figure #.#" /> We can see this in the graph by counting the edges,
-but also by looking at the <span class="math inline">\(G_{2,2}\)</span>
-cell of the adjacency matrix <span class="math inline">\(G\)</span>
-(highlighted in red).</p>
+<p><img src="images/ch-11-figure-14.jpeg" width="60%" /></p>
+<p><br></p>
+<p>We can see this in the graph by counting the edges, but also by
+looking at the <span class="math inline">\(G_{2,2}\)</span> cell of the
+adjacency matrix <span class="math inline">\(G\)</span> (highlighted in
+red).</p>
 <p>Here is a question. <em>What network measure does the diagonal give
 us?</em> Think back to the chapter on <a href="">bipartite
 graphs</a>.</p>
@@ -644,11 +655,8 @@ linked through 2 nodes in <span class="math inline">\(M\)</span>,
 <em>A</em> and <em>C</em>. This means the value for the <span
 class="math inline">\(G_{2,1}\)</span> cell of the adjacency matrix
 <span class="math inline">\(G\)</span> (highlighted in green) is 2.</p>
-<div class="float">
-<img src="../sna-textbook/images/ch-11-figure-15.jpeg"
-alt="Figure #.#" />
-<div class="figcaption">Figure #.#</div>
-</div>
+<p><img src="images/ch-11-figure-15.jpeg" width="60%" /></p>
+<p><br></p>
 <p>Again, note that when we project it forces the matrix to be symmetric
 about the diagonal. This means that the projection creates an
 <strong>undirected unipartite</strong> graph. As a result, the value for
@@ -672,41 +680,49 @@ an <em>binary, unweighted, undirected, unipartite</em> graph. What a
 mouthful!</p>
 <p>For the people matrix <span class="math inline">\(P\)</span>, we can
 visualize this process here:</p>
-<div class="float">
-<img src="../sna-textbook/images/ch-11-figure-16.jpeg"
-alt="Figure #.#" />
-<div class="figcaption">Figure #.#</div>
-</div>
+<p><img src="images/ch-11-figure-16.jpeg" width="60%" /></p>
+<p><br></p>
 <p>And for the group matrix <span class="math inline">\(G\)</span>, we
 can visualize this process here:</p>
-<div class="float">
-<img src="../sna-textbook/images/ch-11-figure-17.jpeg"
-alt="Figure #.#" />
-<div class="figcaption">Figure #.#</div>
-</div>
+<p><img src="images/ch-11-figure-17.jpeg" width="60%" /></p>
+<p><br></p>
 <p>However, note that we lose some information when we dichotomize.
 Specifically, we are treating an connections that are greater than 1 as
 being the same as connections exactly equal to one. This may be
 problematic in some cases.</p>
 <p>For example, consider the two bipartite graphs below. <em>Are they
 the same?</em></p>
-<div class="float">
-<img src="../sna-textbook/images/ch-11-figure-18.jpeg"
-alt="Figure #.#" />
-<div class="figcaption">Figure #.#</div>
-</div>
+<p><img src="images/ch-11-figure-18.jpeg" width="60%" /></p>
+<p><br></p>
 <p>No. We can see in the plot on the right that the distribution of the
 edges is different from the plot on the left. <em>But</em>, the
 projection is the same:</p>
-<div class="float">
-<img src="../sna-textbook/images/ch-11-figure-19.jpeg"
-alt="Figure #.#" />
-<div class="figcaption">Figure #.#</div>
-</div>
+<p><img src="images/ch-11-figure-19.jpeg" width="60%" /></p>
+<p><br></p>
 <p>This is a simple example, but illustrates an important point.</p>
 <p>We will return to this idea in greater detail in the chapter on <a
 href="">weighted networks</a>.</p>
 <p><br></p>
+</div>
+</div>
+<div id="summary" class="section level2">
+<h2>Summary</h2>
+<p>In this chapter we:</p>
+<ul>
+<li><p>Introduced the technique of <em>projection</em> for converting
+bipartite graphs to unipartite graphs.</p></li>
+<li><p>Then, we reviewed the consequences of projecting bipartite graphs
+to unipartite graphs.</p></li>
+</ul>
+<p><br></p>
+<div id="continue-to-chapter-12-weighted-graphs" class="section level4">
+<h4>Continue to <a href="">Chapter 12: Weighted Graphs</a></h4>
+<p><br><br></p>
+<p><strong><em>Please</em></strong> report any corrections or comments
+to the <a
+href="https://github.com/jacobtnyoung/sna-textbook/issues">Issues</a>
+page. Thanks!</p>
+<p><br><br></p>
 </div>
 </div>
 </div>

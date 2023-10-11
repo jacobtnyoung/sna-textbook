@@ -22,7 +22,7 @@ library( here )
   
 <br>
 
-#### Return to [Preface/Table of Contents]()
+#### Return to [Preface/Table of Contents](https://jacobtnyoung.github.io/sna-textbook/)
 
 <br><br>
 

@@ -78,7 +78,7 @@ A study by CITE suggests that exposure to particular behavioral settings increas
 
 <br>
 
-#### Continue to [Chapter 3: Social Network Analysis and Methods for Data Collection]()
+#### Continue to [Chapter 3: Social Network Analysis and Methods for Data Collection](ch-03-sna-methods.html)
 
 <br><br>
 

@@ -21,7 +21,7 @@ library( here )
     
 <br>
 
-#### Continue to [Chapter 4: Network Data Structures]()
+#### Continue to [Chapter 4: Network Data Structures](ch-04-net-data-structures.html)
 
 <br><br>
 

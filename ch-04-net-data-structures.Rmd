@@ -279,7 +279,7 @@ Note that, because we are allowing directionality to matter, the total number of
   
 <br>
 
-#### Continue to [Chapter 5: Degree Centrality]()
+#### Continue to [Chapter 5: Degree Centrality](ch-05-centrality-degree.html)
 
 <br><br>
 

@@ -524,7 +524,7 @@ In this chapter we:
 
 <br>
 
-#### Continue to [Chapter 2: Social Network Analysis and Theory]()
+#### Continue to [Chapter 2: Social Network Analysis and Theory](ch-08-centrality-comparison.html)
 
 <br><br>
 

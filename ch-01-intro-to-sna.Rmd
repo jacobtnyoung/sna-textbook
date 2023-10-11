@@ -276,7 +276,7 @@ To summarize this section, the main take away is that *relational* data can take
 
 <br>
 
-#### Continue to [Chapter 2: Social Network Analysis and Theory]()
+#### Continue to [Chapter 2: Social Network Analysis and Theory](ch-02-sna-theory.html)
 
 <br><br>
 

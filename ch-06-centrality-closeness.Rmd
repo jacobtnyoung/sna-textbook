@@ -558,7 +558,7 @@ In this chapter, we:
   
 <br>
 
-#### Continue to [Chapter 7: Betweenness Centrality]()
+#### Continue to [Chapter 7: Betweenness Centrality](ch-07-centrality-betweenness.html)
 
 <br><br>
 

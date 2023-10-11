@@ -383,7 +383,7 @@ In this chapter we:
   
 <br>
 
-#### Continue to [Chapter 12: Weighted Graphs]()
+#### Continue to [Chapter 12: Weighted Graphs](ch-12-weighted-graphs.html)
 
 <br><br>
 

@@ -22,7 +22,7 @@ library( here )
   
 <br>
 
-#### Continue to [Chapter 9: Local Structure]()
+#### Continue to [Chapter 9: Local Structure](ch-09-local-structure.html)
 
 <br><br>
 

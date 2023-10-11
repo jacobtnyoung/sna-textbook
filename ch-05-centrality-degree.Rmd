@@ -571,7 +571,7 @@ In this chapter we:
 
 <br>
 
-#### Continue to [Chapter 6: Closeness Centrality]()
+#### Continue to [Chapter 6: Closeness Centrality](ch-06-centrality-closeness.html)
 
 <br><br>
 

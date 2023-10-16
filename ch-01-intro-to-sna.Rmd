@@ -93,10 +93,13 @@ Here is another [example](https://www.theonion.com/sudden-death-of-aunt-creates-
 knitr::include_graphics( "images/ch-01-gossip.jpeg" )
 ```
 
+<br>
 
 Conceptually, what does this story tell us about the **relational structure** of information transmission in the Shelton family?
 
 It is *vulnerable!*
+
+<br>
 
 To understand, we can draw a picture illustrating the network described in the story:
 

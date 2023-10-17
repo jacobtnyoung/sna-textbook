@@ -66,7 +66,7 @@ write.adjacency( powerinfluence.net  , "data-PINS-power-w1-adj" )
 
 path <- "/Users/jyoung20/Dropbox (ASU)/GitHub_repos/sna-textbook/data/"
 
-write.attributes( get.along.norank.net, c( "Age", "Race" ), "data-PINS-w1-attributes" )
+write.attributes( get.along.norank.net, c( "Age", "Race" ), "data-PINS-w1-age-race-attributes" )
 
 
 # =============================================================================== #

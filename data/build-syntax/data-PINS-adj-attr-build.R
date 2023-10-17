@@ -59,7 +59,7 @@ path <- "/Users/jyoung20/Dropbox (ASU)/GitHub_repos/sna-textbook/data/"
 
 write.adjacency( get.along.norank.net, "data-PINS-getalong-w1-adj" )
 write.adjacency( powerinfluence.net  , "data-PINS-power-w1-adj" )
-
+write.adjacency( information.net     , "data-PINS-info-w1-adj" )
 
 # ----
 # create the files with the attributes

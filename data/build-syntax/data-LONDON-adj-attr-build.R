@@ -92,7 +92,7 @@ rm( list = ls()[! ls() %in% c(
 
 path <- "/Users/jyoung20/Dropbox (ASU)/GitHub_repos/sna-textbook/data/"
 
-save.image( file = paste( path, "data-london-gang-net", ".RData", sep = "" ) )
+saveRDS( LondonGangNet, file = paste( path, "data-london-gang-net", ".rds", sep = "" ) )
 
 
 # =============================================================================== #

@@ -80,11 +80,19 @@ for( i in 1: length( namesLoop ) ){
 
 
 # ----
+# clean workspace
+
+rm( list = ls()[! ls() %in% c( 
+  "LondonGangNet" 
+)])
+
+
+# ----
 # save the object as an .rds file
 
 path <- "/Users/jyoung20/Dropbox (ASU)/GitHub_repos/sna-textbook/data/"
 
-saveRDS( LondonGangNet, paste( path, "data-london-gang-net", ".rds", sep = "" ) )  
+save.image( file = paste( path, "data-london-gang-net", ".RData", sep = "" ) )
 
 
 # =============================================================================== #

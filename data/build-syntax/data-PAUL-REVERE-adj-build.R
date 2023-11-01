@@ -64,9 +64,16 @@ PaulRevereNet <- as.network(
 # ----
 # Clean up the names
 
+# reverse the order of the names
 firstNames <- sub( ".*\\.", "", network.vertex.names( PaulRevereNet )[1:N] )
 lastNames  <- sub( "\\..*", "", network.vertex.names( PaulRevereNet )[1:N] )
 actorNames <- paste0( firstNames, sep = " ", lastNames )
+
+# create a set of names that is just the individuals
+PaulRevereNet %v% "people.names" <- c( actorNames, rep( NA, dim( mat )[2] ) )
+
+# create a set of places names
+PaulRevereNet %v% "place.names" <- c( rep( NA, dim( mat )[1] ), network.vertex.names( PaulRevereNet )[ -c( 1:N ) ] )
 
 # assign as an attribute
 PaulRevereNet %v% "names" <- c( actorNames, network.vertex.names( PaulRevereNet )[ -c( 1:N ) ] )

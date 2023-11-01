@@ -48,7 +48,7 @@ To answer these questions, they proposed the following model:
 knitr::include_graphics( "images/ch-01-model-figure.jpeg" )
 ```
 
-In this model, the argued that police officers views of body-worn cameras influence whether they use their cameras in incidents. Where do these views come from? The authors proposed a *contagion* process whereby officers who shared incidents together exchanged views about the legitimacy of body-worn cameras.
+In this model, they argued that police officers views of body-worn cameras influence whether they use their cameras in incidents. Where do these views come from? The authors proposed a *contagion* process whereby officers who shared incidents together exchanged views about the legitimacy of body-worn cameras.
 
 Thus, the network matters!
 
@@ -113,7 +113,7 @@ What makes it vulnerable? What happened when aunt Laurie died?
 knitr::include_graphics( "images/ch-01-gossip-laurie-02.jpeg" )
 ```
 
-Communication is completed disrupted!
+Communication is completely disrupted!
 
 Now, consider a separate network arrangement:
 
@@ -203,7 +203,7 @@ knitr::include_graphics( "images/ch-01-net-04.jpeg" )
 
 In the undirected network (on the left), all information can reach all three groups. To see this start at any node and you can reach any other node following the lines.
 
-But, in the directed network (on the right), information is "stuck" in the three clusters. Why? This is because information comes from the center node and goes to each cluster. Even though the all communicate in each cluster, information does not leave the clusters. To see this, start with any node and follow the arrows. Once you get into a single cluster, you cannot leave!
+But, in the directed network (on the right), information is "stuck" in the three clusters. Why? This is because information comes from the center node and goes to each cluster. Even though they all communicate in each cluster, information does not leave the clusters. To see this, start with any node and follow the arrows. Once you get into a single cluster, you cannot leave!
 
 
 #### Value
@@ -265,7 +265,7 @@ Networks can also differ with respect to the types of edges.
   
   * Multiplex (connections among nodes are of multiple types)
 
-For example, in the fictitious plot below, individual responded to three questions: "do you get along with this person?", "do you discuss important matters with this person?", and "is this person powerful/influential?"
+For example, in the fictitious plot below, individuals responded to three questions: "do you get along with this person?", "do you discuss important matters with this person?", and "is this person powerful/influential?"
 
 ```{r, fig.cap = "", out.width = "40%"}
 knitr::include_graphics( "images/ch-01-net-08.jpeg" )

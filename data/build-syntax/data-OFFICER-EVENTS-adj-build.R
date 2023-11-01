@@ -64,24 +64,22 @@ OfficerEventsNet <- as.network(
   bipartite = N
 )
 
+
 # ----
-# create an attribute for the network
+# create function to build adjacency matrix and write it to .csv
 
-status <- c( 
-  rep( "Control", 44 ),
-  rep( "Treatment", 37 ),
-  rep( "Event", 153 )
-  )
-
-OfficerEventsNet %v% "TCEstatus" <- status
+write.adjacency <- function( input.net, file.name ){
+  net.out <- network::as.sociomatrix( input.net )
+  write.csv( net.out, paste( path, file.name, ".csv", sep = "" ) )
+}
 
 
 # ----
-# save the object as an .rds file
+# save the object as a .csv file
 
 path <- "/Users/jyoung20/Dropbox (ASU)/GitHub_repos/sna-textbook/data/"
 
-saveRDS( OfficerEventsNet, paste( path, "data-officer-events-net", ".rds", sep = "" ) )  
+write.adjacency( OfficerEventsNet, "data-officer-events-adj" )
 
 
 # =============================================================================== #

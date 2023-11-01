@@ -34,7 +34,7 @@ library( network ) # for working with the network object
 # ----
 # Load the data.
 
-matFile <- "/Users/jyoung20/Dropbox (ASU)/GitHub_repos/sna-textbook/data/build-syntax/build-raw-data/PAUL-REVERE.csv" 
+matFile <- "/Users/jyoung20/Dropbox (ASU)/GitHub_repos/sna-textbook/data/build-syntax/build-raw-data/PHILIPPINE-KIDNAPPINGS.csv" 
 
 mat <- as.matrix(
   read.csv( 
@@ -53,21 +53,10 @@ mat <- as.matrix(
 N <- dim( mat )[1]
 
 # create the network object
-PaulRevereNet <- as.network( 
+PhilKidnapNet <- as.network( 
   mat,
   bipartite = N
 )
-
-
-# ----
-# Clean up the names
-
-firstNames <- sub( ".*\\.", "", network.vertex.names( PaulRevereNet )[1:N] )
-lastNames  <- sub( "\\..*", "", network.vertex.names( PaulRevereNet )[1:N] )
-actorNames <- paste0( firstNames, sep = " ", lastNames )
-
-# assign as an attribute
-PaulRevereNet %v% "names" <- c( actorNames, network.vertex.names( PaulRevereNet )[ -c( 1:N ) ] )
 
 
 # ----
@@ -75,7 +64,7 @@ PaulRevereNet %v% "names" <- c( actorNames, network.vertex.names( PaulRevereNet 
 
 path <- "/Users/jyoung20/Dropbox (ASU)/GitHub_repos/sna-textbook/data/"
 
-saveRDS( PaulRevereNet, file = paste( path, "data-paul-revere-net", ".rds", sep = "" ) )
+saveRDS( PhilKidnapNet, file = paste( path, "data-philippine-kidnappings-net", ".rds", sep = "" ) )
 
 
 # =============================================================================== #

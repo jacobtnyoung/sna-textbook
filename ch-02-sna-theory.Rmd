@@ -15,9 +15,8 @@ library( here )
 
 ## Learning Goals
 
-  * Be able to answer these questions:
-  
-    * Understand the theoretical basis of network science
+  * Understand the theoretical basis of network science
+
 <br>
 
 ## Organizing Knowledge

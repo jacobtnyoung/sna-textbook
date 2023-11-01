@@ -1,5 +1,5 @@
 # =============================================================================== #
-# Build PAUL REVERE data files for SNA textbook.
+# Build PHILIPPINE KIDNAPPINGS data files for SNA textbook.
 # =============================================================================== #
 
 
@@ -9,20 +9,18 @@
 # This script is run once to build the files and export them 
 # to the data folder in the sna-textbook repo.
 
-# Paul Revere Conspiracy
-# The Paul Revere conspiracy dataset concerns relationships between 254 people 
-# and their affiliations with seven different organizations in Boston. 
-# The dataset refers to Paul Revere, who was responsible for organizing a local militia 
-# of Boston's revolutionary movement (see http://en.wikipedia.org/wiki/Sons_of_Liberty). 
-# The dataset was analysed by Kieran Healy of Duke University. This dataset has been 
-# reconstructed by looking at the information presented in the appendix of the book 
-# "Paul Revere's Ride" published by David Fischer (1994).
+# Philippine Kidnappings
+# Data refers to the Abu Sayyaf Group (ASG), a violent non-state actor operating 
+# in the Southern Philippines. In particular, this data is related to the Salast 
+# movement that has been founded by Aburajak Janjalani, a native terrorist of the 
+# Southern Philippines in 1991. ASG is active in kidnapping and other kinds of 
+# terrorist attacks (Gerdes et al. 2014). The reconstructed 2-mode matrix 
+# combines terrorist kidnappers and the terrorist events they have attended.
 
-# Reference: Fischer, D. (1994), "Paul Revere's ride", Oxford University Press. 
-# Retrieved from: http://kieranhealy.org/blog/archives/2013/06/09/using-metadata-to-find-paul-revere/. 
-
-# data retrieved from: 
-# http://www.casos.cs.cmu.edu/tools/datasets/external/paulrevere/paulrevere.zip
+# Reference: Gerdes, Luke M., Kristine Ringler, and Barbara Autin (2014). 
+# "Assessing the Abu Sayyaf Group's Strategic and Learning Capacities." 
+# Studies in Conflict & Terrorism 37, no. 3: 267-293. 
+# Retreived from: http://www.tandfonline.com/eprint/cCV3RJihmG3miPFECpV7/full.
 
 
 # ----

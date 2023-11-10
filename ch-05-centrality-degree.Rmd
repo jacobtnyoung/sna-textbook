@@ -101,9 +101,9 @@ Here are three typical ways of thinking about centrality:
   
 We will discuss each of these concepts, how they are conceptualized and how they are operationalized in social network analysis.
 
-It is also important to distinguish between whether we are taking about the centrality of a node or the centrality of a graph:
+It is also important to distinguish between whether we are talking about the centrality of a node or the centrality of a graph:
 
-  *  The centrality of a node (whether it is measured as degree centraltiy, betweenness centrality, or closeness centrality) refers to **point** centrality. In other words, the centrality of a particular point on a graph. What we have been calling a node. When we talk about point centrality, we are usually comparing different nodes. For example, is Jim more central than Joan?
+  *  The centrality of a node (whether it is measured as degree centrality, betweenness centrality, or closeness centrality) refers to **point** centrality. In other words, the centrality of a particular point on a graph. What we have been calling a node. When we talk about point centrality, we are usually comparing different nodes. For example, is Jim more central than Joan?
   
   *  In addition, we can also describe the centrality of an entire graph, referred to as **graph** centrality. The centrality measure on an entire graph tells us how centrality measures differ between nodes in a graph. As we will see, we can describe how hierarchical or decentralized a graph is based on the *centralization* of the graph.
 
@@ -115,7 +115,7 @@ As with prior chapters, we will start with undirected graphs and then move to di
 
 ### Degree Centrality
 
-In an undirected binary graph, *degree centrality* measures the extent to which a node connects to all other nodes in a network. In other words, the number of edges incident with a node. This is symbolized as: $d(n_i)$ and this reads "degree for the $i_{th}$ node". For an undirected binary graph, the degree, $d(n_i)$, is simple the row **or** column sum. We can express this formally as:
+In an undirected binary graph, *degree centrality* measures the extent to which a node connects to all other nodes in a network. In other words, the number of edges incident with a node. This is symbolized as: $d(n_i)$ and this reads "degree for the $i_{th}$ node". For an undirected binary graph, the degree, $d(n_i)$, is simply the row **or** column sum. We can express this formally as:
 
   * $C_D(n_i) = \sum_j x_{ij} = \sum_j x_{ji}$
   
@@ -172,7 +172,7 @@ Let's do the calculations:
 
 ### Standardization
 
-Actor degree centrality not only reflects each node’s connectivity to other nodes but also depends on the size of the network, *g*. Larger networks will have a higher maximum possible degree centrality value. This is called a *raw* score. How can we nodes from different sized networks? *Solution?*
+Actor degree centrality not only reflects each node’s connectivity to other nodes but also depends on the size of the network, *g*. Larger networks will have a higher maximum possible degree centrality value. This is called a *raw* score. How can we use nodes from different sized networks? 
 
 Standardize! If we want to compare nodes in different sized networks, then we just take into account the number of nodes and the maximum possible nodes to which *i* could be connected. In an undirected graph, this is *g-1*.
 

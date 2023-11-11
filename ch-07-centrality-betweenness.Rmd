@@ -335,7 +335,7 @@ knitr::include_graphics( "images/ch-07-matrix-11.jpeg" )
 
 ### Standardization
 
-As discussed in the chapter on [degree centrality](), the measure of centrality is affected (effected?) by the size of the graph, *g*. In the case of *closeness* centrality, having to sum over more nodes will push scores closer to zero. This means that we can't compare betweenness centrality scores across graphs of different sizes. *Solution*?
+As discussed in the chapter on [degree centrality](), the measure of centrality is affected by the size of the graph, *g*. In the case of *closeness* centrality, having to sum over more nodes will push scores closer to zero. This means that we can't compare betweenness centrality scores across graphs of different sizes. *Solution*?
 
 Standardize! If we want to compare nodes in different sized graphs, then we just take into account the number of nodes and the maximum possible nodes to which *i* could be connected. For betweenness centrality, we have to go a step further. We need to account for the number of pairs of nodes that do not include *i*. In an undirected graph, this is $(g-1))(g-2)/2$.
 

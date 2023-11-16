@@ -18,6 +18,7 @@ rm( list = ls() )
 library( here )    # for accessing local directory
 library( dplyr )   # for working with the data
 library( network ) # for building the networks
+library( sna )     # for working with the network data
 
 # ----
 # load data file
@@ -30,15 +31,18 @@ dat <- readRDS( file = here( "data/build-syntax/build-raw-data/arrest-raw.rds" )
 
 dat.edgelist <- dat %>% 
   select( YEAR, UNIQUE_NAME_ID, ARST_OFFICER, HUNDREDBLOCKADDR ) %>%  # keep the variables you need
-  group_by( HUNDREDBLOCKADDR, ARST_OFFICER ) %>%                # group by address then officer id
-  filter( n() > 1 ) %>%                                         # only keep cases that involve more than 1 person arrested
-  arrange( ARST_OFFICER ) %>%                                   # arrange by arresting officer
-  mutate( incident_id = cur_group_id() ) %>%                    # create unique id for event
-  ungroup() %>%                                                 # un-group the data
-  group_by( UNIQUE_NAME_ID ) %>%                                # group by unique person id
-  mutate( person_id = cur_group_id() ) %>%                      # create a unique person id that is numeric
-  ungroup() 
-#View( dat.edgelist )
+  group_by( HUNDREDBLOCKADDR, ARST_OFFICER ) %>%                      # group by address then officer id
+  filter( n() > 1 ) %>%                                               # only keep cases that involve more than 1 person arrested
+  arrange( ARST_OFFICER ) %>%                                         # arrange by arresting officer
+  mutate( incident_id = cur_group_id() ) %>%                          # create unique id for event
+  ungroup() %>%                                                       # un-group the data
+  group_by( UNIQUE_NAME_ID ) %>%                                      # group by unique person id
+  mutate( person_id = cur_group_id() ) %>%                            # create a unique person id that is numeric
+  ungroup()
+
+dat.edgelist <- dat.edgelist %>% 
+  mutate( actor = paste0( "a.", dat.edgelist$person_id ) ) %>%                 # change to character
+  mutate( event = paste0( "p.", dat.edgelist$incident_id ) )                   # change to character
 
 # create the networks for each year ----
 
@@ -48,62 +52,79 @@ table( dat.edgelist$YEAR )
 # write the function
 year.network <- function( edgelist, year ) {
 
+  # take the year you want
   dat.edgelist.year <- edgelist %>% 
-    select( YEAR, person_id, incident_id ) %>%            # keep the year, person, and incident id for the edgelist
-    arrange( YEAR ) %>%                                   # arrange by year
-    filter( YEAR == year ) %>%                            # keep based on year
-    select( person_id, incident_id ) %>%                  # keep the incident and person id for the edgelist
-    arrange( person_id, incident_id )                     # arrange by incident then person id
+    select( YEAR, actor, event ) %>%                                            # keep the year, person, and incident id for the edgelist
+    arrange( YEAR ) %>%                                                         # arrange by year
+    filter( YEAR == year ) %>%                                                  # keep based on year
+    select( actor, event ) %>%                                                  # keep the incident and person id for the edgelist
+    arrange( actor, event )                                                     # arrange by incident then person id
   
-  mat.edgelist.year <- cbind(                             # coerce to an object to a character
-    as.character( dat.edgelist.year$person_id ),
-    as.character( dat.edgelist.year$incident_id )
-  ) 
+  # clean up duplicates from the edges
+  table( duplicated( dat.edgelist.year ) )                                      # check duplicate entries
+  dat.edgelist.year <- dat.edgelist.year[ !duplicated( dat.edgelist.year ), ]   # remove the duplicate entries
   
-  net.year <- as.network(                                 # create the network
+  # build the edgelist
+  mat.edgelist.year <- cbind(                                                   
+    as.character( dat.edgelist.year$actor ),                                    
+    as.character( dat.edgelist.year$event )                                     
+  )
+  
+  # create the network
+  netYear <- as.network(                             
     mat.edgelist.year, 
     bipartite=length( unique( mat.edgelist.year[,1] ) ), 
     matrix.type="edgelist"
   )
   
-  print(  table( duplicated( dat.edgelist.year ) ) )      # print out the number of duplicates
+  # identify the first component and create an index
+  oneMode <- as.matrix( netYear ) %*% t( as.matrix( netYear ) )                 # create the projection
+  cd <- component.dist( as.matrix( oneMode ) )                                  # find the component membership
+  max( cd$csize )                                                               # find largest size
+  sort( table( cd$membership ), decreasing = TRUE )[1]                          # find which component is the largest
   
-  return( net.year )                                      # function returns an object of class network
+  # create the data object
+  inComp <- data.frame( 
+    ids = rownames( oneMode ), 
+    mainComponent = cd$membership
+  )
+  
+  # create the ids to match on
+  ids <-inComp$ids[ inComp$mainComponent == as.numeric( names( sort( table( cd$membership ), decreasing = TRUE )[1] ) ) ]
+  
+  # take those edges in the main component
+  mat.edgelist.year.reduced <- mat.edgelist.year[mat.edgelist.year[,1] %in% ids,]
+  
+  # create the new network based on the reduced edgelist
+  netYearReduced <- as.network(                             
+    mat.edgelist.year.reduced, 
+    bipartite=length( unique( mat.edgelist.year.reduced[,1] ) ), 
+    matrix.type="edgelist"
+  )
+  
+  # plot it to see it
+  gplot( netYearReduced, gmode = "twomode", usearrows = FALSE )
+  
+  # function returns an object of class network
+  return( netYearReduced )                                 
   
 }
 
 
-!!! finish writing this to have the components
+# ----
+# execute the function for each year
 
-First you need to create the projection,
-Then you identify the first component,
-then you make that a variable,
-then you pass that to the network for the bipartite graph
-then you select the bipartite network based on that attribute
-
+PhxArrestNet2022 <- year.network( edgelist = dat.edgelist, year = 2022 )
+PhxArrestNet2023 <- year.network( edgelist = dat.edgelist, year = 2023 )
 
 
 # ----
-# Execute the function for each year
+# save the objects as .rds files
 
-net.2018 <- year.network( edgelist = dat.edgelist, year = 2018 )
-net.2019 <- year.network( edgelist = dat.edgelist, year = 2019 )
-net.2020 <- year.network( edgelist = dat.edgelist, year = 2020 )
-net.2021 <- year.network( edgelist = dat.edgelist, year = 2021 )
-net.2022 <- year.network( edgelist = dat.edgelist, year = 2022 )
-net.2023 <- year.network( edgelist = dat.edgelist, year = 2023 )
+path <- "/Users/jyoung20/Dropbox (ASU)/GitHub_repos/sna-textbook/data/"
 
-
-# ----
-# Save the file
-
-net.list <- list( net.2018, net.2019, net.2020, net.2021, net.2022, net.2023 )
-
-saveRDS( net.list, 
-         file = here( "PAF-593-rodeo/arrest-cleaned.rds" ) 
-         )
-
-# readRDS( file = here( "PAF-593-rodeo/arrest-cleaned.rds" ) )
+saveRDS( PhxArrestNet2022, paste( path, "data-PHX-arrest-2022-net", ".rds", sep = "" ) )  
+saveRDS( PhxArrestNet2023, paste( path, "data-PHX-arrest-2023-net", ".rds", sep = "" ) )  
 
 
 # =============================================================================== #

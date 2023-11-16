@@ -216,7 +216,7 @@ That gives us the closeness centrality score for each individual:
 
 ### Standardization
 
-As discussed in the chapter on [degree centrality](), the measure of centrality is affected (effected?) by the size of the graph, *g*. In the case of *closeness* centrality, having to sum over more nodes will push scores closer to zero. This means that we can't compare closeness centrality scoress across graphs of different sizes. *Solution*?
+As discussed in the chapter on [degree centrality](), the measure of centrality is affected by the size of the graph, *g*. In the case of *closeness* centrality, having to sum over more nodes will push scores closer to zero. This means that we can't compare closeness centrality scoress across graphs of different sizes. *Solution*?
 
 Standardize! If we want to compare nodes in different sized networks, then we just take into account the number of nodes and the maximum possible nodes to which *i* could be connected. In an undirected graph, this is *g-1*.
 

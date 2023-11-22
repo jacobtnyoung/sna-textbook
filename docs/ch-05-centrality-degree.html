@@ -307,6 +307,8 @@ $(document).ready(function () {
 <li><p>Understand the conceptualization of “centrality”.</p></li>
 <li><p>Know how to calculate degree centrality.</p></li>
 </ul>
+<br>
+<hr>
 <p><br></p>
 </div>
 <div id="concepts-and-operationalization" class="section level2">
@@ -343,11 +345,11 @@ can differ.</p>
 </ul>
 <p>We will discuss each of these concepts, how they are conceptualized
 and how they are operationalized in social network analysis.</p>
-<p>It is also important to distinguish between whether we are taking
+<p>It is also important to distinguish between whether we are talking
 about the centrality of a node or the centrality of a graph:</p>
 <ul>
 <li><p>The centrality of a node (whether it is measured as degree
-centraltiy, betweenness centrality, or closeness centrality) refers to
+centrality, betweenness centrality, or closeness centrality) refers to
 <strong>point</strong> centrality. In other words, the centrality of a
 particular point on a graph. What we have been calling a node. When we
 talk about point centrality, we are usually comparing different nodes.
@@ -361,6 +363,8 @@ hierarchical or decentralized a graph is based on the
 </ul>
 <p>As with prior chapters, we will start with undirected graphs and then
 move to directed graphs.</p>
+<br>
+<hr>
 <p><br></p>
 </div>
 </div>
@@ -374,7 +378,7 @@ other words, the number of edges incident with a node. This is
 symbolized as: <span class="math inline">\(d(n_i)\)</span> and this
 reads “degree for the <span class="math inline">\(i_{th}\)</span> node”.
 For an undirected binary graph, the degree, <span
-class="math inline">\(d(n_i)\)</span>, is simple the row
+class="math inline">\(d(n_i)\)</span>, is simply the row
 <strong>or</strong> column sum. We can express this formally as:</p>
 <ul>
 <li><p><span class="math inline">\(C_D(n_i) = \sum_j x_{ij} = \sum_j
@@ -392,7 +396,7 @@ us to some all of the entries.</p></li>
 <p><br></p>
 <p>Let’s take a look at this with some data. Recall our example network
 with Jen, Tom, Bob, Leaf, and Jim:</p>
-<p><img src="ch-05-centrality-degree_files/figure-html/unnamed-chunk-1-1.png" width="480" /></p>
+<p><img src="ch-05-centrality-degree_files/figure-html/unnamed-chunk-1-1.png" width="480" style="display: block; margin: auto;" /></p>
 <p><br></p>
 <p>Let’s find the degree centrality score for each node. First, let’s
 take our graph and create the sociomatrix.</p>
@@ -438,8 +442,8 @@ Jen} + x_{Jim, Tom} + x_{Jim, Bob} + x_{Jim, Jim} = 0 + 0 + 1 + 1 =
 <p>Actor degree centrality not only reflects each node’s connectivity to
 other nodes but also depends on the size of the network, <em>g</em>.
 Larger networks will have a higher maximum possible degree centrality
-value. This is called a <em>raw</em> score. How can we nodes from
-different sized networks? <em>Solution?</em></p>
+value. This is called a <em>raw</em> score. How can we use nodes from
+different sized networks?</p>
 <p>Standardize! If we want to compare nodes in different sized networks,
 then we just take into account the number of nodes and the maximum
 possible nodes to which <em>i</em> could be connected. In an undirected
@@ -503,8 +507,9 @@ equation above reduces to a simple calculation, the number of edges in
 the graph, <em>L</em>, multiplied by 2 and then divided by the number of
 nodes, <em>g</em>.</p></li>
 </ul>
+<p><br></p>
 <p>What is the mean degree for this graph?</p>
-<p><img src="ch-05-centrality-degree_files/figure-html/unnamed-chunk-6-1.png" width="480" /></p>
+<p><img src="ch-05-centrality-degree_files/figure-html/unnamed-chunk-6-1.png" width="480" style="display: block; margin: auto;" /></p>
 <p>Well, we have <span class="math inline">\(L=5\)</span> and <span
 class="math inline">\(g = 5\)</span>, so plugging the numbers we
 get:</p>
@@ -553,10 +558,9 @@ maximum sum possible of differences.</p>
 <p>For degree centrality, the maximum possible sum of differences is
 calculated as <span class="math inline">\((g-1)(g-2)\)</span>. Which
 makes the equation:</p>
-<ul>
-<li><span class="math inline">\(C_D = \dfrac{\sum\limits_{i=1}^g
-[C_D(n^*) - C_D(n_i)]}{[(g-1)(g-2)]}\)</span></li>
-</ul>
+<p><span class="math display">\[C_D =  \dfrac{\sum\limits_{i=1}^g
+[C_D(n^*) - C_D(n_i)]}{[(g-1)(g-2)]}\]</span></p>
+<p><br></p>
 <p>If I lost you in some of the math, don’t worry. Let’s calculate the
 degree centralization score for our example graph:</p>
 <p><img src="images/ch-05-matrix-01.jpeg" width="60%" /></p>
@@ -587,7 +591,6 @@ will be closer to 1. Thus, closer to 1 indicates that the graph is
 hierarchically structured and closer to 0 means that the graph is more
 decentralized.</p>
 <p>We can see this by examining two additional undirected networks.</p>
-<p><br></p>
 <p><img src="ch-05-centrality-degree_files/figure-html/unnamed-chunk-8-1.png" width="480" style="display: block; margin: auto;" /></p>
 <p>The degree centralization score for the figure on the left is 1.0. We
 can see this by doing the calculations:</p>
@@ -597,14 +600,17 @@ can see this by doing the calculations:</p>
 \dfrac{0+3+3+3+3}{4*3}= \dfrac{12}{12}= 1.0\]</span></p>
 <p>The degree centralization score for the figure on the right is 0. We
 can see this by doing the calculations:</p>
-<p><span class="math display">\[C_D =  \dfrac{\sum\limits_{i=1}^g
-[C_D(n^*) - C_D(n_i)]}{[(g-1)(g-2)]} =
+<span class="math display">\[C_D =  \dfrac{\sum\limits_{i=1}^g [C_D(n^*)
+- C_D(n_i)]}{[(g-1)(g-2)]} =
 \dfrac{(2-2)+(2-2)+(2-2)+(2-2)+(2-2)}{(5-1)(5-2)} =
-\dfrac{0+0+0+0+0}{4*3}= \dfrac{0}{12}= 0.0\]</span> <br></p>
+\dfrac{0+0+0+0+0}{4*3}= \dfrac{0}{12}= 0.0\]</span> <br>
+<hr>
+<p><br></p>
 </div>
 </div>
 <div id="directed-graphs" class="section level2">
 <h2>Directed Graphs</h2>
+<p><br></p>
 <div id="degree-centrality-1" class="section level3">
 <h3>Degree Centrality</h3>
 <p>In a directed binary graph, degree centrality can be broken down into
@@ -777,11 +783,16 @@ by dividing by <em>g-1</em>.</p>
 <p>We just adjust the <em>raw</em> <strong>indegree</strong> scores by
 standardizing by the denominator:</p>
 <ul>
-<li>Jen = $C’_I(Jen) = = 0.00 $</li>
-<li>Tom = $C’_I(Tom) = = 0.25 $</li>
-<li>Bob = $C’_I(Bob) = = 0.75 $</li>
-<li>Leaf = $C’_I(Leaf) = = 0.50 $</li>
-<li>Jim = $C’_I(Jim) = = 0.50 $</li>
+<li>Jen = <span class="math inline">\(C&#39;_I(Jen) = \dfrac{0}{4} =
+0.00\)</span></li>
+<li>Tom = <span class="math inline">\(C&#39;_I(Tom) = \dfrac{1}{4} =
+0.25\)</span></li>
+<li>Bob = <span class="math inline">\(C&#39;_I(Bob) = \dfrac{3}{4} =
+0.75\)</span></li>
+<li>Leaf = <span class="math inline">\(C&#39;_I(Leaf) = \dfrac{2}{4} =
+0.50\)</span></li>
+<li>Jim = <span class="math inline">\(C&#39;_I(Jim) = \dfrac{2}{4} =
+0.50\)</span></li>
 </ul>
 <p>How is this to be interpreted? The standardized indegree centrality
 score gives us is the proportion of the network members for whom node
@@ -791,11 +802,16 @@ received ties from in the network.</p>
 <p>For the <em>raw</em> <strong>outdegreee</strong> scores we do the
 same:</p>
 <ul>
-<li>Jen = $C’_O(Jen) = = 0.25 $</li>
-<li>Tom = $C’_O(Tom) = = 0.25 $</li>
-<li>Bob = $C’_O(Bob) = = 0.50 $</li>
-<li>Leaf = $C’_O(Leaf) = = 0.50 $</li>
-<li>Jim = $C’_O(Jim) = = 0.50 $</li>
+<li>Jen = <span class="math inline">\(C&#39;_O(Jen) = \dfrac{1}{4} =
+0.25\)</span></li>
+<li>Tom = <span class="math inline">\(C&#39;_O(Tom) = \dfrac{1}{4} =
+0.25\)</span></li>
+<li>Bob = <span class="math inline">\(C&#39;_O(Bob) = \dfrac{2}{4} =
+0.50\)</span></li>
+<li>Leaf = <span class="math inline">\(C&#39;_O(Leaf) = \dfrac{2}{4} =
+0.50\)</span></li>
+<li>Jim = <span class="math inline">\(C&#39;_O(Jim) = \dfrac{2}{4} =
+0.50\)</span></li>
 </ul>
 <p>How is this to be interpreted? The standardized outdegree centrality
 score gives us is the proportion of the network members for whom node
@@ -817,8 +833,9 @@ nodes in the graph, <span class="math inline">\(g\)</span>.</p>
 <p>As it turns out, the mean indegree and mean outdegree are equal. This
 is because we are counting up, for the numerator, the number of
 edges.</p>
+<p><br></p>
 <p>What is the mean indegree/outdegree for this graph?</p>
-<p><img src="ch-05-centrality-degree_files/figure-html/unnamed-chunk-12-1.png" width="480" /></p>
+<p><img src="ch-05-centrality-degree_files/figure-html/unnamed-chunk-12-1.png" width="480" style="display: block; margin: auto;" /></p>
 <p><span class="math display">\[\bar d =  \dfrac{C_I(n_i)}{g} =
 \dfrac{C_O(n_i)}{g} = \dfrac{L}{g} = \dfrac{8}{5} = 1.6\]</span></p>
 <p>This means that, on average, a node sends 1.6 ties and receives 1.6
@@ -877,6 +894,7 @@ equation will be zero and the quotient will be close to 0. Thus, closer
 to 1 indicates that the indegrees in the graph are hierarchically
 structured and closer to 0 means that the indegrees for the graph are
 more decentralized.</p>
+<p><br></p>
 </div>
 <div id="outdegree-centralization" class="section level4">
 <h4>Outdegree Centralization</h4>
@@ -917,6 +935,8 @@ centralization score, <span class="math inline">\(C_O\)</span>, is
 <p>It tells us that the outdegrees are more decentralized than the
 indegrees. Put another way, the indegrees are more centralized than are
 the outdegrees.</p>
+<br>
+<hr>
 <p><br></p>
 </div>
 </div>
@@ -930,6 +950,8 @@ to calculate degree centrality for undirected and directed
 networks.</p></li>
 <li><p>We also covered the concept of centralization.</p></li>
 </ul>
+<br>
+<hr>
 <p><br></p>
 <div id="continue-to-chapter-6-closeness-centrality"
 class="section level4">
@@ -940,7 +962,6 @@ Closeness Centrality</a></h4>
 to the <a
 href="https://github.com/jacobtnyoung/sna-textbook/issues">Issues</a>
 page. Thanks!</p>
-<p><br><br></p>
 </div>
 </div>
 </div>

@@ -312,6 +312,8 @@ notation?</p></li>
 matrices?</p></li>
 </ul></li>
 </ul>
+<br>
+<hr>
 <p><br></p>
 </div>
 <div id="motivating-problem" class="section level2">
@@ -337,10 +339,13 @@ Social Network Analysis</a> about the importance of conceptualizing and
 operationalizing concepts in network science. <em>Graph theory</em>
 provides a foundation for operationalizing concepts of interest among
 network scientists.</p>
+<br>
+<hr>
 <p><br></p>
 </div>
-<div id="graph-notation" class="section level3">
-<h3>Graph Notation</h3>
+</div>
+<div id="graph-notation" class="section level2">
+<h2>Graph Notation</h2>
 <p>Definition of a <em>graph</em> is <span class="math inline">\(G =
 (N,L)\)</span>, where <span class="math inline">\(N = {n_1, n_2...,
 n_g}\)</span> defines the set of nodes and <span class="math inline">\(L
@@ -352,11 +357,12 @@ class="math inline">\(n_j\)</span> are called <strong>adjacent</strong>
 if the line <span class="math inline">\(l_k = (n_i, n_j)\)</span>. What
 this means is that in the graph, there exists a line between nodes
 <em>i</em> and <em>j</em>.</p>
-<div id="node-sets" class="section level4">
-<h4>Node Sets</h4>
-<div id="undirected-binary-graphs" class="section level5">
-<h5>Undirected, Binary Graphs</h5>
-<p>Recall the discussion from LINK TO LECTURE about the directionality
+<p><br></p>
+<div id="node-sets" class="section level3">
+<h3>Node Sets</h3>
+<p>Recall the discussion from <a
+href="https://jacobtnyoung.github.io/sna-textbook/ch-01-intro-to-sna.html">Chapter
+1: Introduction to Social Network Analysis</a> about the directionality
 of graphs. Edges can be either <strong>undirected</strong> or
 <strong>directed</strong>. In an <strong>undirected</strong> graph, the
 order of the nodes does not matter. In other words, <span
@@ -365,18 +371,10 @@ say that if there exists a line between nodes <em>i</em> and <em>j</em>,
 then a line exists between <em>j</em> and <em>i</em>. (This may seem
 obvious, but will make more sense why we talk about it this way when we
 get to <strong>directed</strong> graphs.)</p>
-<p><img src="ch-04-net-data-structures_files/figure-html/unnamed-chunk-2-1.png" width="480" /></p>
+<p><img src="ch-04-net-data-structures_files/figure-html/unnamed-chunk-2-1.png" width="672" style="display: block; margin: auto;" /></p>
 </div>
-<div id="directed-binary-graphs" class="section level5">
-<h5>Directed, Binary Graphs</h5>
-<p>In a <strong>directed</strong> graph, the order of the nodes
-<u>does</u> matter. Specifically, <span class="math inline">\(l_k1 =
-(n_i, n_j) \neq (n_j, n_i) = l_k2\)</span>.</p>
-<p><img src="ch-04-net-data-structures_files/figure-html/unnamed-chunk-3-1.png" width="480" /></p>
-</div>
-</div>
-<div id="adjacency" class="section level4">
-<h4>Adjacency</h4>
+<div id="adjacency" class="section level3">
+<h3>Adjacency</h3>
 <p>Two nodes, <span class="math inline">\(n_i\)</span> and <span
 class="math inline">\(n_j\)</span> are <strong>adjacent</strong> if the
 link <span class="math inline">\(l_k = (n_i,n_j)\)</span>. This is to
@@ -390,9 +388,7 @@ class="math inline">\(j_{th}\)</span> column of <span
 class="math inline">\(X_{ij}\)</span> records the value of a tie from
 <em>i</em> to <em>j</em>. In this approach, <span
 class="math inline">\(X\)</span>, can be thought of as a variable. The
-presence or absence of values in the cells represent variation. THIS
-WOUDL BE A GOOD SPOT FOR THAT ONE SLIDE FROM THE INTRO LECTURE THAT YOU
-WERE NOT SURE WHAT TO DO WITH.</p>
+presence or absence of values in the cells represent variation..</p>
 <p>Here are some important definitions that we will come across as we
 talk about network data structures:</p>
 <ul>
@@ -403,19 +399,20 @@ talk about network data structures:</p>
 <li>Order: number of rows and columns defining the matrix</li>
 <li>Square matrix: number of rows and columns of matrix are equal</li>
 </ul>
-<div id="undirected-binary-graphs-1" class="section level5">
-<h5>Undirected, Binary Graphs</h5>
+<p><br></p>
+<div id="undirected-binary-graphs" class="section level4">
+<h4>Undirected, Binary Graphs</h4>
 <p>The undirected network we showed above is called a
 <em>sociogram</em>:</p>
-<p><img src="ch-04-net-data-structures_files/figure-html/unnamed-chunk-4-1.png" width="480" /></p>
+<p><img src="ch-04-net-data-structures_files/figure-html/unnamed-chunk-3-1.png" width="480" style="display: block; margin: auto;" /></p>
 <p>We can represent the graph as a matrix using an adjacency matrix
 (sometimes called a <em>sociomatrix</em>):</p>
-<p><img src="images/ch-04-matrix-01.jpeg" width="60%" /></p>
+<p><img src="images/ch-04-matrix-01.jpeg" width="40%" /></p>
 <p>In most instances, we do not allow self-nominations, so the diagonal
 of the matrix is usually undefined or set to zero. In networks that
 allow self-nominations, you can have values on the diagonal. These are
-refered to as loops.</p>
-<p><img src="images/ch-04-matrix-02.jpeg" width="60%" /></p>
+referred to as loops.</p>
+<p><img src="images/ch-04-matrix-02.jpeg" width="40%" /></p>
 <p><br></p>
 <p>In the first row, <em>i</em> sends to the second row only: <span
 class="math inline">\(X_{12}=1; X_{15}=0\)</span> (where <span
@@ -443,24 +440,24 @@ program.</p>
 <p>The highlighted section here is called the <strong>lower
 triangle</strong> of the matrix. The <em>sum</em> of the lower triangle
 should equal the number of edges in the graph.</p>
-<p><img src="images/ch-04-matrix-07.jpeg" width="60%" /></p>
+<p><img src="images/ch-04-matrix-07.jpeg" width="40%" /></p>
 <p><br></p>
 <p>The other highlighted section here is called the <strong>upper
 triangle</strong> of the matrix. The <em>sum</em> of the upper triangle
 should also equal the number of edges in the graph.</p>
-<p><img src="images/ch-04-matrix-08.jpeg" width="60%" /></p>
+<p><img src="images/ch-04-matrix-08.jpeg" width="40%" /></p>
 <p><br></p>
 <p>Alternatively, we could sum all the elements and divide by 2.</p>
 <p><br></p>
 </div>
-<div id="directed-binary-graphs-1" class="section level5">
-<h5>Directed, Binary Graphs</h5>
+<div id="directed-binary-graphs" class="section level4">
+<h4>Directed, Binary Graphs</h4>
 <p>In a <strong>directed</strong> graph, the order of the nodes
 <u>does</u> matter. Specifically, <span class="math inline">\(l_k1 =
 (n_i, n_j) \neq (n_j, n_i) = l_k2\)</span>.</p>
-<p><img src="ch-04-net-data-structures_files/figure-html/unnamed-chunk-13-1.png" width="480" /></p>
+<p><img src="ch-04-net-data-structures_files/figure-html/unnamed-chunk-12-1.png" width="480" style="display: block; margin: auto;" /></p>
 <p>What is different in our matrix when the graph is directed?</p>
-<p><img src="images/ch-04-matrix-01.jpeg" width="60%" /></p>
+<p><img src="images/ch-04-matrix-01.jpeg" width="40%" /></p>
 <p><br></p>
 <p>In the first row, <em>i</em> sends to the second row: <span
 class="math inline">\(X_{12}=1\)</span>.</p>
@@ -487,8 +484,9 @@ in the matrix based on the graph.</p>
 <p>Note that, because we are allowing directionality to matter, the
 total number of edges in the network is just the sum of the entire
 matrix.</p>
+<br>
+<hr>
 <p><br></p>
-</div>
 </div>
 </div>
 </div>
@@ -503,6 +501,8 @@ notation.</p></li>
 matrices.</p></li>
 </ul></li>
 </ul>
+<br>
+<hr>
 <p><br></p>
 <div id="continue-to-chapter-5-degree-centrality"
 class="section level4">
@@ -513,7 +513,6 @@ Centrality</a></h4>
 to the <a
 href="https://github.com/jacobtnyoung/sna-textbook/issues">Issues</a>
 page. Thanks!</p>
-<p><br><br></p>
 </div>
 </div>
 </div>

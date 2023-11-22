@@ -62,7 +62,7 @@ diag( d.c.mat ) <- 0
     
     * How can we represent undirected and directed networks using matrices?
   
-<br>
+<br><hr><br>
 
 ## Motivating Problem
 
@@ -86,39 +86,49 @@ Leonard Euler worked on this problem in the mid 18th century, eventually represe
 
 Recall the discussion from [Chapter 1: Introduction to Social Network Analysis]() about the importance of conceptualizing and operationalizing concepts in network science. *Graph theory* provides a foundation for operationalizing concepts of interest among network scientists.
 
-<br>
+<br><hr><br>
 
-### Graph Notation
+## Graph Notation
 
 Definition of a *graph* is $G = (N,L)$, where $N = {n_1, n_2..., n_g}$ defines the set of nodes and $L = {l_1, l_2..., l_L}$ defines the set of edges. This definition simply states that there are $N$ nodes and $L$ edges in a graph.
 
 Two nodes, $n_i$ and $n_j$ are called **adjacent** if the line $l_k = (n_i, n_j)$. What this means is that in the graph, there exists a line between nodes *i* and *j*.
 
-#### Node Sets
+<br>
 
-##### Undirected, Binary Graphs
+### Node Sets
 
-Recall the discussion from LINK TO LECTURE about the directionality of graphs. Edges can be either **undirected** or **directed**. In an **undirected** graph, the order of the nodes does not matter. In other words, $l_k = (n_i, n_j) = (n_j, n_i)$. This is to say that if there exists a line between nodes *i* and *j*, then a line exists between *j* and *i*. (This may seem obvious, but will make more sense why we talk about it this way when we get to **directed** graphs.)
+Recall the discussion from [Chapter 1: Introduction to Social Network Analysis](https://jacobtnyoung.github.io/sna-textbook/ch-01-intro-to-sna.html) about the directionality of graphs. Edges can be either **undirected** or **directed**. In an **undirected** graph, the order of the nodes does not matter. In other words, $l_k = (n_i, n_j) = (n_j, n_i)$. This is to say that if there exists a line between nodes *i* and *j*, then a line exists between *j* and *i*. (This may seem obvious, but will make more sense why we talk about it this way when we get to **directed** graphs.)
 
-```{r, echo=FALSE, eval=TRUE, fig.width=5, fig.height=5, fig.show="show"}
+```{r, echo=FALSE, eval=TRUE, fig.width=7, fig.height=5, fig.show="show", fig.align="center"}
 
-gplot( u.mat, gmode = "graph", displaylabels = TRUE, label.pos = 5, label.cex = 2.2, vertex.col = "lightblue", coord=coords, vertex.cex=3.2 )
+par( mar=c( 0.1, 3, 0, 0.1 ), mfrow = c( 1, 2 ) )
+
+set.seed( 19141 )
+
+gplot( u.mat, 
+       usearrows=FALSE, 
+       vertex.cex=3.2, 
+       vertex.col = "lightblue", 
+       displaylabels = TRUE, 
+       label.pos=5,
+       label.cex = 0.8 )
+title( "Undirected Graph", line = -5 )
+
+gplot( d.mat, 
+       gmode = "digraph",
+       vertex.cex=3.2, 
+       vertex.col = "orange", 
+       displaylabels = TRUE, 
+       label.pos=5,
+       label.cex = 0.8 )
+title( "Directed Graph", line = -5 )
 
 ```
 
-##### Directed, Binary Graphs
+### Adjacency
 
-In a **directed** graph, the order of the nodes <u>does</u> matter. Specifically, $l_k1 = (n_i, n_j) \neq (n_j, n_i) = l_k2$.
-
-```{r, echo=FALSE, eval=TRUE, fig.width=5, fig.height=5, results="show"}
-
-gplot( d.mat, gmode = "digraph", displaylabels = TRUE, label.pos = 5, label.cex = 2.2, vertex.col = "orange", coord=coords, vertex.cex=3.2 )
-
-```
-
-#### Adjacency
-
-Two nodes, $n_i$ and $n_j$ are **adjacent** if the link $l_k = (n_i,n_j)$. This is to say that in the graph, there exists an edge between nodes *i* and *j*. For a set of relations, $X$, we can define a matrix which represents these relations. We commonly use an **adjacency matrix**, where each node is listed on the row and the column. The $i_{th}$ row and the $j_{th}$ column of $X_{ij}$ records the value of a tie from *i* to *j*. In this approach, $X$, can be thought of as a variable. The presence or absence of values in the cells represent variation. THIS WOUDL BE A GOOD SPOT FOR THAT ONE SLIDE FROM THE INTRO LECTURE THAT YOU WERE NOT SURE WHAT TO DO WITH.
+Two nodes, $n_i$ and $n_j$ are **adjacent** if the link $l_k = (n_i,n_j)$. This is to say that in the graph, there exists an edge between nodes *i* and *j*. For a set of relations, $X$, we can define a matrix which represents these relations. We commonly use an **adjacency matrix**, where each node is listed on the row and the column. The $i_{th}$ row and the $j_{th}$ column of $X_{ij}$ records the value of a tie from *i* to *j*. In this approach, $X$, can be thought of as a variable. The presence or absence of values in the cells represent variation..
 
 Here are some important definitions that we will come across as we talk about network data structures:
 
@@ -129,25 +139,37 @@ Here are some important definitions that we will come across as we talk about ne
   * Order: number of rows and columns defining the matrix
   * Square matrix: number of rows and columns of matrix are equal
 
-##### Undirected, Binary Graphs
+<br>
+
+#### Undirected, Binary Graphs
 
 The undirected network we showed above is called a *sociogram*:
 
-```{r, echo=FALSE, eval=TRUE, fig.width=5, fig.height=5, results="show"}
+```{r, echo=FALSE, eval=TRUE, fig.width=5, fig.height=5, fig.show="show", fig.align="center"}
 
-gplot( u.mat, gmode = "graph", displaylabels = TRUE, label.pos = 5, label.cex = 2.2, vertex.col = "lightblue", coord=coords, vertex.cex=3.2 )
+par( mar=c( 1, 0.1, 1, 0.1 ) )
+
+set.seed( 19141 )
+
+gplot( u.mat, 
+       usearrows=FALSE, 
+       vertex.cex=3, 
+       vertex.col = "lightblue", 
+       displaylabels = TRUE, 
+       label.pos=5, 
+       label.cex = 1 )
 
 ```
 
 We can represent the graph as a matrix using an adjacency matrix (sometimes called a *sociomatrix*):
 
-```{r, fig.cap = "", out.width = "60%"}
+```{r, fig.cap = "", out.width = "40%"}
 knitr::include_graphics( "images/ch-04-matrix-01.jpeg" )
 ```
 
-In most instances, we do not allow self-nominations, so the diagonal of the matrix is usually undefined or set to zero. In networks that allow self-nominations, you can have values on the diagonal. These are refered to as loops.
+In most instances, we do not allow self-nominations, so the diagonal of the matrix is usually undefined or set to zero. In networks that allow self-nominations, you can have values on the diagonal. These are referred to as loops.
 
-```{r, fig.cap = "", out.width = "60%"}
+```{r, fig.cap = "", out.width = "40%"}
 knitr::include_graphics( "images/ch-04-matrix-02.jpeg" )
 ```
 
@@ -189,7 +211,7 @@ Note that I added zeros to the diagonal. As we will see later, we want these val
 
 The highlighted section here is called the **lower triangle** of the matrix. The *sum* of the lower triangle should equal the number of edges in the graph.
 
-```{r, fig.cap = "", out.width = "60%"}
+```{r, fig.cap = "", out.width = "40%"}
 knitr::include_graphics( "images/ch-04-matrix-07.jpeg" )
 ```
 
@@ -197,7 +219,7 @@ knitr::include_graphics( "images/ch-04-matrix-07.jpeg" )
 
 The other highlighted section here is called the **upper triangle** of the matrix. The *sum* of the upper triangle should also equal the number of edges in the graph.
 
-```{r, fig.cap = "", out.width = "60%"}
+```{r, fig.cap = "", out.width = "40%"}
 knitr::include_graphics( "images/ch-04-matrix-08.jpeg" )
 ```
 
@@ -207,19 +229,29 @@ Alternatively, we could sum all the elements and divide by 2.
 
 <br>
 
-##### Directed, Binary Graphs
+#### Directed, Binary Graphs
 
 In a **directed** graph, the order of the nodes <u>does</u> matter. Specifically, $l_k1 = (n_i, n_j) \neq (n_j, n_i) = l_k2$.
 
-```{r, echo=FALSE, eval=TRUE, fig.width=5, fig.height=5}
+```{r, echo=FALSE, eval=TRUE, fig.width=5, fig.height=5, fig.show="show", fig.align="center"}
 
-gplot( d.mat, gmode = "digraph", displaylabels = TRUE, label.pos = 5, label.cex = 2.2, vertex.col = "orange", coord=coords, vertex.cex=3.2 )
+par( mar=c( 1, 0.1, 1, 0.1 ) )
+
+set.seed( 19141 )
+
+gplot( d.mat, 
+       gmode = "digraph",
+       vertex.cex=3, 
+       vertex.col = "orange", 
+       displaylabels = TRUE, 
+       label.pos=5, 
+       label.cex = 1 )
 
 ```
 
 What is different in our matrix when the graph is directed?
   
-```{r, fig.cap = "", out.width = "60%"}
+```{r, fig.cap = "", out.width = "40%"}
 knitr::include_graphics( "images/ch-04-matrix-01.jpeg" )
 ```
 
@@ -267,7 +299,7 @@ knitr::include_graphics( "images/ch-04-matrix-13.jpeg" )
 
 Note that, because we are allowing directionality to matter, the total number of edges in the network is just the sum of the entire matrix.
 
-<br>
+<br><hr><br>
 
 ## Summary
 
@@ -277,12 +309,10 @@ Note that, because we are allowing directionality to matter, the total number of
     
     * How to represent undirected and directed networks using matrices.
   
-<br>
+<br><hr><br>
 
 #### Continue to [Chapter 5: Degree Centrality](ch-05-centrality-degree.html)
 
 <br><br>
 
 ***Please*** report any corrections or comments to the [Issues](https://github.com/jacobtnyoung/sna-textbook/issues) page. Thanks!
-
-<br><br>

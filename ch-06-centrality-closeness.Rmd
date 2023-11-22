@@ -87,7 +87,7 @@ circle_net <- network( dum2, directed=FALSE )
   
   * Understand the calculation of *closeness* centrality.
 
-<br>
+<br><hr><br>
 
 ## Concepts and Operationalization
 
@@ -115,7 +115,7 @@ Terminology:
 
 Another way of saying this is that if we now how "far apart" two nodes are (i.e. the distance), then we can take the inverse of that and know how "close" the nodes are to each other.
 
-<br>
+<br><hr><br>
 
 ## Undirected Graphs
 
@@ -139,7 +139,18 @@ Let's take a look at this with some data. Recall our example network with Jen, T
 
 ```{r, echo=FALSE, eval=TRUE, fig.width=5, fig.height=5, fig.show="show", fig.align="center"}
 
-gplot( u.mat, gmode = "graph", displaylabels = TRUE, label.pos = 5, label.cex = 1.2, vertex.col = "lightblue", vertex.cex=3.2 )
+par( mar=c( 1, 0.1, 1, 0.1 ) )
+
+set.seed( 19141 )
+
+gplot( u.mat, 
+       usearrows=FALSE, 
+       vertex.cex=3, 
+       vertex.col = "lightblue", 
+       edge.col="grey50", 
+       displaylabels = TRUE, 
+       label.pos=5, 
+       label.cex = 1 )
 
 ```
 
@@ -243,25 +254,25 @@ Standardization is particularly important with closeness centrality because of t
 
 par( mar=c( 0.1,0.5,1,0.5 ), mfrow = c( 1,2 ) )
 
-set.seed( 605 )
+set.seed( 19141 )
 gplot( graph.a, 
        usearrows=FALSE, 
-       vertex.cex=3.2, 
+       vertex.cex=4, 
        vertex.col = c( "lightblue","white","white" ), 
        edge.col="grey50", 
        label=c( "0.33","","" ), 
        label.pos=5, 
-       label.cex = 1.2,
+       label.cex = 1,
        main = "Network A: Raw")
 
-set.seed( 605 )
+set.seed( 19141 )
 gplot( graph.b, 
        usearrows=FALSE, 
-       vertex.cex=3.2, 
+       vertex.cex=4, 
        vertex.col = c( "orange","white","white","white" ), 
        edge.col="grey50",label=c( "0.33","","","" ),
        label.pos=5, 
-       label.cex = 1.2,
+       label.cex = 1,
        main = "Network B: Raw")
 
 ```
@@ -278,31 +289,33 @@ When we standardize, we adjust for the size of the network:
 
 par( mar=c( 0.1,0.5,1,0.5 ), mfrow = c( 1,2 ) )
 
-set.seed( 605 )
+set.seed( 19141 )
 gplot( graph.a, 
        usearrows=FALSE, 
-       vertex.cex=3.2, 
+       vertex.cex=4, 
        vertex.col = c( "lightblue","white","white" ), 
        edge.col="grey50", 
        label=c( "0.66","","" ), 
        label.pos=5, 
-       label.cex = 1.2,
+       label.cex = 1,
        main = "Network A: Standardized")
 
-set.seed( 605 )
+set.seed( 19141 )
 gplot( graph.b, 
        usearrows=FALSE, 
-       vertex.cex=3.2, 
+       vertex.cex=4, 
        vertex.col = c( "orange","white","white","white" ), 
        edge.col="grey50",label=c( "1.00","","","" ),
        label.pos=5, 
-       label.cex = 1.2,
+       label.cex = 1,
        main = "Network B: Standardized")
 
 
 ```
 
 <br>
+
+Now, apply the same thing to the rest of the network:
 
 ```{r, echo=FALSE, eval=TRUE, fig.width=5, fig.height=5, fig.show="show", fig.align="center"}
 
@@ -332,7 +345,7 @@ gplot( graph.b,
 
 ```
 
-<br>
+<br><hr><br>
 
 ### Closeness Centralization
 
@@ -349,17 +362,26 @@ This may look imposing, but we can decompose it to see what it is doing:
   * $\sum\limits_{i=1}^g[C'_C(n^*)-C'_C(n_i)]$ simply takes the sum of deviations for each node from the largest value
   * Finally, we take that sum and divide it by $[(g-2)(g-1)]/(2g-3)$
 
+<br>
+
 If I lost you in some of the math, don't worry. Let's calculate the closeness centralization score for our example graph:
 
-<br>
+```{r, echo=FALSE, eval=TRUE, fig.width=5, fig.height=5, fig.show="show", fig.align="center"}
 
-```{r, echo=FALSE, eval=TRUE, fig.width=5, fig.height=5, fig.show="show"}
+par( mar=c( 1, 0.1, 1, 0.1 ) )
 
-gplot( u.mat, gmode = "graph", displaylabels = TRUE, label.pos = 5, label.cex = 1.2, vertex.col = "lightblue", vertex.cex=3.2 )
+set.seed( 19141 )
+
+gplot( u.mat, 
+       usearrows=FALSE, 
+       vertex.cex=3, 
+       vertex.col = "lightblue", 
+       edge.col="grey50", 
+       displaylabels = TRUE, 
+       label.pos=5, 
+       label.cex = 1 )
 
 ```
-
-<br>
 
 Recall our table of standardized closeness scores:
 
@@ -370,6 +392,8 @@ Recall our table of standardized closeness scores:
 | Bob   | 5        | 1/5 = 0.200 | 0.200*4 = 0.800          |
 | Leaf  | 7        | 1/7 = 0.143 | 0.143*4 = 0.572          |
 | Jim   | 7        | 1/7 = 0.143 | 0.143*4 = 0.572          |
+
+<br>
 
 *What is the largest standardized closeness score?* It is 0.8 for Bob. Also, we have $g = 5$. Now, we just plug these into our equation:
 
@@ -394,23 +418,20 @@ So, the closeness centralization score for our example graph is 0.551. *What doe
 
 When closeness centrality is evenly dispersed, meaning that all nodes have the same closeness score, then the numerator in the equation will be zero and the quotient will be close to 0. When there is considerable inequality in the closeness centrality scores between nodes, the quotient will be closer to 1. Thus, closer to 1 indicates that the graph is hierarchically structured and closer to 0 means that the graph is more decentralized.
 
-We can see this by examining two additional undirected networks. 
-
 <br>
+
+We can see this by examining two additional undirected networks:
 
 ```{r, echo=FALSE, eval=TRUE, fig.width=5, fig.height=5, fig.show="show", fig.align="center"}
 
-centralization( star_net, closeness, mode="graph" )
-centralization( circle_net, closeness, mode="graph" )
+par( mar=c( 0.1,3,0.1,0.1 ), mfrow = c( 1,2 ) )
 
-par( mar=c( 4,4,0.1,0.1 ), mfrow = c( 1,2 ) )
-
-my_pal <- brewer.pal( 5,"Set2" )
+my_pal <- brewer.pal( 5, "Set2" )
 
 gplot( star_net,
        usearrows=FALSE, 
        displayisolates=FALSE, 
-       vertex.cex=2, 
+       vertex.cex=3, 
        vertex.col=my_pal[1], 
        edge.lwd=0, 
        edge.col="grey50",
@@ -420,7 +441,7 @@ gplot( star_net,
 gplot( circle_net, 
        usearrows=FALSE, 
        displayisolates=FALSE, 
-       vertex.cex=2,
+       vertex.cex=3,
        vertex.col=my_pal[3], 
        edge.lwd=0, 
        edge.col="grey50",
@@ -431,14 +452,13 @@ gplot( circle_net,
 
 The closeness centralization score for the figure on the left is `r centralization( star_net, closeness, mode="graph" )`, whereas the closeness centralization score for the figure on the right is `r centralization( circle_net, closeness, mode="graph" )`. 
 
-
-<br>
+<br><hr><br>
 
 ## Directed Graphs
 
-As discussed in [CHAPTER](), when we have a directed graph, we have to consider directionality when evaluating a centrality measure. For example, in the graph below, *how far is Jen from Tom?* *How far is Jen from Bob?*
+As discussed in [Chapter 5: Degree Centrality](https://jacobtnyoung.github.io/sna-textbook/ch-05-centrality-degree.html), when we have a directed graph, we have to consider directionality when evaluating a centrality measure. For example, in the graph below, *how far is Jen from Tom?* *How far is Jen from Bob?*
 
-```{r, echo=FALSE, eval=TRUE, fig.width=5, fig.height=5, results="show"}
+```{r, echo=FALSE, eval=TRUE, fig.width=5, fig.height=5, results="show", fig.align="center"}
 
 gplot( d.mat, gmode = "digraph", displaylabels = TRUE, label.pos = 5, label.cex = 1.2, vertex.col = "orange", vertex.cex=3.2 )
 
@@ -546,7 +566,7 @@ If we sum the columns, then we get these scores:
 
 While these are correct, mathematically, they are far less intuitive than the scores we calculated based on the *outgoing* ties. 
 
-<br>
+<br><br><hr>
 
 ## Summary
 
@@ -556,12 +576,10 @@ In this chapter, we:
   
   * We also covered the calculation of *closeness* centrality for directed an undirected graphs.
   
-<br>
+<br><br><hr>
 
 #### Continue to [Chapter 7: Betweenness Centrality](ch-07-centrality-betweenness.html)
 
 <br><br>
 
 ***Please*** report any corrections or comments to the [Issues](https://github.com/jacobtnyoung/sna-textbook/issues) page. Thanks!
-
-<br><br>

@@ -308,6 +308,8 @@ $(document).ready(function () {
 <li><p>Understand the calculation of <em>closeness</em>
 centrality.</p></li>
 </ul>
+<br>
+<hr>
 <p><br></p>
 </div>
 <div id="concepts-and-operationalization" class="section level2">
@@ -350,6 +352,8 @@ between <em>i</em> and <em>j</em>.</li>
 <p>Another way of saying this is that if we now how “far apart” two
 nodes are (i.e. the distance), then we can take the inverse of that and
 know how “close” the nodes are to each other.</p>
+<br>
+<hr>
 <p><br></p>
 </div>
 </div>
@@ -453,11 +457,11 @@ d(n_i,n_j)\)</span>:</p>
 <div id="standardization" class="section level3">
 <h3>Standardization</h3>
 <p>As discussed in the chapter on <a href="">degree centrality</a>, the
-measure of centrality is affected (effected?) by the size of the graph,
-<em>g</em>. In the case of <em>closeness</em> centrality, having to sum
-over more nodes will push scores closer to zero. This means that we
-can’t compare closeness centrality scoress across graphs of different
-sizes. <em>Solution</em>?</p>
+measure of centrality is affected by the size of the graph, <em>g</em>.
+In the case of <em>closeness</em> centrality, having to sum over more
+nodes will push scores closer to zero. This means that we can’t compare
+closeness centrality scoress across graphs of different sizes.
+<em>Solution</em>?</p>
 <p>Standardize! If we want to compare nodes in different sized networks,
 then we just take into account the number of nodes and the maximum
 possible nodes to which <em>i</em> could be connected. In an undirected
@@ -527,7 +531,10 @@ same?</p>
 <p><br></p>
 <p><img src="ch-06-centrality-closeness_files/figure-html/unnamed-chunk-9-1.png" width="480" style="display: block; margin: auto;" /></p>
 <p><br></p>
+<p>Now, apply the same thing to the rest of the network:</p>
 <p><img src="ch-06-centrality-closeness_files/figure-html/unnamed-chunk-10-1.png" width="480" style="display: block; margin: auto;" /></p>
+<br>
+<hr>
 <p><br></p>
 </div>
 <div id="closeness-centralization" class="section level3">
@@ -556,11 +563,10 @@ value</li>
 <li>Finally, we take that sum and divide it by <span
 class="math inline">\([(g-2)(g-1)]/(2g-3)\)</span></li>
 </ul>
+<p><br></p>
 <p>If I lost you in some of the math, don’t worry. Let’s calculate the
 closeness centralization score for our example graph:</p>
-<p><br></p>
-<p><img src="ch-06-centrality-closeness_files/figure-html/unnamed-chunk-11-1.png" width="480" /></p>
-<p><br></p>
+<p><img src="ch-06-centrality-closeness_files/figure-html/unnamed-chunk-11-1.png" width="480" style="display: block; margin: auto;" /></p>
 <p>Recall our table of standardized closeness scores:</p>
 <table>
 <thead>
@@ -604,6 +610,7 @@ closeness centralization score for our example graph:</p>
 </tr>
 </tbody>
 </table>
+<p><br></p>
 <p><em>What is the largest standardized closeness score?</em> It is 0.8
 for Bob. Also, we have <span class="math inline">\(g = 5\)</span>. Now,
 we just plug these into our equation:</p>
@@ -680,24 +687,26 @@ inequality in the closeness centrality scores between nodes, the
 quotient will be closer to 1. Thus, closer to 1 indicates that the graph
 is hierarchically structured and closer to 0 means that the graph is
 more decentralized.</p>
-<p>We can see this by examining two additional undirected networks.</p>
 <p><br></p>
-<pre><code>## [1] 1</code></pre>
-<pre><code>## [1] 0</code></pre>
+<p>We can see this by examining two additional undirected networks:</p>
 <p><img src="ch-06-centrality-closeness_files/figure-html/unnamed-chunk-12-1.png" width="480" style="display: block; margin: auto;" /></p>
 <p>The closeness centralization score for the figure on the left is 1,
 whereas the closeness centralization score for the figure on the right
 is 0.</p>
+<br>
+<hr>
 <p><br></p>
 </div>
 </div>
 <div id="directed-graphs" class="section level2">
 <h2>Directed Graphs</h2>
-<p>As discussed in <a href="">CHAPTER</a>, when we have a directed
-graph, we have to consider directionality when evaluating a centrality
-measure. For example, in the graph below, <em>how far is Jen from
-Tom?</em> <em>How far is Jen from Bob?</em></p>
-<p><img src="ch-06-centrality-closeness_files/figure-html/unnamed-chunk-13-1.png" width="480" /></p>
+<p>As discussed in <a
+href="https://jacobtnyoung.github.io/sna-textbook/ch-05-centrality-degree.html">Chapter
+5: Degree Centrality</a>, when we have a directed graph, we have to
+consider directionality when evaluating a centrality measure. For
+example, in the graph below, <em>how far is Jen from Tom?</em> <em>How
+far is Jen from Bob?</em></p>
+<p><img src="ch-06-centrality-closeness_files/figure-html/unnamed-chunk-13-1.png" width="480" style="display: block; margin: auto;" /></p>
 <p>To answer this question, let’s think again about what closeness
 measures. It is the inverse of the distance matrix. So, if we are
 looking at outgoing ties (i.e. <span
@@ -884,7 +893,8 @@ of summing the rows as we did above, we could sum the columns.</p>
 </table>
 <p>While these are correct, mathematically, they are far less intuitive
 than the scores we calculated based on the <em>outgoing</em> ties.</p>
-<p><br></p>
+<br><br>
+<hr>
 </div>
 </div>
 <div id="summary" class="section level2">
@@ -897,7 +907,8 @@ that actors who are “closer” to others are more central.</p></li>
 <li><p>We also covered the calculation of <em>closeness</em> centrality
 for directed an undirected graphs.</p></li>
 </ul>
-<p><br></p>
+<br><br>
+<hr>
 <div id="continue-to-chapter-7-betweenness-centrality"
 class="section level4">
 <h4>Continue to <a href="ch-07-centrality-betweenness.html">Chapter 7:
@@ -907,7 +918,6 @@ Betweenness Centrality</a></h4>
 to the <a
 href="https://github.com/jacobtnyoung/sna-textbook/issues">Issues</a>
 page. Thanks!</p>
-<p><br><br></p>
 </div>
 </div>
 </div>

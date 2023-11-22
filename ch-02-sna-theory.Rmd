@@ -17,11 +17,11 @@ library( here )
 
   * Understand the theoretical basis of network science
 
-<br>
+<br><hr><br>
 
 ## Organizing Knowledge
 
-As discussed in [Chapter 1: Introduction to Social Network Analysis](), network science takes **relational structures** as the primary domain of interest. In so doing, research questions take the following forms:
+As discussed in [Chapter 1: Introduction to Social Network Analysis](https://jacobtnyoung.github.io/sna-textbook/ch-01-intro-to-sna.html), network science takes **relational structures** as the primary domain of interest. In so doing, research questions take the following forms:
 
   * How does the network matter?
     * Here the network is an *independent variable*. In the case above, the network of shared incidents was as independent variable that influenced views of body-worn cameras.
@@ -39,13 +39,17 @@ The Explanatory model differentiates between two different metaphors for what ne
 
 The Explanatory goal differentiates between what we are trying to understand: *social capital/performance* (what are the benefits of a position? How does it render advantage?), *homogeneity* (why are nodes similar?), and *network structure* (why is the network like this?).
 
+<br>
+
 These dimensions give as a 2x3 table where by which we can better classify studies:
 
-```{r, fig.cap = "", out.width = "60%"}
-knitr::include_graphics( "images/ch-02-table-01.jpeg" )
+<br>
+
+```{r, fig.cap = "", out.width = "70%", fig.align="center"}
+knitr::include_graphics( "images/ch-02-table-02.jpeg" )
 ```
 
-<br>  
+<br><hr><br>  
   
 ## Mechanisms in Network Theory
 
@@ -60,7 +64,7 @@ This mechanism explains the benefits of social ties as providing resources. That
 
 As an example, consider the following question: why do some people stay out of prison when they return to the community?
 
-Several studies (CITES) point to the importance of social support upon reentry. Individuals who are able to draw on a diverse set of resources in their social network are better able to navigate life on the outside.
+Several studies point to the importance of social support upon reentry. Individuals who are able to draw on a diverse set of resources in their social network are better able to navigate life on the outside.
 
 <br>
 
@@ -73,14 +77,63 @@ This mechanism explains homogeneity among nodes as the result of an "infection" 
 
 As an example, think about this question: why are people victims of gun violence?
 
-A study by CITE suggests that exposure to particular behavioral settings increases the risk of gun violence. Specifically, being around those who have been the victim of gun violence. These situations think of victimization in epidemiological terms.
+A study suggests that exposure to particular behavioral settings increases the risk of gun violence. Specifically, being around those who have been the victim of gun violence. These situations think of victimization in epidemiological terms.
 
 <br>
 
+### Cooperation
+
+Model: Coordination
+Goal: Social Capital/Performance
+
+Ties facilitate coordination to solve some problem. For example, why can some groups enforce norms? According to [Coleman (1990)](), network closure strengthens idetity and distributes sanctioning costs allowing groups with this property to enforce norms.
+
+<br>
+
+### Convergence
+
+Model: Coordination
+Goal: Homogeneity
+
+Nodes respond to or adapt to their environment. Homogeneity is a consequence of this structural similarity. For example, who is most likely to engage in relational violence? Some work suggests that adolescents in the middle of the friendship hierarchy (not the top or bottom) tend to engage in relational violence to maintain position and move through the hierarchy.
+
+<br>
+  
+### Theories of Networks
+
+Usually adopt one of the metaphors (i.e. network flow or network coordination) to address the question, "why is the network this way?"
+
+<br>
+
+## Summary
+
+The table below summarizes the major approaches to organizing social network analyses:
+
+```{r, fig.cap = "", out.width = "70%", fig.align="center"}
+knitr::include_graphics( "images/ch-02-table-02.jpeg" )
+```
+
+<br><hr><br>  
+
 #### Continue to [Chapter 3: Social Network Analysis and Methods for Data Collection](ch-03-sna-methods.html)
 
-<br><br>
+<br><hr><br>  
 
 ***Please*** report any corrections or comments to the [Issues](https://github.com/jacobtnyoung/sna-textbook/issues) page. Thanks!
 
-<br><br>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

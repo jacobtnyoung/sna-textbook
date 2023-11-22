@@ -13,12 +13,6 @@ library( here )
 
 <br>
 
-## Learning Goals
-
-  * Be able to answer these questions:
-  
-    * ?
-    
 <br>
 
 #### Continue to [Chapter 4: Network Data Structures](ch-04-net-data-structures.html)

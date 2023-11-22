@@ -110,6 +110,8 @@ With [*degree* centrality]() we conceptualized a central node as one that has a 
 We can also conceptualize centrality as a node that lies on a particular path **between** other nodes. *Betweenness* centrality is based on the number of shortest paths between two nodes, *j* and *k*, that node *i* resides on. Recall that a **path** is an edge or sequence of edges that connect two nodes and a **geodesic** is the shortest path between two nodes.
 
 <br>
+<br>
+<hr>
 
 ## Undirected Graphs
 
@@ -131,15 +133,18 @@ Let's consider an example. Take a look at this graph:
 
 ```{r, echo=FALSE, eval=TRUE, fig.width=5, fig.height=5, fig.show="show", fig.align="center"}
 
-set.seed( 1 )
+par( mar=c( 1, 0.1, 1, 0.1 ) )
+
+set.seed( 19141 )
+
 gplot( u.mat, 
        usearrows=FALSE, 
-       vertex.cex=3.2, 
+       vertex.cex=3, 
        vertex.col = "lightblue", 
        edge.col="grey50", 
        displaylabels = TRUE, 
        label.pos=5, 
-       label.cex = 1.5 )
+       label.cex = 1 )
 
 ```
 
@@ -150,32 +155,38 @@ gplot( u.mat,
 
 We can see this visually:
 
+<br>
+
 ```{r, echo=FALSE, eval=TRUE, fig.width=5, fig.height=5, fig.show="show", fig.align="center", results=FALSE}
 
-par( mar=c( 4,4,0.1,0.1 ), mfrow = c( 1,2 ) )
+par( mar=c( 1, 0.1, 1, 0.1 ), mfrow = c( 2,1 ) )
 
-set.seed( 605 )
+set.seed( 19141 )
 gplot( u.net, 
        usearrows=FALSE, 
-       vertex.cex=3.2, 
+       vertex.cex=4, 
        vertex.col = "lightblue", 
        displaylabels = TRUE, 
        label.pos=5, 
-       label.cex = 1.5,
+       label.cex = 1,
+       main = "Jen to Tom to Bob to Jim",
        edge.col = c("green","green","grey50","green","grey50" ) )
 
-set.seed( 605 )
+set.seed( 19141 )
 gplot( u.net, 
        usearrows=FALSE, 
-       vertex.cex=3.2, 
+       vertex.cex=4, 
        vertex.col = "lightblue", 
        displaylabels = TRUE, 
        label.pos=5, 
-       label.cex = 1.5,
+       label.cex = 1,
+       main = "Jen to Tom to Bob to Leaf to Jim",
        edge.col = c("green","green","green","grey50","green" ) )
 
 
 ```
+
+<br>
 
 Note that Bob is on both of those paths. He is between Jen and Jim on both paths. Note, however, that only one of the paths is a geodesic path. The Jen to Tom to Bob to Jim path. That is because it is shorter.
 
@@ -215,7 +226,10 @@ knitr::include_graphics( "images/ch-07-matrix-04.jpeg" )
 
 ```{r, echo=FALSE, eval=TRUE, fig.width=5, fig.height=5, fig.show="show"}
 
-set.seed( 605 )
+par( mar=c( 1, 0.1, 1, 0.1 ) )
+
+set.seed( 19141 )
+
 gplot( u.net, 
        usearrows=FALSE, 
        vertex.cex=3.2, 
@@ -223,6 +237,7 @@ gplot( u.net,
        displaylabels = TRUE, 
        label.pos=5, 
        label.cex = 1.5,
+       main = "Jen to Tom",
        edge.col = c("green","grey50","grey50","grey50","grey50" ) )
 
 ```
@@ -237,9 +252,14 @@ knitr::include_graphics( "images/ch-07-matrix-05.jpeg" )
 
 Finally, we can look at the Jen to Leaf path:
 
+<br>
+
 ```{r, echo=FALSE, eval=TRUE, fig.width=5, fig.height=5, fig.show="show", fig.align="center"}
 
-set.seed( 605 )
+par( mar=c( 1, 0.1, 1, 0.1 ) )
+
+set.seed( 19141 )
+
 gplot( u.net, 
        usearrows=FALSE, 
        vertex.cex=3.2, 
@@ -247,6 +267,7 @@ gplot( u.net,
        displaylabels = TRUE, 
        label.pos=5, 
        label.cex = 1.5,
+       main = "Jen to Tom to Bob to Leaf",
        edge.col = c("green","green","green","grey50","grey50" ) )
 
 ```
@@ -299,16 +320,22 @@ knitr::include_graphics( "images/ch-07-matrix-10.jpeg" )
 
 We can see by looking at the plot that Leaf is not on any of the geodesics between Jen, Tom, Bob, and Jim:
 
+<br>
+
 ```{r, echo=FALSE, eval=TRUE, fig.width=5, fig.height=5, fig.show="show", fig.align="center"}
 
-set.seed( 605 )
+par( mar=c( 1, 0.1, 1, 0.1 ) )
+
+set.seed( 19141 )
+
 gplot( u.net, 
        usearrows=FALSE, 
        vertex.cex=3.2, 
        vertex.col = "lightblue", 
        displaylabels = TRUE, 
        label.pos=5, 
-       label.cex = 2.5,
+       label.cex = 1.5,
+       main = "Jen to Tom to Bob to Jim",
        edge.col = c("green","green","grey50","green","grey50" ) )
 
 ```
@@ -317,10 +344,11 @@ gplot( u.net,
 
 This means that Leaf's betweenness is zero. We can see this from the completed geodesic proportions table for Leaf:
 
-```{r, fig.cap = "", out.width = "60%"}
+```{r, fig.cap = "", out.width = "40%"}
 knitr::include_graphics( "images/ch-07-matrix-11.jpeg" )
 ```
 
+<br>
 <br>
 
 | Node  | Betweenness |
@@ -332,6 +360,8 @@ knitr::include_graphics( "images/ch-07-matrix-11.jpeg" )
 | Jim   | 0           |
 
 <br>
+<br>
+<hr>
 
 ### Standardization
 
@@ -347,7 +377,7 @@ So, all we are doing is adjusting each betweenness score by $(g-1))(g-2)/2$.
 
 For this graph, the denominator, $(g-1))(g-2)/2=(5-1))(5-2)/2 = 6$. Plugging that in we get: $$C'_B(n_i) = \frac{C_B(n_i)}{6}$$.
 
-When we calculate the *raw* betweenness scores, we get the following table
+When we calculate the *raw* betweenness scores, we get the following table:
 
 | Node  | Betweenness | Standardized Betweenness |
 | :---: | :---------: | :----------------------: |
@@ -358,6 +388,8 @@ When we calculate the *raw* betweenness scores, we get the following table
 | Jim   | 0           | 0 / 6 = 0.000 |
 
 <br>
+<br>
+<hr>
 
 ### Betweenness Centralization
 
@@ -368,15 +400,21 @@ We can calculate betweenness centralization as:
 $$C_B = \frac{\sum\limits_{i=1}^g[C'_B(n^*)-C'_B(n_i)]}{(g-1)} $$
 If I lost you in some of the math, don't worry. Let's calculate the betweenness centralization score for our example graph:
 
-<br>
-
 ```{r, echo=FALSE, eval=TRUE, fig.width=5, fig.height=5, fig.show="show", fig.align="center"}
 
-gplot( u.mat, gmode = "graph", displaylabels = TRUE, label.pos = 5, label.cex = 2.2, vertex.col = "lightblue", vertex.cex=3.2 )
+par( mar=c( 1, 0.1, 1, 0.1 ) )
 
+set.seed( 19141 )
+
+gplot( u.mat, 
+       usearrows=FALSE, 
+       vertex.cex=3, 
+       vertex.col = "lightblue", 
+       edge.col="grey50", 
+       displaylabels = TRUE, 
+       label.pos=5, 
+       label.cex = 1 )
 ```
-
-<br>
 
 Recall our table of standardized betweenness scores:
 
@@ -396,7 +434,7 @@ $$C_B = \frac{\sum\limits_{i=1}^g[0.667-C'_B(n_i)]}{4} $$
 
 <br>
 
-| Node  | Betweenness | Standardized Betweenness | Deviations of Betweenness Closeness $0.667-C'_B(n_i)$ |
+| Node  | Betweenness | Standardized Betweenness | Deviations of Betweenness Closeness, $0.667-C'_B(n_i)$ |
 | :---: | :---------: | :----------------------: | :---------------------------------------------------: |
 | Jen   | 0           | 0 / 6 = 0.000 | 0.667 - 0.000 = 0.667 |
 | Tom   | 3           | 3 / 6 = 0.500 | 0.667 - 0.500 = 0.167 |
@@ -416,21 +454,19 @@ When betweenness centrality is evenly dispersed, meaning that all nodes have the
 
 We can see this by examining two additional undirected networks. 
 
-<br>
-
 ```{r, echo=FALSE, eval=TRUE, fig.width=5, fig.height=5, fig.show="show", fig.align="center", results="hide"}
 
 centralization( star_net, betweenness, mode="graph" )
 centralization( circle_net, betweenness, mode="graph" )
 
-par( mar=c( 4,4,0.1,0.1 ), mfrow = c( 1,2 ) )
+par( mar=c( 0.1,3,0.1,0.1 ), mfrow = c( 1,2 ) )
 
 my_pal <- brewer.pal( 5,"Set2" )
 
 gplot( star_net,
        usearrows=FALSE, 
        displayisolates=FALSE, 
-       vertex.cex=2, 
+       vertex.cex=3, 
        vertex.col=my_pal[1], 
        edge.lwd=0, 
        edge.col="grey50",
@@ -440,7 +476,7 @@ gplot( star_net,
 gplot( circle_net, 
        usearrows=FALSE, 
        displayisolates=FALSE, 
-       vertex.cex=2,
+       vertex.cex=3,
        vertex.col=my_pal[3], 
        edge.lwd=0, 
        edge.col="grey50",
@@ -452,6 +488,8 @@ gplot( circle_net,
 The closeness centralization score for the figure on the left is `r centralization( star_net, betweenness, mode="graph" )`, whereas the closeness centralization score for the figure on the right is `r centralization( circle_net, betweenness, mode="graph" )`. 
 
 <br>
+<br>
+<hr>
 
 ## Directed Graphs
 
@@ -463,7 +501,10 @@ Let's take the example that we have been working with for directed graphs and ch
 
 ```{r, echo=FALSE, eval=TRUE, fig.width=5, fig.height=5, fig.show="show", fig.align="center"}
 
-set.seed( 605 )
+par( mar=c( 1, 0.1, 1, 0.1 ) )
+
+set.seed( 19141 )
+
 gplot( 
   d.net, 
   arrowhead.cex = 0.5, 
@@ -472,7 +513,8 @@ gplot(
   usecurve=TRUE, 
   displaylabels = TRUE, 
   label.pos=5, 
-  label.cex = 1.5, 
+  label.cex = 1.5,
+  edge.lwd =1.5,
   edge.col = c( "green","green","grey50","grey50","grey50","grey50","green","grey50" ) )
 
 
@@ -513,6 +555,8 @@ knitr::include_graphics( "images/ch-07-matrix-14.jpeg" )
 | Jim   | 0           | 0 / 6 = 0.000 |
 
 <br>
+<br>
+<hr>
 
 ## Summary
 
@@ -522,12 +566,10 @@ In this chapter we:
   
   * We also examined the calculation of *betweenness* centrality for undirected and directed graphs.
 
-<br>
+<br><hr><br>
 
-#### Continue to [Chapter 2: Social Network Analysis and Theory](ch-08-centrality-comparison.html)
+#### Continue to [Chapter 2: Social Network Analysis and Theory]()
 
 <br><br>
 
 ***Please*** report any corrections or comments to the [Issues](https://github.com/jacobtnyoung/sna-textbook/issues) page. Thanks!
-
-<br><br>

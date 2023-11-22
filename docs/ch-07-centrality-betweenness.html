@@ -341,7 +341,8 @@ between two nodes, <em>j</em> and <em>k</em>, that node <em>i</em>
 resides on. Recall that a <strong>path</strong> is an edge or sequence
 of edges that connect two nodes and a <strong>geodesic</strong> is the
 shortest path between two nodes.</p>
-<p><br></p>
+<br> <br>
+<hr>
 </div>
 </div>
 <div id="undirected-graphs" class="section level2">
@@ -374,7 +375,9 @@ will have high betweenness because <em>i</em> is
 <li>Jen to Tom to Bob to Leaf to Jim</li>
 </ul>
 <p>We can see this visually:</p>
+<p><br></p>
 <p><img src="ch-07-centrality-betweenness_files/figure-html/unnamed-chunk-2-1.png" width="480" style="display: block; margin: auto;" /></p>
+<p><br></p>
 <p>Note that Bob is on both of those paths. He is between Jen and Jim on
 both paths. Note, however, that only one of the paths is a geodesic
 path. The Jen to Tom to Bob to Jim path. That is because it is
@@ -402,6 +405,7 @@ Jen to Tom. So, that leads to:</p>
 <p><img src="images/ch-07-matrix-05.jpeg" width="40%" style="display: block; margin: auto;" /></p>
 <p><br></p>
 <p>Finally, we can look at the Jen to Leaf path:</p>
+<p><br></p>
 <p><img src="ch-07-centrality-betweenness_files/figure-html/unnamed-chunk-9-1.png" width="480" style="display: block; margin: auto;" /></p>
 <p><img src="images/ch-07-matrix-06.jpeg" width="40%" style="display: block; margin: auto;" /></p>
 <p><br></p>
@@ -431,12 +435,13 @@ the graph.</p>
 <p><br></p>
 <p>We can see by looking at the plot that Leaf is not on any of the
 geodesics between Jen, Tom, Bob, and Jim:</p>
+<p><br></p>
 <p><img src="ch-07-centrality-betweenness_files/figure-html/unnamed-chunk-15-1.png" width="480" style="display: block; margin: auto;" /></p>
 <p><br></p>
 <p>This means that Leaf’s betweenness is zero. We can see this from the
 completed geodesic proportions table for Leaf:</p>
-<p><img src="images/ch-07-matrix-11.jpeg" width="60%" style="display: block; margin: auto;" /></p>
-<p><br></p>
+<p><img src="images/ch-07-matrix-11.jpeg" width="40%" style="display: block; margin: auto;" /></p>
+<p><br> <br></p>
 <table>
 <thead>
 <tr class="header">
@@ -467,7 +472,8 @@ completed geodesic proportions table for Leaf:</p>
 </tr>
 </tbody>
 </table>
-<p><br></p>
+<br> <br>
+<hr>
 <div id="standardization" class="section level3">
 <h3>Standardization</h3>
 <p>As discussed in the chapter on <a href="">degree centrality</a>, the
@@ -495,7 +501,7 @@ class="math inline">\((g-1))(g-2)/2=(5-1))(5-2)/2 = 6\)</span>. Plugging
 that in we get: <span class="math display">\[C&#39;_B(n_i) =
 \frac{C_B(n_i)}{6}\]</span>.</p>
 <p>When we calculate the <em>raw</em> betweenness scores, we get the
-following table</p>
+following table:</p>
 <table>
 <thead>
 <tr class="header">
@@ -532,7 +538,8 @@ following table</p>
 </tr>
 </tbody>
 </table>
-<p><br></p>
+<br> <br>
+<hr>
 </div>
 <div id="betweenness-centralization" class="section level3">
 <h3>Betweenness Centralization</h3>
@@ -549,9 +556,7 @@ betweenness score (as opposed to the <em>raw</em> score).</p>
 \frac{\sum\limits_{i=1}^g[C&#39;_B(n^*)-C&#39;_B(n_i)]}{(g-1)} \]</span>
 If I lost you in some of the math, don’t worry. Let’s calculate the
 betweenness centralization score for our example graph:</p>
-<p><br></p>
 <p><img src="ch-07-centrality-betweenness_files/figure-html/unnamed-chunk-17-1.png" width="480" style="display: block; margin: auto;" /></p>
-<p><br></p>
 <p>Recall our table of standardized betweenness scores:</p>
 <table>
 <thead>
@@ -608,7 +613,7 @@ betweenness centralization score for our example graph:</p>
 <th align="center">Node</th>
 <th align="center">Betweenness</th>
 <th align="center">Standardized Betweenness</th>
-<th align="center">Deviations of Betweenness Closeness <span
+<th align="center">Deviations of Betweenness Closeness, <span
 class="math inline">\(0.667-C&#39;_B(n_i)\)</span></th>
 </tr>
 </thead>
@@ -660,12 +665,12 @@ nodes, the quotient will be closer to 1. Thus, closer to 1 indicates
 that the graph is hierarchically structured and closer to 0 means that
 the graph is more decentralized.</p>
 <p>We can see this by examining two additional undirected networks.</p>
-<p><br></p>
 <p><img src="ch-07-centrality-betweenness_files/figure-html/unnamed-chunk-18-1.png" width="480" style="display: block; margin: auto;" /></p>
 <p>The closeness centralization score for the figure on the left is 1,
 whereas the closeness centralization score for the figure on the right
 is 0.</p>
-<p><br></p>
+<br> <br>
+<hr>
 </div>
 </div>
 <div id="directed-graphs" class="section level2">
@@ -730,7 +735,8 @@ not exist for these node sets.</p>
 </tr>
 </tbody>
 </table>
-<p><br></p>
+<br> <br>
+<hr>
 </div>
 <div id="summary" class="section level2">
 <h2>Summary</h2>
@@ -742,17 +748,18 @@ between other nodes.</p></li>
 <li><p>We also examined the calculation of <em>betweenness</em>
 centrality for undirected and directed graphs.</p></li>
 </ul>
+<br>
+<hr>
 <p><br></p>
 <div id="continue-to-chapter-2-social-network-analysis-and-theory"
 class="section level4">
-<h4>Continue to <a href="ch-08-centrality-comparison.html">Chapter 2:
-Social Network Analysis and Theory</a></h4>
+<h4>Continue to <a href="">Chapter 2: Social Network Analysis and
+Theory</a></h4>
 <p><br><br></p>
 <p><strong><em>Please</em></strong> report any corrections or comments
 to the <a
 href="https://github.com/jacobtnyoung/sna-textbook/issues">Issues</a>
 page. Thanks!</p>
-<p><br><br></p>
 </div>
 </div>
 </div>

@@ -57,7 +57,7 @@ knitr::include_graphics( "images/ch-02-table-02.jpeg" )
 
 ### Capitalization
 
-Model: Flow
+Model: Flow  
 Goal: Social Capital/Performance
 
 This mechanism explains the benefits of social ties as providing resources. That is, individuals are able to *capitalize* on their ties and this produces variation in resources.
@@ -70,7 +70,7 @@ Several studies point to the importance of social support upon reentry. Individu
 
 ### Contagion
 
-Model: Flow
+Model: Flow  
 Goal: Homogeneity
 
 This mechanism explains homogeneity among nodes as the result of an "infection" process. That is, individuals are similar because of their exposure in their social network.
@@ -83,7 +83,7 @@ A study suggests that exposure to particular behavioral settings increases the r
 
 ### Cooperation
 
-Model: Coordination
+Model: Coordination  
 Goal: Social Capital/Performance
 
 Ties facilitate coordination to solve some problem. For example, why can some groups enforce norms? According to [Coleman (1990)](), network closure strengthens idetity and distributes sanctioning costs allowing groups with this property to enforce norms.
@@ -92,7 +92,7 @@ Ties facilitate coordination to solve some problem. For example, why can some gr
 
 ### Convergence
 
-Model: Coordination
+Model: Coordination  
 Goal: Homogeneity
 
 Nodes respond to or adapt to their environment. Homogeneity is a consequence of this structural similarity. For example, who is most likely to engage in relational violence? Some work suggests that adolescents in the middle of the friendship hierarchy (not the top or bottom) tend to engage in relational violence to maintain position and move through the hierarchy.

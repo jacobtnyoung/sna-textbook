@@ -563,7 +563,7 @@ In this chapter we:
 
 <br><hr><br>
 
-#### Continue to [Chapter 2: Social Network Analysis and Theory]()
+#### Continue to [Chapter 8: Comparison of Centrality Measures](ch-08-centrality-comparison.html)
 
 <br><br>
 

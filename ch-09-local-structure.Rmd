@@ -13,15 +13,6 @@ library( here )
 
 <br>
 
-## Learning Goals
-
-  * ???
-  
-  * ???
-  
-  
-<br>
-
 #### Continue to [Chapter 10: Bipartite Graphs/Two-Mode Networks](ch-10-bipartite-graphs.html)
 
 <br><br>

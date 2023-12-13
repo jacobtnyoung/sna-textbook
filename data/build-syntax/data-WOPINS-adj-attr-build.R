@@ -1,5 +1,5 @@
 # =============================================================================== #
-# Build PINS data files for SNA textbook.
+# Build WOPINS data files for SNA textbook.
 # =============================================================================== #
 
 
@@ -20,11 +20,14 @@ library( network ) # for working with the network object
 
 # ----
 # Load the data.
-setwd( "/Users/jyoung20/PINS/PINS_Wave_1_data/" )
-load( "PINS_Wave_1_NETWORKS_FOR_ANALYSIS.RData" )
 
-setwd( "/Users/jyoung20/PINS/PINS_Wave_2_data/" )
-load( "PINS_Wave_2_NETWORKS_FOR_ANALYSIS.RData" )
+# Site 1.
+setwd( "/Users/jyoung20/PINS/WOPINS_data/WOPINS_S1_data" )
+load( "WOPINS_S1_TRUST_NETWORKS_FOR_ERGMS.RData" )
+
+# Site 2.
+setwd( "/Users/jyoung20/PINS/WOPINS_data/WOPINS_S2_data" )
+load( "WOPINS_S2_TRUST_NETWORKS_FOR_ERGMS.RData" )
 
 
 # ----
@@ -57,16 +60,20 @@ write.attributes <- function( input.net, nodeAttributes, file.name ){
 
 path <- "/Users/jyoung20/Dropbox (ASU)/GitHub_repos/sna-textbook/data/"
 
-write.adjacency( get.along.norank.net, "data-PINS-getalong-w1-adj" )
-write.adjacency( powerinfluence.net  , "data-PINS-power-w1-adj" )
-write.adjacency( information.net     , "data-PINS-info-w1-adj" )
+# trust networks
+write.adjacency( SDD.net     , "data-WOPINS-trust-s1gb-adj" )
+write.adjacency( SDD.gb.net  , "data-WOPINS-trust-s2gb-adj" )
+write.adjacency( SDD.gp.net  , "data-WOPINS-trust-s2gp-adj" )
+
 
 # ----
 # create the files with the attributes
 
 path <- "/Users/jyoung20/Dropbox (ASU)/GitHub_repos/sna-textbook/data/"
 
-write.attributes( get.along.norank.net, c( "Age", "Race" ), "data-PINS-w1-age-race-attributes" )
+write.attributes( SDD.net   , c( "Age", "Race" ), "data-WOPINS-s1gb-age-race-attributes" )
+write.attributes( SDD.gb.net, c( "Age", "Race" ), "data-WOPINS-s2gb-age-race-attributes" )
+write.attributes( SDD.gp.net, c( "Age", "Race" ), "data-WOPINS-s2gp-age-race-attributes" )
 
 
 # =============================================================================== #

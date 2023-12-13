@@ -52,9 +52,6 @@ colnames( mat ) <- unique( edgelist[,2] )
 # fill edgelist indexed edges with a 1
 mat[edgelist] <- 1   
 
-# set the diagonal to zero
-diag( mat ) <- 0
-
 # define number of officers
 N <- length( unique( edgelist[,1] ) )
 

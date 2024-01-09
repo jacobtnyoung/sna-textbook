@@ -220,6 +220,7 @@ For example, in a friendship network we could be friends or not (binary), how st
 #### Meanings
 
 Edges can have different meanings and therefore be of different *types*:
+
   * Social relationships (e.g. sister, friend, likes, knows)
   * Interactions (has sex with, talks to, seeks advice from)
   * Flows (diseases, attitudes, information)

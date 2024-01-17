@@ -235,7 +235,7 @@ These different types are important to keep in mind when we are thinking about w
 Networks can differ with respect to the sets of nodes that define them. This refers to the modes of the network or the partitioning of the nodes:
 
   * One-mode/uni-partite (connections among one type of node). For example, A and B are friends. There is only one group of nodes, individuals.
-  * Multi-mode/multi-partite (connections among two or more types of nodes). For example A and B attend protests 1, 2, and 3. There are two sets of nodes, individuals and protests. A and B are connected through their shared participation in the protests.
+  * Multi-mode/multi-partite (connections among two or more types of nodes). For example A and B attend protests 1 and 2. There are two sets of nodes, individuals and protests. A and B are connected through their shared participation in the protests.
 
 ```{r, fig.cap = "", out.width = "30%"}
 knitr::include_graphics( "images/ch-01-net-05.jpeg" )

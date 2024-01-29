@@ -68,11 +68,15 @@ circle_net <- network( dum2, directed=FALSE )
 
 ## Learning Goals
 
-  * Understand the conceptualization of "centrality".
-  
-  * Know how to calculate degree centrality.
+By the end of this chapter, you should be able to:
 
-<br><hr><br>
+  * Explain the conceptualization of "centrality" as it pertains to *degree centrality*.
+  
+  * Calculate degree centrality scores for a set of nodes.
+  
+  * Calculate a degree centralization score for a graph.
+
+----
 
 ## Concepts and Operationalization
 
@@ -109,9 +113,11 @@ It is also important to distinguish between whether we are talking about the cen
 
 As with prior chapters, we will start with undirected graphs and then move to directed graphs.
 
-<br><hr><br>
+<br>
 
 ## Undirected Graphs
+
+<br>
 
 ### Degree Centrality
 
@@ -213,11 +219,11 @@ And recall our raw scores:
 
 So, we just adjust the *raw* scores by standardizing by the denominator:
 
-  * Jen = $C'_D(Jen) =  \dfrac{C_D(1)}{4} = 0.25 $
-  * Tom = $C'_D(Tom) =  \dfrac{C_D(2)}{4} = 0.50 $
-  * Bob = $C'_D(Bob) =  \dfrac{C_D(3)}{4} = 0.75 $
-  * Leaf = $C'_D(Leaf) =  \dfrac{C_D(2)}{4} = 0.50 $
-  * Jim = $C'_D(Jim) =  \dfrac{C_D(2)}{4} = 0.50 $
+  * Jen = $C'_D(Jen) =  \dfrac{C_D(1)}{4} = 0.25$
+  * Tom = $C'_D(Tom) =  \dfrac{C_D(2)}{4} = 0.50$
+  * Bob = $C'_D(Bob) =  \dfrac{C_D(3)}{4} = 0.75$
+  * Leaf = $C'_D(Leaf) =  \dfrac{C_D(2)}{4} = 0.50$
+  * Jim = $C'_D(Jim) =  \dfrac{C_D(2)}{4} = 0.50$
 
 How is this to be interpreted? The standardized degree centrality score  gives us is the proportion of the network members with ties to actor *i*. So, a score of 0.25 for Jen means that Jen has ties to 25% of the nodes that she could potentially have ties to in the network. In other words, of the four people she could have ties with, she only has ties with one node.
 
@@ -276,7 +282,7 @@ $$C_A =  \dfrac{\sum\limits_{i=1}^g [C_A(n^*) - C_A(n_i)]}{max \sum\limits_{i=1}
 Again, this may look imposing, but we can decompose it to see what it is doing:
 
   * $C_A(n^*)$ is the largest degree centrality scored observed in the graph
-  * $C_A(n_i)]$ is the degree centrality score for node *i*
+  * $C_A(n_i)$ is the degree centrality score for node *i*
   * $\sum\limits_{i=1}^g [C_A(n^*) - C_A(n_i)]$ simply takes the sum of deviations for each node from the largest value
   * Finally, we take that sum and divide it by $max \sum\limits_{i=1}^g [C_A(n^*) - C_A(n_i)]$, which is the theoretical maximum sum possible of differences
 
@@ -312,9 +318,9 @@ Bob has the largest degree at 3. This means that $C_D(n^*) = 5$. Finally, recall
 
 Now, all we have to do is plug in the values:
 
-$$C_D =  \dfrac{\sum\limits_{i=1}^g [C_D(n^*) - C_D(n_i)]}{[(g-1)(g-2)]} = \dfrac{(3-1)+(3-2)+(3-3)+(3-2)+(3-2)}{(5-1)(5-2)} = \dfrac{2+1+0+1+1}{4*3}= \dfrac{5}{12}= 0.4167$$
+$$C_D =  \dfrac{\sum\limits_{i=1}^g [C_D(n^*) - C_D(n_i)]}{[(g-1)(g-2)]} = \dfrac{(3-1)+(3-2)+(3-3)+(3-2)+(3-2)}{(5-1)(5-2)} = \dfrac{2+1+0+1+1}{4*3}= \dfrac{5}{12}= 0.417$$
 
-So, the degree centralization score for our example graph is 0.4167. *What does this mean?*
+So, the degree centralization score for our example graph is 0.417. *What does this mean?*
 
 When degree centrality is evenly dispersed, meaning that all nodes have the same degree, then the numerator in the equation will be zero and the quotient will be close to 0. When there is considerable inequality in the degree centrality scores between nodes, the quotient will be closer to 1. Thus, closer to 1 indicates that the graph is hierarchically structured and closer to 0 means that the graph is more decentralized.
 
@@ -365,13 +371,15 @@ $$C_D =  \dfrac{\sum\limits_{i=1}^g [C_D(n^*) - C_D(n_i)]}{[(g-1)(g-2)]} = \dfra
 
 In a directed binary graph, degree centrality can be broken down into *indegree* and *outdegree* centrality:
 
-  * Indegree, $CI(n_i)$, measures the number of ties that *i* receives. For the sociomatrix $X_{ij}$, the indegree for *i* is the **column** sum:
+  * Indegree, $C_I(n_i)$, measures the number of ties that *i* receives. For the sociomatrix $X_{ij}$, the indegree for *i* is the **column** sum:
   
   $$C_I(n_i) = \sum_j x_{ji}$$
   
-  * Outdegree, $CO(n_i)$, measures the number of ties that *i* sends. For the sociomatrix $X_{ij}$, the outdegree for *i* is the **row** sum: 
+  * Outdegree, $C_O(n_i)$, measures the number of ties that *i* sends. For the sociomatrix $X_{ij}$, the outdegree for *i* is the **row** sum: 
   
   $$C_O(n_i) = \sum_j x_{ij}$$
+
+<br>
 
 What are the *indegree* and *outdegree* centrality scores in the following graph?:
 
@@ -431,15 +439,15 @@ Let's calculate the outdegree for the rest of the nodes:
 
 Now, let's compare the indegree and outdegree:
 
-| Node  | Indegree | Outdegree |
-| ----- | -------- | --------- |
-| Jen   | 0        | 1         |
-| Tom   | 1        | 1         |
-| Bob   | 3        | 2         |
-| Leaf  | 2        | 2         |
-| Jim   | 2        | 2         |
-| ----- | -------- | --------- |
-| Total | 8        | 8         |
+| Node      | Indegree | Outdegree |
+| :---      | :----:   | :----:    |
+| Jen       | 0        | 1         |
+| Tom       | 1        | 1         |
+| Bob       | 3        | 2         |
+| Leaf      | 2        | 2         |
+| Jim       | 2        | 2         |
+| -----     | -------- | --------- |
+| **Total** | **8**    | **8**     |
 
 Note that both the indegree and outdegree total to the same amount. This makes sense because there are $L=8$ edges in the graph. 
 
@@ -556,9 +564,9 @@ Bob has the largest degree at 3. This means that $C_D(n^*) = 5$. Finally, recall
 
 Now, all we have to do is plug in the values:
 
-$$C_I =  \dfrac{\sum\limits_{i=1}^g [C_I(n^*) - C_I(n_i)]}{[(g-1)(g-1)]} = \dfrac{(3-0)+(3-1)+(3-3)+(3-2)+(3-2)}{(5-1)(5-1)} = \dfrac{3+2+0+1+1}{4*4}= \dfrac{7}{16}= 0.4375$$
+$$C_I =  \dfrac{\sum\limits_{i=1}^g [C_I(n^*) - C_I(n_i)]}{[(g-1)(g-1)]} = \dfrac{(3-0)+(3-1)+(3-3)+(3-2)+(3-2)}{(5-1)(5-1)} = \dfrac{3+2+0+1+1}{4*4}= \dfrac{7}{16}= 0.438$$
 
-The indegree centralization score for our example graph is 0.4375. *What does this mean?*
+The indegree centralization score for our example graph is 0.438. *What does this mean?*
 
 Recall that when degree centrality is evenly dispersed, meaning that all nodes have the same degree, then the numerator in the equation will be zero and the quotient will be close to 0. When there is considerable inequality in the degree centrality scores between nodes, the quotient will be closer to 1. Thus, closer to 1 indicates that the graph is hierarchically structured and closer to 0 means that the graph is more decentralized.
 
@@ -598,7 +606,7 @@ An outdegree centralization score close to 1 indicates that the outdegrees in th
 
 #### Comparing Indegree and Outdegree Centralization
 
-The indegree centralization score, $C_I$, is 0.4375 and the outdegree centralization score, $C_O$, is 0.125. *What does the difference tell us?*
+The indegree centralization score, $C_I$, is 0.438 and the outdegree centralization score, $C_O$, is 0.125. *What does the difference tell us?*
 
 It tells us that the outdegrees are more decentralized than the indegrees. Put another way, the indegrees are more centralized than are the outdegrees. 
 

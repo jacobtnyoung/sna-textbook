@@ -303,13 +303,14 @@ $(document).ready(function () {
 <p><br></p>
 <div id="learning-goals" class="section level2">
 <h2>Learning Goals</h2>
+<p>By the end of this chapter, you should be able to:</p>
 <ul>
-<li><p>Understand the conceptualization of “centrality”.</p></li>
-<li><p>Know how to calculate degree centrality.</p></li>
+<li><p>Explain the conceptualization of “centrality” as it pertains to
+<em>degree centrality</em>.</p></li>
+<li><p>Calculate degree centrality scores for a set of nodes.</p></li>
+<li><p>Calculate a degree centralization score for a graph.</p></li>
 </ul>
-<br>
-<hr>
-<p><br></p>
+<hr />
 </div>
 <div id="concepts-and-operationalization" class="section level2">
 <h2>Concepts and Operationalization</h2>
@@ -363,13 +364,12 @@ hierarchical or decentralized a graph is based on the
 </ul>
 <p>As with prior chapters, we will start with undirected graphs and then
 move to directed graphs.</p>
-<br>
-<hr>
 <p><br></p>
 </div>
 </div>
 <div id="undirected-graphs" class="section level2">
 <h2>Undirected Graphs</h2>
+<p><br></p>
 <div id="degree-centrality" class="section level3">
 <h3>Degree Centrality</h3>
 <p>In an undirected binary graph, <em>degree centrality</em> measures
@@ -473,11 +473,16 @@ class="math inline">\(C&#39;_D(n_i) = \dfrac{C_D(n_i)}{4}\)</span>.</p>
 <p>So, we just adjust the <em>raw</em> scores by standardizing by the
 denominator:</p>
 <ul>
-<li>Jen = $C’_D(Jen) = = 0.25 $</li>
-<li>Tom = $C’_D(Tom) = = 0.50 $</li>
-<li>Bob = $C’_D(Bob) = = 0.75 $</li>
-<li>Leaf = $C’_D(Leaf) = = 0.50 $</li>
-<li>Jim = $C’_D(Jim) = = 0.50 $</li>
+<li>Jen = <span class="math inline">\(C&#39;_D(Jen) = \dfrac{C_D(1)}{4}
+= 0.25\)</span></li>
+<li>Tom = <span class="math inline">\(C&#39;_D(Tom) = \dfrac{C_D(2)}{4}
+= 0.50\)</span></li>
+<li>Bob = <span class="math inline">\(C&#39;_D(Bob) = \dfrac{C_D(3)}{4}
+= 0.75\)</span></li>
+<li>Leaf = <span class="math inline">\(C&#39;_D(Leaf) =
+\dfrac{C_D(2)}{4} = 0.50\)</span></li>
+<li>Jim = <span class="math inline">\(C&#39;_D(Jim) = \dfrac{C_D(2)}{4}
+= 0.50\)</span></li>
 </ul>
 <p>How is this to be interpreted? The standardized degree centrality
 score gives us is the proportion of the network members with ties to
@@ -535,7 +540,7 @@ is doing:</p>
 <ul>
 <li><span class="math inline">\(C_A(n^*)\)</span> is the largest degree
 centrality scored observed in the graph</li>
-<li><span class="math inline">\(C_A(n_i)]\)</span> is the degree
+<li><span class="math inline">\(C_A(n_i)\)</span> is the degree
 centrality score for node <em>i</em></li>
 <li><span class="math inline">\(\sum\limits_{i=1}^g [C_A(n^*) -
 C_A(n_i)]\)</span> simply takes the sum of deviations for each node from
@@ -580,8 +585,8 @@ class="math inline">\(g = 5\)</span> since we have 5 nodes.</p>
 <p><span class="math display">\[C_D =  \dfrac{\sum\limits_{i=1}^g
 [C_D(n^*) - C_D(n_i)]}{[(g-1)(g-2)]} =
 \dfrac{(3-1)+(3-2)+(3-3)+(3-2)+(3-2)}{(5-1)(5-2)} =
-\dfrac{2+1+0+1+1}{4*3}= \dfrac{5}{12}= 0.4167\]</span></p>
-<p>So, the degree centralization score for our example graph is 0.4167.
+\dfrac{2+1+0+1+1}{4*3}= \dfrac{5}{12}= 0.417\]</span></p>
+<p>So, the degree centralization score for our example graph is 0.417.
 <em>What does this mean?</em></p>
 <p>When degree centrality is evenly dispersed, meaning that all nodes
 have the same degree, then the numerator in the equation will be zero
@@ -616,19 +621,20 @@ can see this by doing the calculations:</p>
 <p>In a directed binary graph, degree centrality can be broken down into
 <em>indegree</em> and <em>outdegree</em> centrality:</p>
 <ul>
-<li>Indegree, <span class="math inline">\(CI(n_i)\)</span>, measures the
-number of ties that <em>i</em> receives. For the sociomatrix <span
+<li>Indegree, <span class="math inline">\(C_I(n_i)\)</span>, measures
+the number of ties that <em>i</em> receives. For the sociomatrix <span
 class="math inline">\(X_{ij}\)</span>, the indegree for <em>i</em> is
 the <strong>column</strong> sum:</li>
 </ul>
 <p><span class="math display">\[C_I(n_i) = \sum_j x_{ji}\]</span></p>
 <ul>
-<li>Outdegree, <span class="math inline">\(CO(n_i)\)</span>, measures
+<li>Outdegree, <span class="math inline">\(C_O(n_i)\)</span>, measures
 the number of ties that <em>i</em> sends. For the sociomatrix <span
 class="math inline">\(X_{ij}\)</span>, the outdegree for <em>i</em> is
 the <strong>row</strong> sum:</li>
 </ul>
 <p><span class="math display">\[C_O(n_i) = \sum_j x_{ij}\]</span></p>
+<p><br></p>
 <p>What are the <em>indegree</em> and <em>outdegree</em> centrality
 scores in the following graph?:</p>
 <p><img src="images/ch-05-matrix-03.jpeg" width="60%" /></p>
@@ -704,46 +710,46 @@ x_{Jim,Jen} + x_{Jim,Tom} + x_{Jim,Bob} + x_{Jim,leaf} = 0+0+1+1 =
 <table>
 <thead>
 <tr class="header">
-<th>Node</th>
-<th>Indegree</th>
-<th>Outdegree</th>
+<th align="left">Node</th>
+<th align="center">Indegree</th>
+<th align="center">Outdegree</th>
 </tr>
 </thead>
 <tbody>
 <tr class="odd">
-<td>Jen</td>
-<td>0</td>
-<td>1</td>
+<td align="left">Jen</td>
+<td align="center">0</td>
+<td align="center">1</td>
 </tr>
 <tr class="even">
-<td>Tom</td>
-<td>1</td>
-<td>1</td>
+<td align="left">Tom</td>
+<td align="center">1</td>
+<td align="center">1</td>
 </tr>
 <tr class="odd">
-<td>Bob</td>
-<td>3</td>
-<td>2</td>
+<td align="left">Bob</td>
+<td align="center">3</td>
+<td align="center">2</td>
 </tr>
 <tr class="even">
-<td>Leaf</td>
-<td>2</td>
-<td>2</td>
+<td align="left">Leaf</td>
+<td align="center">2</td>
+<td align="center">2</td>
 </tr>
 <tr class="odd">
-<td>Jim</td>
-<td>2</td>
-<td>2</td>
+<td align="left">Jim</td>
+<td align="center">2</td>
+<td align="center">2</td>
 </tr>
 <tr class="even">
-<td>—–</td>
-<td>——–</td>
-<td>———</td>
+<td align="left">—–</td>
+<td align="center">——–</td>
+<td align="center">———</td>
 </tr>
 <tr class="odd">
-<td>Total</td>
-<td>8</td>
-<td>8</td>
+<td align="left"><strong>Total</strong></td>
+<td align="center"><strong>8</strong></td>
+<td align="center"><strong>8</strong></td>
 </tr>
 </tbody>
 </table>
@@ -877,8 +883,8 @@ class="math inline">\(g = 5\)</span> since we have 5 nodes.</p>
 <p><span class="math display">\[C_I =  \dfrac{\sum\limits_{i=1}^g
 [C_I(n^*) - C_I(n_i)]}{[(g-1)(g-1)]} =
 \dfrac{(3-0)+(3-1)+(3-3)+(3-2)+(3-2)}{(5-1)(5-1)} =
-\dfrac{3+2+0+1+1}{4*4}= \dfrac{7}{16}= 0.4375\]</span></p>
-<p>The indegree centralization score for our example graph is 0.4375.
+\dfrac{3+2+0+1+1}{4*4}= \dfrac{7}{16}= 0.438\]</span></p>
+<p>The indegree centralization score for our example graph is 0.438.
 <em>What does this mean?</em></p>
 <p>Recall that when degree centrality is evenly dispersed, meaning that
 all nodes have the same degree, then the numerator in the equation will
@@ -929,7 +935,7 @@ means that the outdegrees for the graph are more decentralized.</p>
 class="section level4">
 <h4>Comparing Indegree and Outdegree Centralization</h4>
 <p>The indegree centralization score, <span
-class="math inline">\(C_I\)</span>, is 0.4375 and the outdegree
+class="math inline">\(C_I\)</span>, is 0.438 and the outdegree
 centralization score, <span class="math inline">\(C_O\)</span>, is
 0.125. <em>What does the difference tell us?</em></p>
 <p>It tells us that the outdegrees are more decentralized than the

@@ -21,7 +21,7 @@ library( here )
 
 ## Motivating Question and Empirical Example
 
-Let's revisit an empirical question from the [introduction]() to the course and that we reviewed in the chapter on [bipartite graphs](). [Young & Ready (2015)](https://journals.sagepub.com/doi/10.1177/1043986214553380) examined two research questions:
+Let's revisit an empirical question from the [introduction](https://jacobtnyoung.github.io/sna-textbook/ch-01-intro-to-sna.html) to the course and that we reviewed in the chapter on [bipartite graphs](https://jacobtnyoung.github.io/sna-textbook/ch-10-bipartite-graphs.html). [Young & Ready (2015)](https://journals.sagepub.com/doi/10.1177/1043986214553380) examined two research questions:
 
   * How do police officers "frame" body-worn cameras?
   * Is the meaning officers attribute to cameras created and transmitted in groups?
@@ -313,7 +313,7 @@ Here is a question. *What network measure does the diagonal give us?* Think back
 
 #### Off-Diagonal Cells
 
-The off-diagonal cells count the number of ways that separate nodes in $M$ are connected by nodes in $N$. Using the language of "roups" to refer to the $M$ node set, the off-diagonal represents the count of other groups to whom a node in $M$ is connected.
+The off-diagonal cells count the number of ways that separate nodes in $M$ are connected by nodes in $N$. Using the language of "groups" to refer to the $M$ node set, the off-diagonal represents the count of other groups to whom a node in $M$ is connected.
 
 For example, in the figure below, nodes *1* and *2* are linked through 2 nodes in $M$, *A* and *C*. This means the value for the $G_{2,1}$ cell of the adjacency matrix $G$ (highlighted in green) is 2. 
 

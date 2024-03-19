@@ -23,15 +23,12 @@ library( network ) # for working with the network object
 setwd( "/Users/jyoung20/PINS/PINS_Wave_1_data/" )
 load( "PINS_Wave_1_NETWORKS_FOR_ANALYSIS.RData" )
 
-setwd( "/Users/jyoung20/PINS/PINS_Wave_2_data/" )
-load( "PINS_Wave_2_NETWORKS_FOR_ANALYSIS.RData" )
-
 
 # ----
 # create function to build adjacency matrix and write it to .csv
 
 write.adjacency <- function( input.net, file.name ){
-  net.out <- network::as.sociomatrix( input.net )
+  net.out <- as.sociomatrix( input.net )
   write.csv( net.out, paste( path, file.name, ".csv", sep = "" ) )
 }
 
@@ -61,12 +58,14 @@ write.adjacency( get.along.norank.net, "data-PINS-getalong-w1-adj" )
 write.adjacency( powerinfluence.net  , "data-PINS-power-w1-adj" )
 write.adjacency( information.net     , "data-PINS-info-w1-adj" )
 
+
 # ----
 # create the files with the attributes
 
 path <- "/Users/jyoung20/Dropbox (ASU)/GitHub_repos/sna-textbook/data/"
 
 write.attributes( get.along.norank.net, c( "Age", "Race" ), "data-PINS-w1-age-race-attributes" )
+
 
 
 # =============================================================================== #

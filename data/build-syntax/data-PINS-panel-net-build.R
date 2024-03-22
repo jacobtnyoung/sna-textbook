@@ -44,15 +44,24 @@ write.network <- function( input.net ){
   net.out <- as.network( mat.out, matrix.type = "adjacency",  directed = TRUE )
   
   # pull off the attributes
-  race <- net.sub %v% "race"
+  race     <- net.sub %v% "race"
   socdist1 <- net.sub %v% "social.distance.w1"
   socdist2 <- net.sub %v% "social.distance.w2"
+  dep1     <- net.sub %v% "depression.w1"
+  dep2     <- net.sub %v% "depression.w2"
+  smoke1   <- net.sub %v% "smoker.w1"
+  smoke2   <- net.sub %v% "smoker.w2"
   
   # assign the attributes
   net.out %v% "race" <- race
-  net.out %v% "socdist.w1" <- socdist1
-  net.out %v% "socdist.w2" <- socdist2
+  net.out %v% "socdist.w1"    <- socdist1
+  net.out %v% "socdist.w2"    <- socdist2
+  net.out %v% "depression.w1" <- dep1
+  net.out %v% "depression.w2" <- dep2
+  net.out %v% "smoker.w1"     <- smoke1
+  net.out %v% "smoker.w2"     <- smoke2
   
+  # output the rebuilt network
   return( net.out )
 }
 

@@ -56,15 +56,17 @@ diag( d.c.mat ) <- 0
 
 ## Learning Goals
 
-  * Be able to answer these questions:
+  * By the end of this chapter, you should be able to answer these questions:
   
     * How can we represent networks using graphs and graph notation?
     
     * How can we represent undirected and directed networks using matrices?
   
-<br><hr><br>
+----
 
 ## Motivating Problem
+
+<br>
 
 Review the figure below, and consider the following problem: Devise a route in which you could cross all seven bridges. 
 
@@ -76,7 +78,7 @@ knitr::include_graphics( "images/ch-04-bridge-01.jpeg" )
 
 *Now*, consider a different problem: Devise a route in which you could cross all seven bridges, **but** crossing each of the seven bridges <u>only once</u>.
 
-Did you figure it out?
+**Did you figure it out?**
 
 <br>
 
@@ -86,7 +88,7 @@ Leonard Euler worked on this problem in the mid 18th century, eventually represe
 
 Recall the discussion from [Chapter 1: Introduction to Social Network Analysis]() about the importance of conceptualizing and operationalizing concepts in network science. *Graph theory* provides a foundation for operationalizing concepts of interest among network scientists.
 
-<br><hr><br>
+<br>
 
 ## Graph Notation
 
@@ -166,6 +168,8 @@ We can represent the graph as a matrix using an adjacency matrix (sometimes call
 ```{r, fig.cap = "", out.width = "40%"}
 knitr::include_graphics( "images/ch-04-matrix-01.jpeg" )
 ```
+
+<br>
 
 In most instances, we do not allow self-nominations, so the diagonal of the matrix is usually undefined or set to zero. In networks that allow self-nominations, you can have values on the diagonal. These are referred to as loops.
 

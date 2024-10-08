@@ -64,14 +64,14 @@ This network is the "weighted, unipartite projection" of the bipartite graph sho
   
 ## Introduction
 
-As we saw in the chapter on [bipartite graphs](), networks with complex node sets can be represented using an adjacency matrix and analyzed in various ways. However, a common approach in research is to reduce a bipartite graph to a unipartite graph so as to use the tools developed for networks with a single set of nodes. **Projection** is the process by which we map the connectivity between modes to a single mode.
+As we saw in the chapter on [bipartite graphs](https://jacobtnyoung.github.io/sna-textbook/ch-10-bipartite-graphs.html), networks with complex node sets can be represented using an adjacency matrix and analyzed in various ways. However, a common approach in research is to reduce a bipartite graph to a unipartite graph so as to use the tools developed for networks with a single set of nodes. **Projection** is the process by which we map the connectivity between modes to a single mode.
 
 For example, let's say we have a two-mode network of people ($N$) in groups ($M$). By projecting, we get either:
 
   * A one-mode network of people connected to people by groups (an $N \times N$ adjacency matrix) and/or
   * A one-mode network of groups connected by people  (an $M \times M$ adjacency matrix).
 
-We can see this graphically by taking a look at our example network from the chapter on [bipartite graphs]():
+We can see this graphically by taking a look at our example network from the chapter on [bipartite graphs](https://jacobtnyoung.github.io/sna-textbook/ch-10-bipartite-graphs.html):
 
 ```{r, fig.cap = "", out.width = "60%"}
 knitr::include_graphics( "images/ch-10-graph-01.jpeg" )
@@ -79,7 +79,7 @@ knitr::include_graphics( "images/ch-10-graph-01.jpeg" )
 
 <br>
 
-Consider nodes *A*, *B*, and *C*. Are the connected?
+Consider nodes *A*, *B*, and *C*. Are they connected?
 
 ```{r, fig.cap = "", out.width = "60%"}
 knitr::include_graphics( "images/ch-11-figure-02.jpeg" )
@@ -89,7 +89,7 @@ knitr::include_graphics( "images/ch-11-figure-02.jpeg" )
 
 We can see that *A*, *B*, and *C* are connected through the shared edges with node *1*. That is, the edges $L_{A,1}$ and $L_{B,1}$ connect nodes *A* and *B*. The same for edges $L_{B,1}$ and $L_{C,1}$ which connect nodes *B* and *C*.
 
-What about node *2*? 
+What about node *2* ? 
 
 ```{r, fig.cap = "", out.width = "60%"}
 knitr::include_graphics( "images/ch-11-figure-03.jpeg" )
@@ -125,7 +125,7 @@ That is, the edges $L_{D,3}$ and $L_{D,5}$ connect nodes *3* and *5*. But, nodes
 
 ## Building the Projection
 
-In an influential paper by [Ronald Breiger in 1974](), he proved mathematically that we can build the adjacency matrix for each projected network through matrix algebra. Since the bipartite graph represents two nodes sets, we can create two unipartite graphs: a "people" network and a "group" network. The "people" network is the connections between the $N$ nodes and the "group" network is the connections between the $M$ ndoes. 
+In an influential paper by [Ronald Breiger]() in 1974, titled [The Duality of Persons and Groups](https://doi.org/10.1093/sf/53.2.181) he proved mathematically that we can build the adjacency matrix for each projected network through matrix algebra. Since the bipartite graph represents two nodes sets, we can create two unipartite graphs: a "people" network and a "group" network. The "people" network is the connections between the $N$ nodes and the "group" network is the connections between the $M$ ndoes. 
 
 Let's make this more concrete. We create these projections by multiplying an adjacency matrix by it’s *transpose*. The transpose of a matrix simply reverses the columns and rows:
 
@@ -186,8 +186,8 @@ When we multiply two matrices, we get the **product matrix**. The product matrix
 
 The product matrix is the projected graph. Recall that there are two potential product matrices we can create:
 
-  * $A \times A^T$ (what [Breiger (1974)]() called the “people” matrix, $P$) and
-  * The $A^T \times A$ (what [Breiger (1974)]() called the “group” matrix $G$)
+  * $A \times A^T$ (what [Breiger (1974)](https://doi.org/10.1093/sf/53.2.181) called the “people” matrix, $P$) and
+  * The $A^T \times A$ (what [Breiger (1974)](https://doi.org/10.1093/sf/53.2.181) called the “group” matrix $G$)
 
 *What does each one represent?*
 
@@ -307,7 +307,7 @@ knitr::include_graphics( "images/ch-11-figure-14.jpeg" )
 
 We can see this in the graph by counting the edges, but also by looking at the $G_{2,2}$ cell of the adjacency matrix $G$ (highlighted in red).
 
-Here is a question. *What network measure does the diagonal give us?* Think back to the chapter on [bipartite graphs]().
+Here is a question. *What network measure does the diagonal give us?* Think back to the chapter on [bipartite graphs](https://jacobtnyoung.github.io/sna-textbook/ch-10-bipartite-graphs.html).
 
 <br>
 

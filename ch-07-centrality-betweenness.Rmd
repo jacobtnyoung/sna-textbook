@@ -83,15 +83,27 @@ circle_net <- network( dum2, directed=FALSE )
 
 ## Learning Goals
 
-  * Revisit the conceptualization of "centrality".
+By the end of this chapter, you should be able to:
+
+  * Explain the conceptualization of "centrality" as it pertains to *betweenness centrality*.
   
-  * Understand the calculation of *betweenness* centrality.
+  * Calculate betweenness centrality scores for a set of nodes.
+  
+  * Calculate a betweenness centralization score for a graph.
 
-<br>
+----
 
-## Concepts and Operationalization
+## Motivating Example
 
-When we say a *node* is "central", what do we mean conceptually? Think of a few examples (again).
+When we say a *node* is "central", what do we mean conceptually? Think of a few examples (again). With [*degree* centrality]() we conceptualized a central node as one that has a high number of ties. With [*closeness* centrality](), we conceptualized a central node as one that is close to others in the network. We can also conceptualize centrality as a node that lies on a particular path **between** other nodes. Think about the following example:
+
+### Aggression during Adolescence
+
+Numerous studies have documented that bullying, indirect aggression, and relational violence (all manifestations of "aggression") are prevalent and adolescents. These studies, beyond documenting the frequency with which aggression occurs, also show considerable negative consequences for those who experience it. This begs the question of *why does this happen?* Conventional accounts point to a caricature of the "bully" as one who is socially marginalized (i.e. excluded from groups) and maladjusted psychologically. But, in a study by [Robert Faris]() and [Diane Felmlee]() entitled, [Status Struggles: Network Centrality and Gender Segregation in Same- and Cross-Gender Aggression](https://journals.sagepub.com/doi/10.1177/0003122410396196), the authors argue that this caricature is wrong.
+
+In their study, they argue that those who bully others are not socially marginalized and psychologically dysfunctional. Rather, they are those who are in centralized positions in their networks. Specifically, they are those who occupy positions between groups such that they are in high status positions. Sound somewhat counter-intuitive? Let's examine their reasoning. [Faris and Felmlee (2011)](https://journals.sagepub.com/doi/10.1177/0003122410396196) argue that being in a position where you are a bridge between groups means that you have a lot of power: you can spread information better, it is hard to exclude you, you have greater access to valued resources, etc. Morever, they argue that youth perceive aggression as a means of achieving these positions of status. Using sociometric data, they found that individuals who tended to occupy these high status positions were more likely to be nominated by others in the schools as someone who had been mean to them in the past year. Furthermore, this relationship was stronger in schools where there was gender segregation and high status individuals had many cross-gender relationships. 
+
+This study illustrates a different way in which someone can be *central*. Rather than just receiving many nominations, individuals are conceputalized as *powerful* or *high status* in this study based on occupying a position in the network that is **between** other nodes. In this chapter, we want to explore this idea in more depth.
 
 <br>
 
@@ -105,9 +117,7 @@ The type of measure we use depends on the substantive question of interest. Vari
 
 ### Betweenness Centrality
 
-With [*degree* centrality]() we conceptualized a central node as one that has a high number of ties. With [*closeness* centrality](), we conceptualized a central node as one that is close to others in the network. 
-
-We can also conceptualize centrality as a node that lies on a particular path **between** other nodes. *Betweenness* centrality is based on the number of shortest paths between two nodes, *j* and *k*, that node *i* resides on. Recall that a **path** is an edge or sequence of edges that connect two nodes and a **geodesic** is the shortest path between two nodes.
+*Betweenness* centrality is based on the number of shortest paths between two nodes, *j* and *k*, that node *i* resides on. Recall that a **path** is an edge or sequence of edges that connect two nodes and a **geodesic** is the shortest path between two nodes.
 
 <br>
 <br>

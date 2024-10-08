@@ -11,6 +11,122 @@ library( here )
 
 # Chapter 3: Social Network Analysis and Methods for Data Collection
 
+## Learning Goals
+
+  * Be able to answer these questions:
+  
+    * How do we collect network data?
+    
+<br>
+
+## Network Data Collection
+
+Where do network data come from? **Everywhere!** There are a vast array of sources where we might collect network data. Several examples are:  
+
+  * Observational - relationships we observe can be recorded and network data built from this information.  
+  
+  * Archival - records may serve as a source of recording information about social relationships.  
+  
+  * Questionnaires - we could ask individuals to record their social relationships and then we could use that information.
+  
+For example, consider an NSF funded study that I conducted with my colleagues [Scott Decker]() and [Gary Sweeten]() to examine archival data collected during the 1950s. The Boston Special Youth Project (SYP) was a federally funded study of a gang intervention program [National Institute of Mental Health](https://www.nimh.nih.gov/index.shtml) occurring between 1953-1958. Conducted in and around the neighborhoods of Roxbury, MA, the study was one of the first large scale evaluations of a detached-worker program, and the first designed to specifically address gang delinquency (see Miller 2011). Spurred by the high profile murder of a rabbi in 1952 (Miller 1957), the SYP was implemented to restructure the activities of adolescent street gangs toward pro-social activities, provide social services to project families, and provide the community with the tools needed to control delinquency following the completion of the study (see Miller 1957, 1959 and 1962). The study is best known as the basis for Miller’s elaboration of the focal concerns of lower class culture.
+
+The SYP was a “detached-worker program,” where an adult (typically a graduate student from one of the surrounding universities) was assigned to an area (local parks, housing projects) to establish and maintain contact with and attempt to change the behaviors of the gangs. For example, outreach workers provided monetary assistance, sports equipment, and club-houses to the groups, and transported members to and from local sporting and social events. From June 1954 to May 1957, five male and two female outreach workers maintained contact with nearly 400 individuals between the ages of 12 and 21, across roughly two dozen gangs. Intensive contact with 204 individuals in seven groups was made during this period.
+
+These “intense study” groups were contacted by workers an average of 3.5 times per week for an average duration of 5.5 hours and the intervals of the contact periods ranged from 10 to 34 months (Miller 1962). During these contact periods, workers collected detailed field notes (“contact cards”) documenting the activities of study gang members and their interactions with each other, various community members (e.g., shop keepers, law enforcement), and the worker.
+
+In 2011, the typed chapters of Miller’s (2011) previously unpublished book, City Gangs, and the roster of gang members from the SYP were discovered (Moule and Decker 2013). These data sources were eventually combined with the information from the contact cards. These rosters and the contact cards serve as the source of social network data. From 2012-2016, a team of researchers (faculty, graduate, and undergraduate students) in the School of Criminology and Criminal Justice at Arizona State University electronically scanned and digitized the contact cards, and began the process of creating a network from the cards. Each card was examined to match named persons with names of known gang members from the roster of study participants. From these cards, network data was created where individuals (i.e. gang members) were connected to events (i.e. contact cards).
+
+More details of the data are described in a paper entitled [The Boston Special Youth Project Affiliation Dataset](https://www.exeley.com/journal/connections) and the data themselves are publicly available at the S[YP-Networks data repository](https://jacobtnyoung.github.io/SYP-Networks/).
+
+<br>
+
+Another example is the Prison Inmate Network (PINS) study. The original PINS study was a two-wave study of relationships among incarcerated men in a medium security prison. Each wave captures survey and network data for individuals in the same unit by asking individuals to nominate others from a roster. More details about the data are available at the [PINS website](https://pure.psu.edu/en/projects/the-prison- inmate-networks-study-pins).
+
+<br>
+
+## Boundary Specification
+
+When we begin to collect network data, we confront the theoretical *and* methodological challenge of determining the appropriate set of actors and connections to analyze in order to identify the relevant social network within a given context. This creates several questions:  
+
+  * Is there some boundary that really exists?  
+  
+  * Or, is a boundary necessarily imposed to conduct the research?
+
+<br>
+
+## Instruments and Design
+
+*Instruments* are the tools used to elicit information from respondents. *Design* corresponds to the protocol for determining how information should be elicited, who should be sampled, etc.  
+
+Examples:  
+
+  * Ego-centric networks 
+  
+  * Partial networks  
+  
+  * Complete (global) networks
+
+### Ego-Centric Networks
+
+Data on a focal actor (ego) and ties to neighbors (alters) and the ties among the alters.
+
+Instrument: name generator
+“who are the people with whom you discuss
+important matters?”
+For each person named, “which of these individuals discuss important matters”?
+Why?-costs, generalizability, interest in local structure.
+
+### Partial Networks
+
+Ego networks, plus some amount of tracing to reach contacts of contacts.
+Instrument: tracing mechanism
+Using tickets to trace across a network
+Why?-difficult to reach population, hard to specify sampling frame.
+
+### Complete Network (aka Global Network or Network Census)
+
+Data on all actors within a particular (defined) boundary, sampling frame is known.
+
+Instruments: 
+
+roster
+“For each of the following persons, please indicate whom you trust to share personal information with?”
+
+free response
+“Who are the people in this prison that you trust with person information about you?”
+
+### Additional things to consider...
+
+Domain: 
+“What type of network is this?”
+
+Sample:
+“What is the population of interest and how was it sampled?”
+
+Temporality:
+“Are the data cross-sectional or longitudinal?”
+“Is it a panel or continuous measurement?” Tie Meaning:
+
+Tie Meaning:
+“Are ties discrete events or enduring states?” Instrument:
+
+Instrument
+“How was the information collected?”
+
+### Level of Analysis
+
+What is the level of analysis?
+
+Dyad Level
+“are individuals whose offices are close to each other more likely to be friends?”
+
+Node Level
+“are more popular youth more likely to engage in unprotected sex?”
+
+Network Level
+“do viruses spread faster in particular network structures?”
+
 <br>
 
 <br>

@@ -78,22 +78,78 @@ By the end of this chapter, you should be able to:
 
 ----
 
+## Motivating Example
+
+When we say a *node* is "central", what do we mean conceptually? To help, let's start with some applications.
+
+
+### Popularity during Adolescence
+
+In a classic paper entitled [Adolescence-Limited and Life-Course Persistent Antisocial Behavior: A Developmental Taxonomy](), [Terrie Moffitt](https://moffittcaspi.trinity.duke.edu/about/moffitt) proposed a hypothesis to explain an long known fact about crime and antisocial behavior. Specifically, Moffitt sought to answer the question: why is there a dramatic increase in delinquency during adolescence? 
+
+```{r, fig.cap = "", out.width = "60%", fig.align="center"}
+knitr::include_graphics( "images/ch-05-moffitt-01.jpeg" )
+```
+
+Multiple studies (and the figure above) show that delinquency increases substantially during the teen years and declines rapidly during early adulthood. *Why*?
+
+According to Moffitt's [*Dual-Taxonomy Theory*]() there are two types of individuals who engage in delinquency. First, there are **life-course persistent** individuals who (as the name implies) persistently engage in antisocial behavior throughout their lives: they are difficult children, problematic teens, and troublesome partners as adults. Then, there are **adolescence limited** individuals who only engage in antisocial behavior during adolescence. Since their offending is limited to this period, this is why we see a spike during adolescence. As the figure below shows:
+
+```{r, fig.cap = "", out.width = "60%", fig.align="center"}
+knitr::include_graphics( "images/ch-05-moffitt-02.jpeg" )
+```
+
+Why do these **adolescence limited** individuals engage in antisocial behavior and then stop? According to the theory, these individuals seek to gain status during adolescence. Since the typical routes to status are restricted until adulthood, they look to the behavior of **life-course persistent** youth. They mimic this behavior (e.g. drinking alcohol, using drugs, vandalizing property) until they essentially age-out as they enter the labor market or higher education.
+
+*What does this have to do with centrality?* A key mechanism of Moffitt's theory is that **adolescence limited** youth will become more popular during adolescence. Essentially, Moffitt argues that these individuals will not be popular when they are young, will increase in popularity during adolescence, and then decline in popularity as everyone else enters young adulthood. 
+
+```{r, fig.cap = "", out.width = "40%", fig.align="center"}
+knitr::include_graphics( "images/ch-05-moffitt-03.jpeg" )
+```
+
+This hypothesis was first tested in the article [“Role Magnets”? An Empirical Investigation of Popularity Trajectories for Life-Course Persistent Individuals During Adolescence](https://link.springer.com/article/10.1007/s10964-013-9946-0) by [Jacob Young](https://jacobtnyoung.github.io/) (yes, that is me). Specifically, the goal of the study was to examine the developmental trajectory of popularity during adolescence for individuals showing persistent violence into young adulthood. 
+
+```{r, fig.cap = "", out.width = "40%", fig.align="center"}
+knitr::include_graphics( "images/ch-05-moffitt-04.jpeg" )
+```
+
+The study found that chronically violent individuals showed a more precipitous increase in centrality during adolescence. Overall, the findings were consistent with Moffitt's hypothesis. 
+
+<br>
+
+### Disrupting Hate Speech Online
+
+Let's consider another example. As has been noted by many concerned citizens and scholars, hate speech in online forums has become a salient issue. If you are an organization who hosts such sites, what can you do to reduce hate speech? One approach is to "deplatform" particular individuals. This approach is a type of *strategic network disruption* whereby select individuals are removed from the network with the goal of reducing hate speech among those who are still using the platform. The logic is that these individuals are critical links that connect others and their absence will reduce hateful content. Does it work?
+
+This is the question that Daniel Thomas and Laila Wahedi sought to address in the article [Disrupting Hate: The Effect of Deplatforming Hate Organizations
+on their Online Audience](https://www.pnas.org/doi/full/10.1073/pnas.2214080120). They identified hate organizations on Facebook and evaluated whether removing central individuals reduced hate speech in those organizations. 
+
+```{r, fig.cap = "", out.width = "70%", fig.align="center"}
+knitr::include_graphics( "images/ch-05-thomas-01.jpeg" )
+```
+
+Yes! As shown in the figure above (by the way, this is [Figure 1](https://www.pnas.org/doi/full/10.1073/pnas.2214080120) from the article), the authors found that hate speech declined in the organizations after the intervention. The overall finding is that deplatforming can be effective at reducing online hate speech. For our purposes here, it illustrates the role that centrality plays in thinking about networks. The authors examined a situation where central actors were removed as an intervention.
+
+Now, let's start from the beginning and really be precise with our thinking about *centrality*.
+
+<br>
+
 ## Concepts and Operationalization
 
-When we say a *node* is "central", what do we mean conceptually? Think of a few examples.
+When we say a *node* is "central", what do we mean conceptually? If your thinking what I'm thinking, it probably has something to to with a node being **important**. When we talk about centrality, then we are talking about the importance of a node.
 
 Speaking generally, network position should be interesting and important:
 
-  * As a **dependent** variable (e.g. are taller individuals more likely to be trusted?)
-  * As an **independent** variable (e.g. are more popular adolescents more likely to succeed in school?)
   * As a description of the *position of a node*
   * And as a description of an *entire network*
+
+We will review centrality for individual nodes as well as how centrality can be used to describe an entire network (hint: we call it *centralization*).
 
 <br>
 
 ### Conceptualization
 
-“Everyone agrees, it seems, that centrality is an important structural attribute of networks. All concede that it is related to a high degree to other important group properties and processes. But there consensus ends.” ([Freeman](), 1978/1979: 217)
+> “Everyone agrees, it seems, that centrality is an important structural attribute of networks. All concede that it is related to a high degree to other important group properties and processes. But there consensus ends.” ([Freeman](), 1978/1979: 217)
 
 The type of measure we use depends on the substantive question of interest. Various measures of centrality are correlated, but they *operationalize* different concepts. Put differently, there is not a single measure of centrality because what we mean by "centrality" can differ.
 
@@ -103,7 +159,7 @@ Here are three typical ways of thinking about centrality:
   * Betweenness
   * Closeness
   
-We will discuss each of these concepts, how they are conceptualized and how they are operationalized in social network analysis.
+In this and subsequent chapters, we will discuss each of these concepts, how they are conceptualized and how they are operationalized in social network analysis.
 
 It is also important to distinguish between whether we are talking about the centrality of a node or the centrality of a graph:
 
